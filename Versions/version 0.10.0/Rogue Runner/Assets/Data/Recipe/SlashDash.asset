@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c012b92f9f7b8d64297009de86399951, type: 3}
+  m_Name: SlashDash
+  m_EditorClassIdentifier: 
+  card1: {fileID: 11400000, guid: 3a2198311a60dbf438c1f2f86565d252, type: 2}
+  card2: {fileID: 11400000, guid: 8962f633c1f45f344884ab5b4d85c603, type: 2}
+  reqToken: 3
+  fusedCard: {fileID: 11400000, guid: b5fb6e2bb042b974cb5847e8670e01f6, type: 2}
