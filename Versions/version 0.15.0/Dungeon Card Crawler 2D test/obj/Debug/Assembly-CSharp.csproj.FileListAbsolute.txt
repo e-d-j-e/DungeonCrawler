@@ -1,0 +1,2 @@
+C:\Users\Public\Documents\Unity Projects\Dungeon Card Crawler 2D test\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+C:\Users\Ethan\Documents\Unity\Dungeon Card Crawler 2D test\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
