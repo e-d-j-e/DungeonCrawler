@@ -212,7 +212,7 @@ public class BasicMovment : MonoBehaviour
             {
                 //useCard();
                 GameObject attack = Instantiate(beamPrefab, transform.position, Quaternion.identity);
-                attack.GetComponent<Rigidbody2D>().velocity = direction * 3.5f;
+                attack.GetComponent<Rigidbody2D>().velocity = direction * 3.9f;
                 attack.transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
                 Destroy(attack, 2);
                 //isMove = true;
@@ -274,7 +274,7 @@ public class BasicMovment : MonoBehaviour
     }
     public void SetHealthBar(float f)
     {
-        healthBar.transform.localScale = new Vector3(f, 1, 1);
+        //healthBar.transform.localScale = new Vector3(f, 1, 1);
     }
 
 

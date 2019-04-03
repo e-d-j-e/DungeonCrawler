@@ -14,7 +14,7 @@ public class enemyAI : MonoBehaviour
 {
    // public BasicMovment test;
     private Transform player;
-    private float Speed = 1.4f, dist=.18f;
+    private float Speed = 1.4f, dist = .18f, maxDist = 10;
     public GameObject shotPrefab;
 
     private Vector3 attPos;
@@ -34,7 +34,7 @@ public class enemyAI : MonoBehaviour
     void Update() 
     {       
             transform.LookAt(player.position);
-            transform.Rotate(new Vector3(0, -90, 0), Space.Self);
+            //transform.Rotate(new Vector3(0, -90, 0), Space.Self);
             attPos = player.transform.position - transform.position;
         //if (.21 > Vector3.Distance(transform.position, player.position) && Vector3.Distance(transform.position, player.position) > -0.21)
         //{
@@ -43,7 +43,7 @@ public class enemyAI : MonoBehaviour
 
         //}
 
-        if (Vector3.Distance(transform.position, player.position) > dist)
+        if (/*maxDist> Vector3.Distance(transform.position, player.position) &&*/ Vector3.Distance(transform.position, player.position) > dist)
         {
             transform.Translate(new Vector3(Speed * Time.deltaTime, 0, 0));
         }
