@@ -45,7 +45,8 @@ public class enemyAI : MonoBehaviour
 
         if (/*maxDist> Vector3.Distance(transform.position, player.position) &&*/ Vector3.Distance(transform.position, player.position) > dist)
         {
-            transform.Translate(new Vector3(Speed * Time.deltaTime, 0, 0));
+            //transform.Translate(new Vector3(Speed * Time.deltaTime, 0, 0));
+           
         }
         
        if (gameObject.tag=="RoboRange")
@@ -83,7 +84,7 @@ public class enemyAI : MonoBehaviour
         {
             rightVarX = transform.position.x;
         }
-
+        Destroy(gameObject);
     }
 
 
