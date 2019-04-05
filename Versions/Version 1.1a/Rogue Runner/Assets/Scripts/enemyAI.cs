@@ -10,18 +10,13 @@ using UnityEngine;
 //0.15.00- added new collisions 
 //
 //
-public class enemyAI : MonoBehaviour 
+public class enemyAI : MonoBehaviour
 {
-   // public BasicMovment test;
+    // public BasicMovment test;
     private Transform player;
-    private float Speed = 1.4f, dist=.18f;
+    private float speed = 1.4f, dist = .18f;
     public GameObject shotPrefab;
-
-    private Vector3 attPos;
-    private float topVarY = 5;
-    private float botVarY = -5;
-    private float leftVarX = -5;
-    private float rightVarX = 5;
+    public Vector3 attPos;
 
     // Start is called before the first frame update
     void Start()
@@ -31,11 +26,16 @@ public class enemyAI : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update() 
-    {       
-            transform.LookAt(player.position);
-            transform.Rotate(new Vector3(0, -90, 0), Space.Self);
-            attPos = player.transform.position - transform.position;
+    void Update()
+    {
+
+        attPos = player.transform.position - transform.position;
+
+        //if()
+        //    {
+        //    transform.LookAt(player.position);
+        //    transform.Rotate(new Vector3(0, -90, 0), Space.Self);
+        //}
         //if (.21 > Vector3.Distance(transform.position, player.position) && Vector3.Distance(transform.position, player.position) > -0.21)
         //{
         //    Debug.Log("Enemy hits you! Ouch!");
@@ -43,54 +43,56 @@ public class enemyAI : MonoBehaviour
 
         //}
 
-        if (Vector3.Distance(transform.position, player.position) > dist)
+        if (gameObject.name == "Rock Enemy")
         {
-            transform.Translate(new Vector3(Speed * Time.deltaTime, 0, 0));
+            if (Vector3.Distance(transform.position, player.position) > dist)
+            {
+                Vector3 theScale = transform.localScale;
+                transform.position += attPos * speed * Time.deltaTime;
+                if (transform.position.x < player.transform.position.x)
+                {
+                    theScale.x = -1;
+                    transform.localScale = theScale;
+                }
+                else
+                {
+                    theScale.x = 1;
+                    transform.localScale = theScale;
+                }
+                //transform.position = (new Vector3(Speed * Time.deltaTime, 0, 0));
+            }
         }
-        
-       if (gameObject.tag=="RoboRange")
+
+        //Enemy Move/Attack list for Ranged
+        if (gameObject.name == "RoboRange")
         {
 
             GameObject attack = Instantiate(shotPrefab, transform.position, Quaternion.identity);
-            attack.GetComponent<Rigidbody2D>().velocity = attPos * 1.5f;
-            attack.transform.Rotate(0, 0, Mathf.Atan2(attPos.y, attPos.x) * Mathf.Rad2Deg);
+            //attack.GetComponent<Rigidbody2D>().velocity = attPos * 1.5f;
+            //attack.transform.Rotate(0, 0, Mathf.Atan2(attPos.y, attPos.x) * Mathf.Rad2Deg);
             Destroy(attack, 0.32f);
         }
 
 
-       
-       
+
+
 
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+
+
+    private void OnTriggerStay2D(Collider2D other)
     {
-        
-        if (other.gameObject.tag == "Bottom Wall")
+        if (other.gameObject.name == "HitBox")
         {
-            botVarY = transform.position.y;
-
+            player.GetComponent<BasicMovment>().DecreaseHealth(2);
         }
-        else if (other.gameObject.tag == "Top Wall")
-        {
-            topVarY = transform.position.y;
-        }
-        else if (other.gameObject.tag == "Left Wall")
-        {
-            leftVarX = transform.position.x;
-        }
-
-        else if (other.gameObject.tag == "Right Wall")
-        {
-            rightVarX = transform.position.x;
-        }
-
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Attack")
         {
-            
+
             StartCoroutine("SpriteBlink");
             Destroy(other.gameObject);
         }
