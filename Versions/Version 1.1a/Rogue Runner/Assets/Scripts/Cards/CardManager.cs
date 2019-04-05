@@ -40,6 +40,13 @@ public class CardManager : MonoBehaviour {
     void Update()
     {
         Controls();
+        //if (Input.GetKeyDown(KeyCode.Backspace))
+        //{
+        //    for (int i = 1; i > .1f; i - .1f)
+        //    {
+        //        Time.timeScale = i;
+        //    }
+        //}
     }
 
 

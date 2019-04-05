@@ -29,7 +29,8 @@ using UnityEngine;
 
 public class BasicMovment : MonoBehaviour
 {
-   
+
+    public BoxCollider2D hitBox;
     public GameObject hocusPokeusPrefab;
     public GameObject slashPrefab;
     //public GameObject dashPrefab;
@@ -78,11 +79,12 @@ public class BasicMovment : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {    
-           
-            spriteR = GetComponent<SpriteRenderer>();
+    {
+
+            spriteR = GetComponentInChildren<SpriteRenderer>();
+            //spriteR = GetGetComponent<SpriteRenderer>();
             sprites = Resources.LoadAll<Sprite>(spriteNames);
-            camoffset = cam.transform.position - transform.position;
+            camoffset = cam.transform.position ;
             //UIoffset = UI.transform.position - transform.position;
             //SetHealthBar(maxHealth);
     }
@@ -237,31 +239,34 @@ public class BasicMovment : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.tag=="Enemy")
-        {
-            StartCoroutine("SpriteBlink");
-            DecreaseHealth(2);
-        }
+    //private void OnCollisionEnter2D(Collision2D other)
+    //{
+    //    if (other.gameObject.tag=="Enemy")
+    //    {
+    //        StartCoroutine("SpriteBlink");
+    //        DecreaseHealth(2);
+    //    }
   
-    }        
+    //}        
     
     IEnumerator SpriteBlink()
     {
-        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        hitBox.enabled = false;
+        spriteR.enabled = false;
         yield return new WaitForSeconds(.1f);
-        gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        spriteR.enabled = true;
         yield return new WaitForSeconds(.1f);
-        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        spriteR.enabled = false;
         yield return new WaitForSeconds(.1f);
-        gameObject.GetComponent<SpriteRenderer>().enabled = true;
-        yield return new WaitForSeconds(.1f);
+        spriteR.enabled = true;
+        yield return new WaitForSeconds(1f);
+        hitBox.enabled = true;
     }    
 
     public void DecreaseHealth(float f)
     {
         curHealth -= f;
+        StartCoroutine("SpriteBlink");
         float calcHealth = curHealth / maxHealth;
         SetHealthBar(calcHealth);
     }
