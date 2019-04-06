@@ -18,9 +18,12 @@ public class enemyAI : MonoBehaviour
     public GameObject shotPrefab;
     public Vector3 attPos;
 
+    public bool attack;
+
     // Start is called before the first frame update
     void Start()
     {
+        attack = false;
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
     }
@@ -43,7 +46,7 @@ public class enemyAI : MonoBehaviour
 
         //}
 
-        if (gameObject.name == "Rock Enemy")
+        if (gameObject.name == "Rock Enemy" && attack == true)
         {
             if (Vector3.Distance(transform.position, player.position) > dist)
             {

@@ -63,7 +63,7 @@ public class BasicMovment : MonoBehaviour
     //SPRITE VARIABLES
     private string spriteNames = "dash";
     private int spriteVersion = 0;
-    private SpriteRenderer spriteR;
+    public SpriteRenderer spriteR;
     private Sprite[] sprites;
     Collider2D coll;
 
