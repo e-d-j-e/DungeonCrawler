@@ -33,9 +33,9 @@ public class enemyAI : MonoBehaviour
     // Update is called once per frame
     void Update() 
     {       
-            transform.LookAt(player.position);
-            transform.Rotate(new Vector3(0, -90, 0), Space.Self);
-            attPos = player.transform.position - transform.position;
+           transform.LookAt(player.position);
+           // transform.Rotate(new Vector3(0, -90, 0), Space.Self);
+            //attPos = player.transform.position - transform.position;
         //if (.21 > Vector3.Distance(transform.position, player.position) && Vector3.Distance(transform.position, player.position) > -0.21)
         //{
         //    Debug.Log("Enemy hits you! Ouch!");
