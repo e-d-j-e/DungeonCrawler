@@ -40,13 +40,7 @@ public class CardManager : MonoBehaviour {
     void Update()
     {
         Controls();
-        //if (Input.GetKeyDown(KeyCode.Backspace))
-        //{
-        //    for (int i = 1; i > .1f; i - .1f)
-        //    {
-        //        Time.timeScale = i;
-        //    }
-        //}
+    
     }
 
 
@@ -137,10 +131,11 @@ public class CardManager : MonoBehaviour {
             {
                 case "Slash":
                     gm.actionText.text = cp.title;
-                    //enter dmg calculator
+                    player.Slash();
                     break;
                 case "Dash":
                     gm.actionText.text = cp.title;
+                    player.Dash();
                     break;
                 case "Beam":
                     gm.actionText.text = cp.title;
@@ -148,6 +143,7 @@ public class CardManager : MonoBehaviour {
                     break;
                 case "DashBeam":
                     gm.actionText.text = cp.title;
+                    
                     break;
                 default:
                     break;

@@ -25,7 +25,10 @@ public class enemyAI : MonoBehaviour
     {
         attack = false;
         player = GameObject.FindGameObjectWithTag("Player").transform;
-
+        if (gameObject.name == "RoboRange")
+        {
+            StartCoroutine("BulletFire");
+        }
     }
 
     // Update is called once per frame
@@ -65,25 +68,21 @@ public class enemyAI : MonoBehaviour
                 //transform.position = (new Vector3(Speed * Time.deltaTime, 0, 0));
             }
         }
-
         //Enemy Move/Attack list for Ranged
-        if (gameObject.name == "RoboRange")
+       
+    }
+    public IEnumerator BulletFire()
+    {
+        while (true)
         {
 
+            yield return new WaitForSeconds(2);
             GameObject attack = Instantiate(shotPrefab, transform.position, Quaternion.identity);
-            //attack.GetComponent<Rigidbody2D>().velocity = attPos * 1.5f;
-            //attack.transform.Rotate(0, 0, Mathf.Atan2(attPos.y, attPos.x) * Mathf.Rad2Deg);
-            Destroy(attack, 0.32f);
+            attack.GetComponent<Rigidbody2D>().velocity = attPos * 1.5f;
+
+            //Destroy(attack, 1);
         }
-
-
-
-
-
     }
-
-
-
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.name == "HitBox")
@@ -112,9 +111,4 @@ public class enemyAI : MonoBehaviour
         yield return new WaitForSeconds(.1f);
         Destroy(gameObject);
     }
-
-
-
-
-
 }
