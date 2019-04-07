@@ -38,4 +38,15 @@ public class GameManager : MonoBehaviour {
     //{
     //    GameManager gm = this.gameObject.GetComponent<GameManager>();
     //}
+
+    public void SlowMo()
+    {
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            for (float i = 1; i > .5f; i -= .1f)
+            {
+                Time.timeScale = i;
+            }
+        }
+    }
 }
