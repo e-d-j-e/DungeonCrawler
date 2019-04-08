@@ -101,7 +101,7 @@ public class BasicMovment : MonoBehaviour
         move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"),0);
         transform.position+= ((movSpd*move)*Time.deltaTime);
        
-        //cam.transform.position = transform.position + camoffset;
+        cam.transform.position = transform.position + camoffset;
         //UI.transform.position = transform.position +UIoffset;
 
         //gets mouse position and point and click 
@@ -237,16 +237,24 @@ public class BasicMovment : MonoBehaviour
             //crosshair.SetActive(false);
             //isMove = false;
         }
-    }       
+    }
+
+    //private void OnCollisionEnter2D(Collision2D other)
+    //{
+    //    if (other.gameObject.tag=="Enemy")
+    //    {
+    //        StartCoroutine("SpriteBlink");
+    //        DecreaseHealth(2);
+    //    }
+  
+    //}        
     
     IEnumerator SpriteBlink()
     {
         hitBox.enabled = false;
         spriteR.enabled = false;
-        //cam.transform.position += Vector3.right;
         yield return new WaitForSeconds(.1f);
         spriteR.enabled = true;
-        //cam.transform.position += Vector3.left;
         yield return new WaitForSeconds(.1f);
         spriteR.enabled = false;
         yield return new WaitForSeconds(.1f);

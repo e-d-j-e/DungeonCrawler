@@ -15,14 +15,9 @@ public class Projectile : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        
+
         transform.position += atkPos* speed*Time.deltaTime;
-        
-       
-        //transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, Time.deltaTime * 10);
-
-
-    }
+	}
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
