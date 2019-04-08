@@ -39,12 +39,12 @@ public class BasicMovment : MonoBehaviour
     public GameObject UI;
     public Animator animator;
 
-    public Vector3 UIoffset;
-    public Vector3 camoffset;
-    public Vector3 move;
-    public Vector2 point;
-    public Vector2 speed = new Vector2(2, 2);
-    public Vector2 relativePosition;
+    private Vector3 UIoffset;
+    private Vector3 camoffset;
+    private Vector3 move;
+    private Vector2 point;
+    private Vector2 speed = new Vector2(2, 2);
+    private Vector2 relativePosition;
     private Vector2 movement;
     private float movSpd = 2.9f;
     public float curHealth = 100;
@@ -59,10 +59,12 @@ public class BasicMovment : MonoBehaviour
 
 
 
-    //SPRITE VARIABLES
-    private string spriteNames = "dash";
-    private int spriteVersion = 0;
+    //SPRITE VARIABLE
+    private byte spriteVersion = 0;
+    private byte beamVersion = 0;
     private SpriteRenderer spriteR;
+    private SpriteRenderer beamSR;
+    private Sprite[] beamS;
     private Sprite[] sprites;
     Collider2D coll;
 
@@ -74,14 +76,18 @@ public class BasicMovment : MonoBehaviour
     {    
            
             spriteR = GetComponent<SpriteRenderer>();
-            sprites = Resources.LoadAll<Sprite>(spriteNames);
+            
+            sprites = Resources.LoadAll<Sprite>("dash");
+           
             camoffset = cam.transform.position - transform.position;
             UIoffset = UI.transform.position - transform.position;
-            //SetHealthBar(maxHealth);
+        //SetHealthBar(maxHealth);
+        animator.SetBool("isBeam", false);
+        animator.SetBool("isBasic", false);
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //movement for player
         move= new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"),0);
@@ -90,38 +96,42 @@ public class BasicMovment : MonoBehaviour
         cam.transform.position = transform.position + camoffset;
         UI.transform.position = transform.position +UIoffset;
 
-        //gets mouse position and point and click 
-
-        //if (Input.GetKeyDown(KeyCode.Mouse0))
-        //{
-        //    point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //    //isMove = true;
-        //}
-        //transform.position = Vector2.MoveTowards(transform.position, point, (Time.deltaTime*1.5f));
-
-        //relativePosition = new Vector2(point.x - transform.position.x, point.y - transform.position.y);
 
 
         //animations for player
         animator.SetFloat("Horizontal", move.x);
         animator.SetFloat("Vertical", move.y);
         animator.SetFloat("Magnitude", move.magnitude);
-
-
+       
         aimCrosshair();
 
-        /*while(isMove==true)
-        {
-            enemyMove();
-            break;
-        }*/
-
-
     }
+    //IEnumerator Beam(GameObject att)
+    //{
+    //    beamSR = beamPrefab.GetComponent<SpriteRenderer>();
+    //    beamS = Resources.LoadAll<Sprite>("beam");
+    //    //switch between the 4 sprites
+    //    Debug.Log("1");
+    //    beamSR.sprite=beamS[beamVersion];
+    //    yield return new WaitForSeconds(.2f);
+    //    beamVersion++;
+    //    Debug.Log("2");
+    //    beamSR.sprite = beamS[beamVersion];
+    //    yield return new WaitForSeconds(.2f);
+    //    beamVersion++;
+    //    Debug.Log("3");
+    //    beamSR.sprite = beamS[beamVersion];
+    //    yield return new WaitForSeconds(.2f);
+    //    beamVersion++;
+    //    Debug.Log("4");
+    //    beamSR.sprite = beamS[beamVersion];
+    //    yield return new WaitForSeconds(.2f);
+    //    beamVersion = 0;
+    //    //StartCoroutine(Beam(att));
+    //}
 
 
-
-    IEnumerator Example(Vector3 direction, Collider2D coll)
+    IEnumerator Dash(Vector3 direction, Collider2D coll)
     {
         
         spriteR.sprite = sprites[spriteVersion];
@@ -142,8 +152,10 @@ public class BasicMovment : MonoBehaviour
     {
         Vector3 aim = Input.mousePosition;
         aim = Camera.main.ScreenToWorldPoint(aim);
-        Vector2 mouse = new Vector2(aim.x - transform.position.x, aim.y - transform.position.y);
+        Vector3 mouse = new Vector3(aim.x - transform.position.x, aim.y - transform.position.y, 0);
         Vector2 direction = new Vector2(aim.x - transform.position.x, aim.y - transform.position.y);
+       
+        
         
         if(count==0)
             {
@@ -175,10 +187,12 @@ public class BasicMovment : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 //useCard();
-                GameObject attack = Instantiate(hocusPokeusPrefab, transform.position, Quaternion.identity);
-                attack.GetComponent<Rigidbody2D>().velocity = direction;
+                GameObject attack = Instantiate(hocusPokeusPrefab, Vector3.Lerp(crosshair.transform.position, transform.position, 0.4f ), Quaternion.identity);
+                //attack.GetComponent<Rigidbody2D>().velocity = direction;
                 attack.transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-                Destroy(attack, 0.26f);
+                Destroy(attack, 0.20f);
+               
+                //animator.SetBool("isBasic", true);
                 //isMove = true;
             }
 
@@ -186,10 +200,10 @@ public class BasicMovment : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.Q))
             {
                 //useCard();
-                GameObject attack = Instantiate(slashPrefab,transform.position, Quaternion.identity);
-                attack.GetComponent<Rigidbody2D>().velocity = direction * 1.5f;
+                GameObject attack = Instantiate(slashPrefab, Vector3.Lerp(crosshair.transform.position, transform.position, 0.4f), Quaternion.identity);
+                //attack.GetComponent<Rigidbody2D>().velocity = direction * 2.5f;
                 attack.transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-                Destroy(attack, 0.32F);
+                Destroy(attack, 0.30F);
                 //isMove = true;
             }
 
@@ -203,7 +217,7 @@ public class BasicMovment : MonoBehaviour
                 coll.isTrigger = true;
                 GetComponent<Rigidbody2D>().velocity = direction * 9.7f;
                 //transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-                StartCoroutine(Example(direction, coll));
+                StartCoroutine(Dash(direction, coll));
 
             }
 
@@ -212,10 +226,9 @@ public class BasicMovment : MonoBehaviour
             {
                 //useCard();
                 GameObject attack = Instantiate(beamPrefab, transform.position, Quaternion.identity);
-                attack.GetComponent<Rigidbody2D>().velocity = direction * 3.9f;
+                attack.GetComponent<Rigidbody2D>().velocity = direction * 4.20f;
                 attack.transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-                Destroy(attack, 2);
-                //isMove = true;
+                
             }
         }
         else

@@ -9,6 +9,7 @@ TagManager:
   - Top Wall
   - Bottom Wall
   - Enemy
+  - PlayerAttack
   layers:
   - Default
   - TransparentFX
