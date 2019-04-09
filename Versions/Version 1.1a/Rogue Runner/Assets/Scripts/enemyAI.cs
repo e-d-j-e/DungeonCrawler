@@ -19,7 +19,7 @@ public class enemyAI : MonoBehaviour
     public Vector3 attPos;
 
     public bool attack;
-
+    public int health = 100;
     // Start is called before the first frame update
     void Start()
     {
@@ -110,5 +110,13 @@ public class enemyAI : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().enabled = true;
         yield return new WaitForSeconds(.1f);
         Destroy(gameObject);
+    }
+    public void takeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
