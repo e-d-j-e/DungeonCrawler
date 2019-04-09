@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f472be72820411438a4b37ff010c2d3, type: 3}
+  m_Name: Dash
+  m_EditorClassIdentifier: 
+  cardType: {fileID: 11400000, guid: 9519f441dc2c9ed419aa1a76582e7672, type: 2}
+  cardProperties:
+    title: Dash
+    cardPic: {fileID: 21300000, guid: e2a6682874b147e45a9e5d72870b7eb3, type: 3}
+    damage: 30
