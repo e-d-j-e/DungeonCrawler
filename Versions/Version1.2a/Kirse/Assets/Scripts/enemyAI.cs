@@ -79,8 +79,8 @@ public class enemyAI : MonoBehaviour
             yield return new WaitForSeconds(2);
             GameObject attack = Instantiate(shotPrefab, transform.position, Quaternion.identity);
             attack.GetComponent<Rigidbody2D>().velocity = attPos * 1.5f;
-
-            //Destroy(attack, 1);
+            
+            Destroy(attack, 1);
         }
     }
     private void OnTriggerStay2D(Collider2D other)
