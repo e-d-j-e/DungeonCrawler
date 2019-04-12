@@ -351,11 +351,17 @@ MonoBehaviour:
   cam: {fileID: 1694499402326924}
   UI: {fileID: 0}
   animator: {fileID: 95361189133808328}
+  UIoffset: {x: 0, y: 0, z: 0}
+  camoffset: {x: 0, y: 0, z: 0}
+  move: {x: 0, y: 0, z: 0}
+  point: {x: 0, y: 0}
+  speed: {x: 2, y: 2}
+  relativePosition: {x: 0, y: 0}
   curHealth: 100
   maxHealth: 100
   healthBar: {fileID: 0}
+  dmgPossible: 0
   spriteR: {fileID: 212738653113668942}
-  sprites: []
 --- !u!114 &114556435755951928
 MonoBehaviour:
   m_ObjectHideFlags: 1
