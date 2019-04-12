@@ -12,6 +12,11 @@ public class CardTemplate : MonoBehaviour {
     public Sprite dash;
     public Sprite beam;
 
+
+    public void Update()
+    {
+        LoadCard(card);
+    }
     public void LoadCard(Card c)
     {
         if (c == null)
@@ -21,7 +26,8 @@ public class CardTemplate : MonoBehaviour {
         gameObject.name = cp.title;
         titleText.text = c.cardProperties.title;
         dmgText.text = cp.damage.ToString();
-        cardPicture.sprite = c.cardProperties.cardPic;
+        gameObject.GetComponent<Image>().sprite = cp.cardPic;
+        //cardPicture.sprite = c.cardProperties.cardPic;
         if (c.cardType is CardTypeSlash)
         {
             gameObject.GetComponent<Image>().sprite = slash; 

@@ -94,23 +94,7 @@ public class BasicMovment : MonoBehaviour
         //movement for player
         move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"),0);
         transform.position+= ((movSpd*move)*Time.deltaTime);
-       
-        //cam.transform.position = transform.position + camoffset;
-        //UI.transform.position = transform.position +UIoffset;
-
-        //gets mouse position and point and click 
-
-        //if (Input.GetKeyDown(KeyCode.Mouse0))
-        //{
-        //    point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //    //isMove = true;
-        //}
-        //transform.position = Vector2.MoveTowards(transform.position, point, (Time.deltaTime*1.5f));
-
-        //relativePosition = new Vector2(point.x - transform.position.x, point.y - transform.position.y);
-
-
-        //animations for player
+      
         animator.SetFloat("Horizontal", move.x);
         animator.SetFloat("Vertical", move.y);
         animator.SetFloat("Magnitude", move.magnitude);
@@ -118,11 +102,6 @@ public class BasicMovment : MonoBehaviour
 
         aimCrosshair();
 
-        /*while(isMove==true)
-        {
-            enemyMove();
-            break;
-        }*/
 
 
     }
