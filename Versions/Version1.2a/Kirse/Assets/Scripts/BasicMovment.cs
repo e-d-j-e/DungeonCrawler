@@ -79,7 +79,7 @@ public class BasicMovment : MonoBehaviour
             //spriteR = GetGetComponent<SpriteRenderer>();
             sprites = Resources.LoadAll<Sprite>(spriteNames);
             camoffset = cam.transform.position ;
-         
+            //UIoffset = UI.transform.position - transform.position;
             //SetHealthBar(maxHealth);
     }
 
@@ -94,15 +94,14 @@ public class BasicMovment : MonoBehaviour
         //movement for player
         move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"),0);
         transform.position+= ((movSpd*move)*Time.deltaTime);
-              
-
-        //animations for player
+      
         animator.SetFloat("Horizontal", move.x);
         animator.SetFloat("Vertical", move.y);
         animator.SetFloat("Magnitude", move.magnitude);
 
 
         aimCrosshair();
+
 
 
     }
