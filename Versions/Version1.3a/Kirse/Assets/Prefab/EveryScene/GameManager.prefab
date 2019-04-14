@@ -76,7 +76,7 @@ MonoBehaviour:
   forge2: {fileID: 0}
   forge1Display: {fileID: 0}
   forge2Display: {fileID: 0}
-  cardTest: {fileID: 0}
+  cardResult: {fileID: 0}
   empty: {fileID: 11400000, guid: 1dfe9c0e30a90b4498a756cc72e6fc8a, type: 2}
   maxCards: 3
   deckPercent: 0
