@@ -39,6 +39,15 @@ public class ForgeRoom : MonoBehaviour {
                 cm.playerDeck.Add(forgeDeck[i]);
 
             }
+            foreach (Transform child in recipeButtonParent)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
+            foreach (Transform child in cardButtonParent)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
+            forgeDeck.Clear();
         }
     }
 
