@@ -84,27 +84,28 @@ public class BasicMovment : MonoBehaviour
     }
 
     // Update is called once per frame
-    //should be fixed update
     void Update()
     {
-        //Aiming
-        aim = Input.mousePosition;
-        aim = Camera.main.ScreenToWorldPoint(aim);
-        mouse = new Vector2(aim.x - transform.position.x, aim.y - transform.position.y);
-        direction = new Vector2(aim.x - transform.position.x, aim.y - transform.position.y);
-        //movement for player
-        move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"),0);
-        transform.position+= ((movSpd*move)*Time.deltaTime);
-      
-        animator.SetFloat("Horizontal", move.x);
-        animator.SetFloat("Vertical", move.y);
-        animator.SetFloat("Magnitude", move.magnitude);
+        if (Time.timeScale > 0)
+        {
+            //Aiming
+            aim = Input.mousePosition;
+            aim = Camera.main.ScreenToWorldPoint(aim);
+            mouse = new Vector2(aim.x - transform.position.x, aim.y - transform.position.y);
+            direction = new Vector2(aim.x - transform.position.x, aim.y - transform.position.y);
+            //movement for player
+            move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+            transform.position += ((movSpd * move) * Time.deltaTime);
+
+            animator.SetFloat("Horizontal", move.x);
+            animator.SetFloat("Vertical", move.y);
+            animator.SetFloat("Magnitude", move.magnitude);
 
 
-        aimCrosshair();
+            aimCrosshair();
 
 
-
+        }
     }
 
 
@@ -202,7 +203,7 @@ public class BasicMovment : MonoBehaviour
 
     public void DamageCalculator()
     {
-        //float damageMultiplier = 1;
+        float damageMultiplier = 1;
         //curHealth -= maxHealth * damageMultiplier;
     }
     public void SetHealthBar(float f)
@@ -212,13 +213,10 @@ public class BasicMovment : MonoBehaviour
 
     public void Slash()
     {
-
         GameObject attack = Instantiate(slashPrefab, transform.position, Quaternion.identity);
         attack.GetComponent<Rigidbody2D>().velocity = direction * 1.5f;
         attack.transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
         Destroy(attack, 0.32F);
-       
-        
     }
     public void Beam()
     {
@@ -233,7 +231,7 @@ public class BasicMovment : MonoBehaviour
         GetComponent<Rigidbody2D>().velocity = direction.normalized * 15;
         //transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
         StartCoroutine(Example(direction, coll));
-        
+
     }
   
 
