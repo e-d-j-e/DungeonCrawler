@@ -21,13 +21,13 @@ public class GameManager : MonoBehaviour {
     public int token = 0;
     public TextMeshProUGUI actionText;
     public TextMeshProUGUI forgeable;
-    public TextMeshProUGUI tokenText;
+    public Text tokenText;
 
     private int slashCC = 0;
     public void TokenUpdate(int i)
     {
         token += i;
-        tokenText.text = "Tokens : " + token;
+        tokenText.text = token.ToString();
     }
    
     //public void Awake()

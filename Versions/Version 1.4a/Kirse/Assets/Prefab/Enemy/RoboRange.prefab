@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4652285578117608}
   - component: {fileID: 212677698794291762}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ALPHA_T3-TR4_robot_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 114122340820665638}
   - component: {fileID: 50713246803236768}
   - component: {fileID: 58195117713901890}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RoboRange
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -123,6 +123,10 @@ MonoBehaviour:
   attPos: {x: 0, y: 0, z: 0}
   attack: 0
   health: 100
+  circuitLootPrefab: {fileID: 1822829949523576, guid: 0865ae3c2cb264f45b740db31f5a676a,
+    type: 2}
+  cardLootPrefab: {fileID: 1314900481703306, guid: cdd10f9f4fea1494d943f06eb3116145,
+    type: 2}
 --- !u!212 &212020332357653372
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -20,6 +20,9 @@ public class enemyAI : MonoBehaviour
 
     public bool attack;
     public int health = 100;
+
+    public GameObject circuitLootPrefab;
+    public GameObject cardLootPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -89,10 +92,16 @@ public class enemyAI : MonoBehaviour
         {
             player.GetComponent<BasicMovment>().DecreaseHealth(2);
         }
+
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Attack")
+        
+        if (other.gameObject.layer == 9)
+        {
+            Debug.Log("took damage");
+        }
+        else if (other.gameObject.tag == "Attack")
         {
 
             StartCoroutine("SpriteBlink");
@@ -111,13 +120,23 @@ public class enemyAI : MonoBehaviour
         yield return new WaitForSeconds(.1f);
         Destroy(gameObject);
     }
+
     public void takeDamage(int damage)
     {
         health -= damage;
         if (health <= 0)
         {
             Destroy(gameObject);
+            //choose between card or curcuitry upgrade
+            int rand = Random.Range(1, 6);
+            if (rand == 6)
+            {
+                Instantiate(circuitLootPrefab, transform.position, Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(cardLootPrefab, transform.position, Quaternion.identity);
+            }
         }
     }
-
 }

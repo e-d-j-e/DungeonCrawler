@@ -28,7 +28,7 @@ public class Projectile : MonoBehaviour {
     {
         if(collision.gameObject.name == "Player")
         {
-            player.GetComponent<PlayerMove>().DecreaseHealth(2);
+            player.GetComponent<BasicMovment>().DecreaseHealth(2);
             Debug.Log("Oww"); 
 }
         Destroy(gameObject);
