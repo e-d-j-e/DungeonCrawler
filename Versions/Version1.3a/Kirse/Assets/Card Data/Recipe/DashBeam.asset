@@ -15,3 +15,4 @@ MonoBehaviour:
   card2: {fileID: 11400000, guid: c5eb3e4aadceb54479fa4e642e0071b7, type: 2}
   reqToken: 3
   fusedCard: {fileID: 11400000, guid: dcef619005733c841a29203e01e65c0e, type: 2}
+  cardName: DashBeam

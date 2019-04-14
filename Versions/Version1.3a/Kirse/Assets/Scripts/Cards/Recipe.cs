@@ -10,4 +10,5 @@ public class Recipe : ScriptableObject
     public Card card2;
     public int reqToken;
     public Card fusedCard;
+    public string cardName;
 }

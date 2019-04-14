@@ -5,12 +5,16 @@ using TMPro;
 using UnityEngine.UI;
 public class CardTemplate : MonoBehaviour {
     public Card card;
-   
+    CardManager cm;
 
 
+    public void Start()
+    {
+        cm = GameObject.Find("GameManager").GetComponent<CardManager>();
+    }
     public void Update()
     {
-        //LoadCard(card);
+        LoadCard(card);
     }
     public void LoadCard(Card c)
     {
@@ -40,5 +44,11 @@ public class CardTemplate : MonoBehaviour {
         //}
         if (c.cardType == null)
         { gameObject.GetComponent<Image>().sprite = null; }
+    }
+    public void LoadForgeCard(int i)
+    {
+        if (i == 1) {
+            cm.forge1Display.GetComponent<CardTemplate>().LoadCard(card);
+        }
     }
 }

@@ -1,25 +1,54 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class RecipeButton : MonoBehaviour {
 
     public Recipe recipe;
     public Card card1;
     public Card card2;
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-    public void LoadRecipe(Recipe r)
+    public int token;
+    public Card card3;
+    CardManager cm;
+    ForgeRoom fm;
+    public Text recipeName;
+    Color c;
+    // Use this for initialization
+    void Start ()
     {
-        recipe = r;
+        fm = GameObject.Find("Forge Room").GetComponent<ForgeRoom>();
+        cm = GameObject.Find("GameManager").GetComponent<CardManager>();
+        
+        c = cm.forge1Display.GetComponent<Image>().color;
+
+        c.a = .3f;
+        LoadRecipe();
+    }
+
+
+
+    public void LoadRecipe()
+    {
+        fm.recipe = recipe;
+        cm.forge1Display.GetComponent<Image>().color = c;
+        cm.forge2Display.GetComponent<Image>().color = c;
+        cm.cardResult.GetComponent<Image>().color = c;
+
+       
+        
+        
         card1 = recipe.card1;
         card2 = recipe.card2;
+        card3 = recipe.fusedCard;
+        fm.UpdateToken(recipe.reqToken);
+        cm.forge1Display.GetComponent<CardTemplate>().LoadCard(card1);
+        cm.forge2Display.GetComponent<CardTemplate>().LoadCard(card2);
+        cm.cardResult.GetComponent<CardTemplate>().LoadCard(card3);
+    }
+    public void SetRecipe(Recipe r)
+    {
+        recipe = r;
+        string s = recipe.cardName;
+        recipeName.text = s;
     }
 }

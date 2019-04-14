@@ -82,6 +82,8 @@ MonoBehaviour:
   deckPercent: 0
   forgePanel: {fileID: 0}
   deckBar: {fileID: 0}
+  forgeDeck: []
+  inMenu: 0
 --- !u!114 &114342688031250028
 MonoBehaviour:
   m_ObjectHideFlags: 1

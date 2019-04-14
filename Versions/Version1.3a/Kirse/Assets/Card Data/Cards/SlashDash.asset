@@ -14,5 +14,5 @@ MonoBehaviour:
   cardType: {fileID: 11400000, guid: 2125f61b076428e4aa73d5c8ada41cc5, type: 2}
   cardProperties:
     title: SlashDash
-    cardPic: {fileID: 0}
+    cardPic: {fileID: 21300000, guid: cdc18f25501c1454884947c5c75d283e, type: 3}
     damage: 60

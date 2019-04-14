@@ -15,3 +15,4 @@ MonoBehaviour:
   card2: {fileID: 11400000, guid: 0f492ef697d604746bd106665a7098d1, type: 2}
   reqToken: 4
   fusedCard: {fileID: 11400000, guid: ab1fe79bcf7c0934e9cb1e67392b0c27, type: 2}
+  cardName: SlashDash

@@ -86,24 +86,26 @@ public class BasicMovment : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Aiming
-        aim = Input.mousePosition;
-        aim = Camera.main.ScreenToWorldPoint(aim);
-        mouse = new Vector2(aim.x - transform.position.x, aim.y - transform.position.y);
-        direction = new Vector2(aim.x - transform.position.x, aim.y - transform.position.y);
-        //movement for player
-        move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"),0);
-        transform.position+= ((movSpd*move)*Time.deltaTime);
-      
-        animator.SetFloat("Horizontal", move.x);
-        animator.SetFloat("Vertical", move.y);
-        animator.SetFloat("Magnitude", move.magnitude);
+        if (Time.timeScale > 0)
+        {
+            //Aiming
+            aim = Input.mousePosition;
+            aim = Camera.main.ScreenToWorldPoint(aim);
+            mouse = new Vector2(aim.x - transform.position.x, aim.y - transform.position.y);
+            direction = new Vector2(aim.x - transform.position.x, aim.y - transform.position.y);
+            //movement for player
+            move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+            transform.position += ((movSpd * move) * Time.deltaTime);
+
+            animator.SetFloat("Horizontal", move.x);
+            animator.SetFloat("Vertical", move.y);
+            animator.SetFloat("Magnitude", move.magnitude);
 
 
-        aimCrosshair();
+            aimCrosshair();
 
 
-
+        }
     }
 
 
