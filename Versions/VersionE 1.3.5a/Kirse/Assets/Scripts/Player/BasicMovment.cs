@@ -165,11 +165,11 @@ public class BasicMovment : MonoBehaviour
             {
                 //useCard();
                 Vector3 temp;
-                temp = new Vector3(transform.position.x+1, transform.position.y+.5f, 0);
-                GameObject attack = Instantiate(hocusPokeusPrefab, temp, Quaternion.identity);
-                attack.GetComponent<Rigidbody2D>().velocity = direction;
+               // temp = new Vector3(transform.position, transform.position, 0);
+                GameObject attack = Instantiate(hocusPokeusPrefab, transform.position, Quaternion.identity);
+                //attack.GetComponent<Rigidbody2D>().velocity = direction;
                 attack.transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-                Destroy(attack, 0.26f);
+                Destroy(attack, 0.33f);
                 //isMove = true;
             }
         }
@@ -214,16 +214,16 @@ public class BasicMovment : MonoBehaviour
     {
 
         GameObject attack = Instantiate(slashPrefab, transform.position, Quaternion.identity);
-        attack.GetComponent<Rigidbody2D>().velocity = direction * 1.5f;
+        //attack.GetComponent<Rigidbody2D>().velocity = direction * 1.5f;
         attack.transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-        Destroy(attack, 0.32F);
+        Destroy(attack, 0.55F);
        
         
     }
     public void Beam()
     {
         GameObject attack = Instantiate(beamPrefab, transform.position, Quaternion.identity);
-                attack.GetComponent<Rigidbody2D>().velocity = direction * 3.5f;
+                attack.GetComponent<Rigidbody2D>().velocity = direction * 1.8f;
                 attack.transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
                 Destroy(attack, 2);
     }

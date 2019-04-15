@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //Ethan 
 //March 28, 2019
@@ -12,6 +13,7 @@ using UnityEngine;
 //
 public class enemyAI : MonoBehaviour
 {
+    public GameObject floatingTextPrefab;
     // public BasicMovment test;
     private Transform player;
     private float speed = 1.4f, dist = .18f;
@@ -22,11 +24,14 @@ public class enemyAI : MonoBehaviour
 
     public bool attack;
     public int health = 100;
+
+    private Vector3 ofs; 
     // Start is called before the first frame update
     void Start()
     {
         attack = false;
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        
         if (gameObject.name == "RoboRange")
         {
             StartCoroutine("BulletFire");
@@ -105,13 +110,21 @@ public class enemyAI : MonoBehaviour
     }
     public void takeDamage(int damage)
     {
+        ofs = new Vector3(Random.Range(-.6f, .6f), Random.Range(0, .5f), 0);
+        TextMesh dmgtxt = floatingTextPrefab.GetComponent<TextMesh>();
+        dmgtxt.text = damage.ToString();
+        GameObject text= Instantiate(floatingTextPrefab, transform.position+ofs, Quaternion.identity);
+        //AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
+        Destroy(text, .55f);
         health -= damage;
         if (health <= 0)
         {
             Destroy(gameObject);
             //choose between card or curcuitry upgrade
+            //TODO
+            //change to foor loop for beta test
             int rand = Random.Range(1,6);
-            if(rand==6)
+            if(rand>4)
             {
                 Instantiate(curcuitlootprefab, transform.position, Quaternion.identity);
             }
@@ -121,6 +134,8 @@ public class enemyAI : MonoBehaviour
             }
         }
     }
+
+   
     
 
 }

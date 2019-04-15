@@ -87,33 +87,33 @@ public class CardManager : MonoBehaviour {
         {
             DrawCard(discardPile);
         }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (playerDeck.Count != 0)
-            {
-                DrawCard(playerDeck);
-                deckPercent = playerDeck.Count / maxCards;
-                Debug.Log(deckPercent);
-                deckCalculate(deckPercent);
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    //if (playerDeck.Count != 0)
+        //    //{
+        //    //    DrawCard(playerDeck);
+        //    //    deckPercent = playerDeck.Count / maxCards;
+        //    //    Debug.Log(deckPercent);
+        //    //    deckCalculate(deckPercent);
 
 
-            }
-            else if (playerDeck.Count == 0 && discardPile.Count > 0)
-            {
-                for (int i = 0; i < discardPile.Count; i++)
-                {
-                    playerDeck.Add(discardPile[i]);
+        //    //}
+        //    //else if (playerDeck.Count == 0 && discardPile.Count > 0)
+        //    //{
+        //    //    for (int i = 0; i < discardPile.Count; i++)
+        //    //    {
+        //    //        playerDeck.Add(discardPile[i]);
 
-                }
+        //    //    }
 
-                discardPile.Clear();
-                maxCards = playerDeck.Count;
-                deckPercent = playerDeck.Count / maxCards;
-                Debug.Log(deckPercent);
-                deckCalculate(deckPercent);
-                DrawCard(playerDeck);
-            }
-        }
+        //    //    discardPile.Clear();
+        //    //    maxCards = playerDeck.Count;
+        //    //    deckPercent = playerDeck.Count / maxCards;
+        //    //    Debug.Log(deckPercent);
+        //    //    deckCalculate(deckPercent);
+        //    //    DrawCard(playerDeck);
+        //    //}
+        //}
     }
     public void deckCalculate(float f)
     {
@@ -287,19 +287,26 @@ public class CardManager : MonoBehaviour {
 
     public void incToken()
     {
-        
-        t+=1;
-        token.text = t.ToString();
+        if (t < 99)
+        {
+            t += 1;
+            token.text = t.ToString();
+        }
 
     }
 
     public void decToken(short d)
-    {
-        if (t > 0)
+    {        
+        if (testDec(t, d)==true)
         {
             t -= d;
             token.text = t.ToString();
         }
+    }
+    private bool testDec(int t, int d)
+    {
+        //return true if can decrement the amount of tokens used.
+        return ((t-=d)>=0 ? true:false );
     }
 
 }
