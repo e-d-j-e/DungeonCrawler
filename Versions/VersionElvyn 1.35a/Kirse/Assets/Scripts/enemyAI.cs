@@ -14,7 +14,8 @@ public class enemyAI : MonoBehaviour
 {
     // public BasicMovment test;
     private Transform player;
-    private float speed = 1.4f, dist = .18f;
+    private float dist = .18f;
+    private float speed = 10;
     public GameObject shotPrefab;
     public Vector3 attPos;
 
@@ -23,15 +24,14 @@ public class enemyAI : MonoBehaviour
 
     public GameObject circuitLootPrefab;
     public GameObject cardLootPrefab;
+
+    bool coroutineStarted = false;
     // Start is called before the first frame update
     void Start()
     {
         attack = false;
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        if (gameObject.name == "RoboRange")
-        {
-            StartCoroutine("BulletFire");
-        }
+
     }
 
     // Update is called once per frame
@@ -52,12 +52,17 @@ public class enemyAI : MonoBehaviour
 
         //}
 
+        if (gameObject.name == "RoboRange" && attack == true && coroutineStarted == false)
+        {
+            StartCoroutine("BulletFire");
+        }
         if (gameObject.name == "Rock Enemy" && attack == true)
         {
             if (Vector3.Distance(transform.position, player.position) > dist)
             {
                 Vector3 theScale = transform.localScale;
-                transform.position += attPos * speed * Time.deltaTime;
+                transform.position += attPos.normalized * speed * Time.deltaTime;
+                //gameObject.GetComponent<Rigidbody2D>().velocity = attPos.normalized * speed;
                 if (transform.position.x < player.transform.position.x)
                 {
                     theScale.x = -1;
@@ -72,17 +77,18 @@ public class enemyAI : MonoBehaviour
             }
         }
         //Enemy Move/Attack list for Ranged
-       
+
     }
     public IEnumerator BulletFire()
     {
+        coroutineStarted = true;
         while (true)
         {
 
             yield return new WaitForSeconds(2);
             GameObject attack = Instantiate(shotPrefab, transform.position, Quaternion.identity);
-            attack.GetComponent<Rigidbody2D>().velocity = attPos * 1.5f;
-            
+            attack.GetComponent<Rigidbody2D>().velocity = attPos.normalized * speed;
+
             Destroy(attack, 1);
         }
     }
@@ -96,7 +102,7 @@ public class enemyAI : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        
+
         if (other.gameObject.layer == 9)
         {
             Debug.Log("took damage");

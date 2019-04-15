@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1681948006957266}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.31, y: 1.356, z: 0}
+  m_LocalPosition: {x: -163.929, y: 11.83, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -113,4 +113,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forgePanel: {fileID: 0}
   cm: {fileID: 0}
+  cardButton: {fileID: 1911950260641042, guid: 00a6567ec5466524a84b9cc14e41f1c5, type: 2}
+  cardButtonParent: {fileID: 0}
+  recipeButton: {fileID: 1344297390764516, guid: 8c667273296f4f54eadb49f27afb020e,
+    type: 2}
+  recipeButtonParent: {fileID: 0}
   forgeDeck: []
+  forge1: {fileID: 0}
+  forge2: {fileID: 0}
+  tokenText: {fileID: 0}
+  recipe: {fileID: 0}

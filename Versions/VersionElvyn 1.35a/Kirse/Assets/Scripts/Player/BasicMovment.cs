@@ -44,10 +44,10 @@ public class BasicMovment : MonoBehaviour
     public Vector3 camoffset;
     public Vector3 move;
     public Vector2 point;
-    public Vector2 speed = new Vector2(2, 2);
-    public Vector2 relativePosition;
+    
+   
     private Vector2 movement;
-    private float movSpd = 2.9f;
+    public float movSpd = 2.9f;
     public float curHealth = 100;
     public float maxHealth = 100;
     public GameObject healthBar;

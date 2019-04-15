@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class CardManager : MonoBehaviour {
+public class CardManager : MonoBehaviour
+{
     GameObject cardSelected;
     public GameObject playerHand;
     public List<Card> playerDeck = new List<Card>();
@@ -41,16 +42,16 @@ public class CardManager : MonoBehaviour {
         if (cardSelected == null) { }
         for (int i = 0; i < 4; i++)
         {
-            pHand[i] =playerHand.transform.GetChild(i).gameObject;
+            pHand[i] = playerHand.transform.GetChild(i).gameObject;
             pHand[i].SetActive(false);
         }
-        
+
     }
     void Update()
     {
-        if(inMenu == false)
-        Controls();
-    
+        if (inMenu == false)
+            Controls();
+
     }
 
 
@@ -124,7 +125,7 @@ public class CardManager : MonoBehaviour {
 
         //else { deckBar.transform.localScale = new Vector3(1, deckBar.transform.localScale.y, deckBar.transform.localScale.z); }
     }
- 
+
 
     public void UseCard(int i)
     {
@@ -132,10 +133,10 @@ public class CardManager : MonoBehaviour {
 
         if (o.activeInHierarchy == true && forgeable == false)
         {
-
+            gm.TokenUpdate(1);
             Card c = o.transform.GetChild(0).gameObject.GetComponent<CardTemplate>().card;
             CardProperties cp = c.cardProperties;
-            
+
             pHand[i].SetActive(false);
             discardPile.Add(c);
             o.transform.GetChild(0).gameObject.GetComponent<CardTemplate>().card = null;
@@ -155,13 +156,13 @@ public class CardManager : MonoBehaviour {
                     break;
                 case "DashBeam":
                     gm.actionText.text = cp.title;
-                    
+
                     break;
                 default:
                     break;
             }
         }
-     
+
     }
 
     public void DrawCard(List<Card> list)
@@ -189,7 +190,7 @@ public class CardManager : MonoBehaviour {
                     cardSelected.GetComponent<CardTemplate>().LoadCard(c);
                     if (list == lootDeck)
                     {
-                        gm.TokenUpdate(1);
+
                         gm.actionText.text = "Draw from Loot Deck";
                     }
                     if (list == playerDeck)
@@ -216,7 +217,7 @@ public class CardManager : MonoBehaviour {
     //    }
     //}
 
-    
+
     public void ForgeCard(Card card1, Card card2)
     {
         for (int i = 0; i < recipeList.Count; i++)
@@ -269,5 +270,5 @@ public class CardManager : MonoBehaviour {
         }
         else { forgeable = false; }
     }
-  
+
 }
