@@ -13,6 +13,8 @@ TagManager:
   - Attack
   - Wall
   - textFont
+  - Canvas
+  - dmgtxt
   layers:
   - Default
   - TransparentFX

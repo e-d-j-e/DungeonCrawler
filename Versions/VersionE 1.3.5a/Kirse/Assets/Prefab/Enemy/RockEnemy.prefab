@@ -154,6 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37580cc98afd934449825ec338db67e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floatingTextPrefab: {fileID: 1349231014358994, guid: 095570940f27e5d43befde848156d9dd,
+    type: 2}
   shotPrefab: {fileID: 0}
   attPos: {x: 0, y: 0, z: 0}
   cardlootprefab: {fileID: 1314900481703306, guid: cdd10f9f4fea1494d943f06eb3116145,

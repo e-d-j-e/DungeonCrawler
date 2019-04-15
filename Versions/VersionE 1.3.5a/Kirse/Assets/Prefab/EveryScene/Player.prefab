@@ -343,9 +343,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitBox: {fileID: 61977982579098500}
-  hocusPokeusPrefab: {fileID: 1857180240480692, guid: a6c1d0f39e6d49e488cc1b3891375321,
+  hocusPokeusPrefab: {fileID: 1919882453141524, guid: a6c1d0f39e6d49e488cc1b3891375321,
     type: 2}
-  slashPrefab: {fileID: 1025117810941148, guid: f27fc315ee169334dabe2f08d8353e6a,
+  slashPrefab: {fileID: 1911146334329188, guid: f27fc315ee169334dabe2f08d8353e6a,
     type: 2}
   beamPrefab: {fileID: 1462878560812872, guid: d1b0269106ea71e488f7b78b366398f7, type: 2}
   crosshair: {fileID: 1859186737574612}

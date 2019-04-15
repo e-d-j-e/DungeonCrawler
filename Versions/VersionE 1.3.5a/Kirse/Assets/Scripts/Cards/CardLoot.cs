@@ -6,16 +6,42 @@ public class CardLoot : MonoBehaviour {
 
 	private void OnTriggerEnter2D(Collider2D player)
     {
-        Card loot = new Card();
-        CardManager l = new CardManager();
+        GameObject c = GameObject.FindGameObjectWithTag("GameController");
+        CardManager cm = c.GetComponent<CardManager>();
 
         if (player.gameObject.tag == "Player")
         {
-            //add card to hand
-            //l.DrawCard(loot);        
-
             Destroy(gameObject);
+
+            if (cm.playerDeck.Count != 0)
+            {
+                cm.DrawCard(cm.playerDeck);
+                cm.deckPercent = cm.playerDeck.Count / cm.maxCards;
+                Debug.Log(cm.deckPercent);
+                cm.deckCalculate(cm.deckPercent);
+
+
+            }
+            else if (cm.playerDeck.Count == 0 && cm.discardPile.Count > 0)
+            {
+                for (int i = 0; i < cm.discardPile.Count; i++)
+                {
+                    cm.playerDeck.Add(cm.discardPile[i]);
+
+                }
+
+                cm.discardPile.Clear();
+                cm.maxCards = cm.playerDeck.Count;
+                cm.deckPercent = cm.playerDeck.Count / cm.maxCards;
+                Debug.Log(cm.deckPercent);
+                cm.deckCalculate(cm.deckPercent);
+                cm.DrawCard(cm.playerDeck);
+            }
+            
         }
+
+      
+        
     }
 
 }
