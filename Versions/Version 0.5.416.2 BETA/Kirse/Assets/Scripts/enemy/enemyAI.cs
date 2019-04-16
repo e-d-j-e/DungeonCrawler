@@ -28,7 +28,7 @@ public class enemyAI : MonoBehaviour
     private Transform player;
     private Vector3 ofs;
     private float dist = .18f;
-    private float speed = 4;
+    private float speed = 3;
 
     private bool coroutineStarted = false;
     // Start is called before the first frame update
@@ -88,7 +88,7 @@ public class enemyAI : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.name == "HitBox")
+        if (other.gameObject.tag == "Hitbox")
         {
             player.GetComponent<BasicMovment>().DecreaseHealth(2);
         }
@@ -97,11 +97,12 @@ public class enemyAI : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
 
-        if (other.gameObject.layer == 9)
+       if(other.gameObject.tag == "Dash")
         {
-            Debug.Log("took damage");
+            StartCoroutine("SpriteBlink");
+            takeDamage(30);
         }
-        else if (other.gameObject.tag == "Attack")
+       if (other.gameObject.tag == "Attack")
         {
 
             StartCoroutine("SpriteBlink");
@@ -118,7 +119,7 @@ public class enemyAI : MonoBehaviour
         yield return new WaitForSeconds(.1f);
         gameObject.GetComponent<SpriteRenderer>().enabled = true;
         yield return new WaitForSeconds(.1f);
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 
     public void takeDamage(int damage)

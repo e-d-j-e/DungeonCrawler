@@ -45,6 +45,7 @@ public class BasicMovment : MonoBehaviour
     public Vector3 move;
     public Vector2 point;
 
+    float dashDistance = 2.5f;
 
     private Vector2 movement;
     public float movSpd = 2.9f;
@@ -112,12 +113,18 @@ public class BasicMovment : MonoBehaviour
 
     IEnumerator Example(Vector3 direction, Collider2D coll)
     {
+
+        //transform.position += direction.normalized * 2;
+        
+        GetComponent<Rigidbody2D>().velocity = direction.normalized * 25;
         gameObject.layer = 9; //Dash layer
+        hitBox.tag = "Dash";
         //spriteR.sprite = sprites[spriteVersion];
         yield return new WaitForSeconds(.14f);
         gameObject.layer = 8; //Player 
+        hitBox.tag = "Hitbox";
         //gameObject.transform.position = Vector3.zero;
-        GetComponent<Rigidbody2D>().velocity = direction * 0;
+        GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         spriteVersion = 1;
         //spriteR.sprite = sprites[spriteVersion];
         //transform.Rotate(0, 0, -(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
@@ -178,6 +185,7 @@ public class BasicMovment : MonoBehaviour
 
     IEnumerator SpriteBlink()
     {
+        cam.GetComponent<ScreenShake>().TriggerShake();
         hitBox.enabled = false;
         spriteR.enabled = false;
         //cam.transform.position += Vector3.right;
@@ -220,8 +228,6 @@ public class BasicMovment : MonoBehaviour
     }
     public void Dash()
     {
-
-        GetComponent<Rigidbody2D>().velocity = direction.normalized * 15;
         //transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
         StartCoroutine(Example(direction, coll));
 
