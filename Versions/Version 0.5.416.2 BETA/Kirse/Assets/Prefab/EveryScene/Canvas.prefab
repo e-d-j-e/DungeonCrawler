@@ -3766,7 +3766,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.47472408, g: 0.728906, b: 0.7924528, a: 1}
+  m_Color: {r: 0.23718405, g: 0.24368322, b: 0.24528301, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -6472,10 +6472,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6379696437505079927}
     m_Modifications:
-    - target: {fileID: 1349231014358994, guid: 139b7182e9903a449862c18a1577908d, type: 3}
-      propertyPath: m_Name
-      value: damageText
-      objectReference: {fileID: 0}
     - target: {fileID: 224031088875295626, guid: 139b7182e9903a449862c18a1577908d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6580,6 +6576,10 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1349231014358994, guid: 139b7182e9903a449862c18a1577908d, type: 3}
+      propertyPath: m_Name
+      value: damageText
       objectReference: {fileID: 0}
     - target: {fileID: 102879761952453210, guid: 139b7182e9903a449862c18a1577908d,
         type: 3}

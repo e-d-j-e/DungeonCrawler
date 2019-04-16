@@ -45,18 +45,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHand: {fileID: 0}
-  playerDeck: []
+  playerDeck:
+  - {fileID: 11400000, guid: c5eb3e4aadceb54479fa4e642e0071b7, type: 2}
+  - {fileID: 11400000, guid: 0f492ef697d604746bd106665a7098d1, type: 2}
+  - {fileID: 11400000, guid: b2e8432a7b570e246a0e0ff01d78071c, type: 2}
+  - {fileID: 11400000, guid: c5eb3e4aadceb54479fa4e642e0071b7, type: 2}
+  - {fileID: 11400000, guid: 0f492ef697d604746bd106665a7098d1, type: 2}
+  - {fileID: 11400000, guid: b2e8432a7b570e246a0e0ff01d78071c, type: 2}
   lootDeck:
   - {fileID: 11400000, guid: c5eb3e4aadceb54479fa4e642e0071b7, type: 2}
   - {fileID: 11400000, guid: 0f492ef697d604746bd106665a7098d1, type: 2}
   - {fileID: 11400000, guid: b2e8432a7b570e246a0e0ff01d78071c, type: 2}
-  discardPile:
-  - {fileID: 11400000, guid: 0f492ef697d604746bd106665a7098d1, type: 2}
-  - {fileID: 11400000, guid: c5eb3e4aadceb54479fa4e642e0071b7, type: 2}
-  - {fileID: 11400000, guid: b2e8432a7b570e246a0e0ff01d78071c, type: 2}
-  - {fileID: 11400000, guid: 0f492ef697d604746bd106665a7098d1, type: 2}
-  - {fileID: 11400000, guid: c5eb3e4aadceb54479fa4e642e0071b7, type: 2}
-  - {fileID: 11400000, guid: b2e8432a7b570e246a0e0ff01d78071c, type: 2}
+  discardPile: []
   pHand:
   - {fileID: 0}
   - {fileID: 0}

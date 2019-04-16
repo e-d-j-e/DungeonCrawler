@@ -28,7 +28,7 @@ public class enemyAI : MonoBehaviour
     private Transform player;
     private Vector3 ofs;
     private float dist = .18f;
-    private float speed = 3;
+    private float speed = 5;
 
     private bool coroutineStarted = false;
     // Start is called before the first frame update
@@ -134,7 +134,7 @@ public class enemyAI : MonoBehaviour
         {
             Destroy(gameObject);
             //choose between card or curcuitry upgrade
-            int rand = Random.Range(0, 6);
+            int rand = Random.Range(0, 8);
             if (rand > 5)
             {
                 Instantiate(circuitLootPrefab, transform.position, Quaternion.identity);

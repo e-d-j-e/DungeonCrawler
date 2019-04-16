@@ -101,11 +101,30 @@ public class CardManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
-            
-                DrawCard(discardPile);
+            if (playerDeck.Count != 0)
+            {
+                DrawCard(playerDeck);
                 deckPercent = playerDeck.Count / maxCards;
                 Debug.Log(deckPercent);
                 deckCalculate(deckPercent);
+
+
+            }
+            else if (playerDeck.Count == 0 && discardPile.Count > 0)
+            {
+                for (int i = 0; i < discardPile.Count; i++)
+                {
+                    playerDeck.Add(discardPile[i]);
+
+                }
+
+                discardPile.Clear();
+                maxCards = playerDeck.Count;
+                deckPercent = playerDeck.Count / maxCards;
+                Debug.Log(deckPercent);
+                deckCalculate(deckPercent);
+                DrawCard(playerDeck);
+            }
         }
     }
     public void deckCalculate(float f)
@@ -211,39 +230,39 @@ public class CardManager : MonoBehaviour
     //}
 
 
-    //public void ForgeCard(Card card1, Card card2)
-    //{
-    //    for (int i = 0; i < recipeList.Count; i++)
-    //    {
-    //        Recipe r = recipeList[i];
-    //        if (card1 == r.card1 && card2 == r.card2 && gm.token >= r.reqToken
-    //            || card1 == r.card2 && card2 == r.card1 && gm.token >= r.reqToken)
-    //        {
-    //           // gm.actionText.text = recipeList[i].name + " Forging Complete";
-    //           // gm.TokenUpdate(-r.reqToken);
-    //            //a.transform.GetChild(0).gameObject.GetComponent<CardTemplate>().LoadCard(recipeList[i].fusedCard);
-    //            cardResult.GetComponent<CardTemplate>().LoadCard(recipeList[i].fusedCard);
-    //            //b.SetActive(false);
-    //            //Forging();
-    //            fm.forgeDeck.Add(recipeList[i].fusedCard);
-    //            fm.ResetForgeCards(card1, card2);
-    //            Debug.Log("Yay");
-    //            return;
-    //        }
-    //        else
-    //        {
-    //            forge1 = null;
-    //            forge2 = null;
-    //            forge1Display.GetComponent<CardTemplate>().LoadCard(empty);
-    //            forge2Display.GetComponent<CardTemplate>().LoadCard(empty);
-    //            cardResult.GetComponent<CardTemplate>().LoadCard(empty);
-    //            Debug.Log("aww");
-    //            gm.forgeable.text = "try again";//"Forgeable : " + forgeable;
-    //        }
-    //    }
-    //    //Forging();
-    //    return;
-    //}
+    public void ForgeCard(Card card1, Card card2)
+    {
+        for (int i = 0; i < recipeList.Count; i++)
+        {
+            Recipe r = recipeList[i];
+            if (card1 == r.card1 && card2 == r.card2 && t >= r.reqToken
+                || card1 == r.card2 && card2 == r.card1 && t >= r.reqToken)
+            {
+                // gm.actionText.text = recipeList[i].name + " Forging Complete";
+                // gm.TokenUpdate(-r.reqToken);
+                //a.transform.GetChild(0).gameObject.GetComponent<CardTemplate>().LoadCard(recipeList[i].fusedCard);
+                cardResult.GetComponent<CardTemplate>().LoadCard(recipeList[i].fusedCard);
+                //b.SetActive(false);
+                //Forging();
+                fm.forgeDeck.Add(recipeList[i].fusedCard);
+                fm.ResetForgeCards(card1, card2);
+                Debug.Log("Yay");
+                return;
+            }
+            else
+            {
+                forge1 = null;
+                forge2 = null;
+                forge1Display.GetComponent<CardTemplate>().LoadCard(empty);
+                forge2Display.GetComponent<CardTemplate>().LoadCard(empty);
+                cardResult.GetComponent<CardTemplate>().LoadCard(empty);
+                Debug.Log("aww");
+                gm.forgeable.text = "try again";//"Forgeable : " + forgeable;
+            }
+        }
+        //Forging();
+        return;
+    }
     public void Forging()
     {
         if (forgePanel.activeInHierarchy == true)

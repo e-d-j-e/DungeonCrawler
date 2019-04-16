@@ -245,11 +245,6 @@ PrefabInstance:
       propertyPath: modSlots.Array.data[3]
       value: 
       objectReference: {fileID: 436523326990378621}
-    - target: {fileID: 50351928107062634, guid: cc595cfdcf333014b8f4fa2c8e1827b4,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc595cfdcf333014b8f4fa2c8e1827b4, type: 3}
 --- !u!1 &199521135
@@ -961,11 +956,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6241403915154176747, guid: 9708fca10025f924ba54fbf1008c7175,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9708fca10025f924ba54fbf1008c7175, type: 3}
