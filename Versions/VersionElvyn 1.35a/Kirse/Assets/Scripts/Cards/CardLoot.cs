@@ -7,18 +7,24 @@ public class CardLoot : MonoBehaviour {
   
     private void OnTriggerEnter2D(Collider2D player)
     {
-        Card loot;
-        CardManager l = GameObject.Find("GameManager").GetComponent<CardManager>();
-        int i = Random.Range(0, 3);
-        loot = l.lootDeck[i];
-        
-        
-        
+
         if (player.gameObject.tag == "Player")
         {
-            l.discardPile.Add(loot);
+            CardManager cm = GameObject.Find("GameManager").GetComponent<CardManager>();
+            Card loot;
+
+            
+            loot = cm.lootDeck[cm.loot()];
+
+
+            cm.playerDeck.Add(loot);
+            cm.DrawCard(cm.playerDeck);
             Destroy(gameObject);
         }
+
+           
     }
+
+    
 
 }

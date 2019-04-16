@@ -16,7 +16,7 @@ public class HocusPokus : MonoBehaviour {
         if (enemy != null)
         {
             enemy.takeDamage(damage);
-            cm.DrawCard(cm.playerDeck);
+            cm.DrawCard(cm.discardPile);
         }
         
     }

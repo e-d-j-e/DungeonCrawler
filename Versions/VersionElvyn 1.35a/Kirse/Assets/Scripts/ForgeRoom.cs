@@ -106,7 +106,7 @@ public class ForgeRoom : MonoBehaviour {
     }
     public void Forge()
     {
-        cm.ForgeCard(forge1, forge2);
+        //cm.ForgeCard(forge1, forge2);
         Debug.Log("Forging");
     }
     public void CreateCardButton()

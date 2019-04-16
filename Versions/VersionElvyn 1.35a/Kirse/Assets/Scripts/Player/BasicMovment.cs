@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 //Ethan 
 //March 28, 2019
 //Version 0.25.00
@@ -16,7 +16,7 @@ using UnityEngine;
 //
 
 
-    
+
 
 
 //TODO:
@@ -44,8 +44,9 @@ public class BasicMovment : MonoBehaviour
     public Vector3 camoffset;
     public Vector3 move;
     public Vector2 point;
-    
-   
+
+    float dashDistance = 2.5f;
+
     private Vector2 movement;
     public float movSpd = 2.9f;
     public float curHealth = 100;
@@ -69,18 +70,18 @@ public class BasicMovment : MonoBehaviour
     Vector3 aim;
     Vector2 mouse;
     Vector2 direction;
-
+    bool attacked = false;
 
     // Start is called before the first frame update
     void Start()
     {
-       
-            spriteR = GetComponentInChildren<SpriteRenderer>();
-            //spriteR = GetGetComponent<SpriteRenderer>();
-            sprites = Resources.LoadAll<Sprite>(spriteNames);
-            camoffset = cam.transform.position ;
-            //UIoffset = UI.transform.position - transform.position;
-            //SetHealthBar(maxHealth);
+
+        spriteR = GetComponentInChildren<SpriteRenderer>();
+        //spriteR = GetGetComponent<SpriteRenderer>();
+        sprites = Resources.LoadAll<Sprite>(spriteNames);
+        camoffset = cam.transform.position;
+        //UIoffset = UI.transform.position - transform.position;
+        //SetHealthBar(maxHealth);
     }
 
     // Update is called once per frame
@@ -112,12 +113,18 @@ public class BasicMovment : MonoBehaviour
 
     IEnumerator Example(Vector3 direction, Collider2D coll)
     {
+
+        //transform.position += direction.normalized * 2;
+        
+        GetComponent<Rigidbody2D>().velocity = direction.normalized * 25;
         gameObject.layer = 9; //Dash layer
+        hitBox.tag = "Dash";
         //spriteR.sprite = sprites[spriteVersion];
         yield return new WaitForSeconds(.14f);
         gameObject.layer = 8; //Player 
+        hitBox.tag = "Hitbox";
         //gameObject.transform.position = Vector3.zero;
-        GetComponent<Rigidbody2D>().velocity = direction*0;
+        GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         spriteVersion = 1;
         //spriteR.sprite = sprites[spriteVersion];
         //transform.Rotate(0, 0, -(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
@@ -134,50 +141,51 @@ public class BasicMovment : MonoBehaviour
         aim = Camera.main.ScreenToWorldPoint(aim);
         Vector2 mouse = new Vector2(aim.x - transform.position.x, aim.y - transform.position.y);
         Vector2 direction = new Vector2(aim.x - transform.position.x, aim.y - transform.position.y);
-        
-        if(count==0)
-            {
+
+        if (count == 0)
+        {
             //crosshair.SetActive(true);
             crshrKey = true;
-            count=1;
-           
+            count = 1;
+
         }
 
         if (mouse.magnitude > 0)
         {
             mouse.Normalize();
-            mouse *= 1.12f;            
+            mouse *= 1.12f;
             crosshair.transform.localPosition = mouse;
             //if (crshrKey == false)
             //{
             //    //crosshair.SetActive(true);
             //    crshrKey = true;
-                
-                
+
+
             //}
-            
+
 
             direction.Normalize();
 
             //Input keys for activating cards
 
             //HOKUS-POKE-US
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (Input.GetKeyDown(KeyCode.Mouse0) && attacked == false)
             {
                 //useCard();
-                Vector3 temp;
-                temp = new Vector3(transform.position.x+1, transform.position.y+.5f, 0);
-                GameObject attack = Instantiate(hocusPokeusPrefab, temp, Quaternion.identity);
-                attack.GetComponent<Rigidbody2D>().velocity = direction;
+               
+                GameObject attack = Instantiate(hocusPokeusPrefab, transform.position, Quaternion.identity);
                 attack.transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-                Destroy(attack, 0.26f);
+                Destroy(attack, 0.4f);
+                attacked = true;
+                Invoke("AttackRelease", .5f);
                 //isMove = true;
             }
         }
-    }       
-    
+    }
+
     IEnumerator SpriteBlink()
     {
+        cam.GetComponent<ScreenShake>().TriggerShake();
         hitBox.enabled = false;
         spriteR.enabled = false;
         //cam.transform.position += Vector3.right;
@@ -191,15 +199,9 @@ public class BasicMovment : MonoBehaviour
         yield return new WaitForSeconds(1f);
         hitBox.enabled = true;
         yield return new WaitForSeconds(2f);
-    }    
-
-    public void DecreaseHealth(float f)
-    {
-        curHealth -= f;
-        StartCoroutine("SpriteBlink");
-        float calcHealth = curHealth / maxHealth;
-        SetHealthBar(calcHealth);
     }
+
+
 
     public void DamageCalculator()
     {
@@ -214,25 +216,39 @@ public class BasicMovment : MonoBehaviour
     public void Slash()
     {
         GameObject attack = Instantiate(slashPrefab, transform.position, Quaternion.identity);
-        attack.GetComponent<Rigidbody2D>().velocity = direction * 1.5f;
         attack.transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-        Destroy(attack, 0.32F);
+        Destroy(attack, 0.5F);
     }
     public void Beam()
     {
         GameObject attack = Instantiate(beamPrefab, transform.position, Quaternion.identity);
-                attack.GetComponent<Rigidbody2D>().velocity = direction * 3.5f;
-                attack.transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-                Destroy(attack, 2);
+        attack.GetComponent<Rigidbody2D>().velocity = direction * 3.5f;
+        attack.transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
+        Destroy(attack, 2);
     }
     public void Dash()
     {
-        
-        GetComponent<Rigidbody2D>().velocity = direction.normalized * 15;
         //transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
         StartCoroutine(Example(direction, coll));
 
     }
-  
+
+    public void DecreaseHealth(float f)
+    {
+        curHealth -= f;
+        StartCoroutine("SpriteBlink");
+        float calcHealth = curHealth / maxHealth;
+        SetHealthBar(calcHealth);
+        if (curHealth <= 0)
+        {
+            curHealth = 0;
+            SceneManager.LoadScene(0);
+        }
+
+    }
+    void AttackRelease()
+    {
+        attacked = false;
+    }
 
 }

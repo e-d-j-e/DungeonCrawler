@@ -18,17 +18,17 @@ public class GameManager : MonoBehaviour {
             return _instance;
         }
     }
-    public int token = 0;
+    //public int token = 0;
     public TextMeshProUGUI actionText;
     public TextMeshProUGUI forgeable;
-    public Text tokenText;
+   // public Text tokenText;
 
     private int slashCC = 0;
-    public void TokenUpdate(int i)
-    {
-        token += i;
-        tokenText.text = token.ToString();
-    }
+    //public void TokenUpdate(int i)
+    //{
+    //    token += i;
+    //    tokenText.text = token.ToString();
+    //}
    
     //public void Awake()
     //{

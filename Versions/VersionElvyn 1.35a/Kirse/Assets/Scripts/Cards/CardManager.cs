@@ -24,17 +24,20 @@ public class CardManager : MonoBehaviour
     public float deckPercent;
     public GameObject forgePanel;
     public GameObject deckBar;
-
+    public Text token;
+    private short t=0;
     public List<Card> forgeDeck = new List<Card>();
 
     BasicMovment player;
 
     public bool inMenu = false;
+    public int i;
 
     ForgeRoom fm;
 
     void Start()
     {
+        token.text = t.ToString();
         fm = GameObject.Find("Forge Room").GetComponent<ForgeRoom>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<BasicMovment>();
         playerHand = GameObject.Find("PlayerHand");
@@ -47,10 +50,16 @@ public class CardManager : MonoBehaviour
         }
 
     }
+    public int loot()
+    {
+        i = Random.Range(0, 3);
+        return i;
+    }
     void Update()
     {
         if (inMenu == false)
             Controls();
+
 
     }
 
@@ -61,61 +70,42 @@ public class CardManager : MonoBehaviour
         {
             Forging();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.CapsLock))
         {
             UseCard(0);
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             UseCard(1);
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             UseCard(2);
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha4))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             UseCard(3);
         }
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.M))
         {
             DrawCard(lootDeck);
             //DrawCard(lootDeck);
             //gm.token++;
         }
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.N))
         {
             DrawCard(discardPile);
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.L))
         {
-            if (playerDeck.Count != 0)
-            {
-                DrawCard(playerDeck);
+            
+                DrawCard(discardPile);
                 deckPercent = playerDeck.Count / maxCards;
                 Debug.Log(deckPercent);
                 deckCalculate(deckPercent);
-
-
-            }
-            else if (playerDeck.Count == 0 && discardPile.Count > 0)
-            {
-                for (int i = 0; i < discardPile.Count; i++)
-                {
-                    playerDeck.Add(discardPile[i]);
-
-                }
-
-                discardPile.Clear();
-                maxCards = playerDeck.Count;
-                deckPercent = playerDeck.Count / maxCards;
-                Debug.Log(deckPercent);
-                deckCalculate(deckPercent);
-                DrawCard(playerDeck);
-            }
         }
     }
     public void deckCalculate(float f)
@@ -133,7 +123,7 @@ public class CardManager : MonoBehaviour
 
         if (o.activeInHierarchy == true && forgeable == false)
         {
-            gm.TokenUpdate(1);
+            //gm.TokenUpdate(1);
             Card c = o.transform.GetChild(0).gameObject.GetComponent<CardTemplate>().card;
             CardProperties cp = c.cardProperties;
 
@@ -143,19 +133,22 @@ public class CardManager : MonoBehaviour
             switch (cp.title)
             {
                 case "Slash":
-                    gm.actionText.text = cp.title;
+                   // gm.actionText.text = cp.title;
                     player.Slash();
+                    incToken();
                     break;
                 case "Dash":
-                    gm.actionText.text = cp.title;
+                   // gm.actionText.text = cp.title;
                     player.Dash();
+                    incToken();
                     break;
                 case "Beam":
-                    gm.actionText.text = cp.title;
+                    //gm.actionText.text = cp.title;
                     player.Beam();
+                    incToken();
                     break;
                 case "DashBeam":
-                    gm.actionText.text = cp.title;
+                   // gm.actionText.text = cp.title;
 
                     break;
                 default:
@@ -191,17 +184,17 @@ public class CardManager : MonoBehaviour
                     if (list == lootDeck)
                     {
 
-                        gm.actionText.text = "Draw from Loot Deck";
+                        //gm.actionText.text = "Draw from Loot Deck";
                     }
                     if (list == playerDeck)
                     {
 
-                        gm.actionText.text = "Draw from Player Deck";
+                        //gm.actionText.text = "Draw from Player Deck";
                     }
                     if (list == discardPile)
                     {
 
-                        gm.actionText.text = "Draw from Discard Deck";
+                       // gm.actionText.text = "Draw from Discard Deck";
                     }
                     return;
                 }
@@ -218,39 +211,39 @@ public class CardManager : MonoBehaviour
     //}
 
 
-    public void ForgeCard(Card card1, Card card2)
-    {
-        for (int i = 0; i < recipeList.Count; i++)
-        {
-            Recipe r = recipeList[i];
-            if (card1 == r.card1 && card2 == r.card2 && gm.token >= r.reqToken
-                || card1 == r.card2 && card2 == r.card1 && gm.token >= r.reqToken)
-            {
-                gm.actionText.text = recipeList[i].name + " Forging Complete";
-                gm.TokenUpdate(-r.reqToken);
-                //a.transform.GetChild(0).gameObject.GetComponent<CardTemplate>().LoadCard(recipeList[i].fusedCard);
-                cardResult.GetComponent<CardTemplate>().LoadCard(recipeList[i].fusedCard);
-                //b.SetActive(false);
-                //Forging();
-                fm.forgeDeck.Add(recipeList[i].fusedCard);
-                fm.ResetForgeCards(card1, card2);
-                Debug.Log("Yay");
-                return;
-            }
-            else
-            {
-                forge1 = null;
-                forge2 = null;
-                forge1Display.GetComponent<CardTemplate>().LoadCard(empty);
-                forge2Display.GetComponent<CardTemplate>().LoadCard(empty);
-                cardResult.GetComponent<CardTemplate>().LoadCard(empty);
-                Debug.Log("aww");
-                gm.forgeable.text = "try again";//"Forgeable : " + forgeable;
-            }
-        }
-        //Forging();
-        return;
-    }
+    //public void ForgeCard(Card card1, Card card2)
+    //{
+    //    for (int i = 0; i < recipeList.Count; i++)
+    //    {
+    //        Recipe r = recipeList[i];
+    //        if (card1 == r.card1 && card2 == r.card2 && gm.token >= r.reqToken
+    //            || card1 == r.card2 && card2 == r.card1 && gm.token >= r.reqToken)
+    //        {
+    //           // gm.actionText.text = recipeList[i].name + " Forging Complete";
+    //           // gm.TokenUpdate(-r.reqToken);
+    //            //a.transform.GetChild(0).gameObject.GetComponent<CardTemplate>().LoadCard(recipeList[i].fusedCard);
+    //            cardResult.GetComponent<CardTemplate>().LoadCard(recipeList[i].fusedCard);
+    //            //b.SetActive(false);
+    //            //Forging();
+    //            fm.forgeDeck.Add(recipeList[i].fusedCard);
+    //            fm.ResetForgeCards(card1, card2);
+    //            Debug.Log("Yay");
+    //            return;
+    //        }
+    //        else
+    //        {
+    //            forge1 = null;
+    //            forge2 = null;
+    //            forge1Display.GetComponent<CardTemplate>().LoadCard(empty);
+    //            forge2Display.GetComponent<CardTemplate>().LoadCard(empty);
+    //            cardResult.GetComponent<CardTemplate>().LoadCard(empty);
+    //            Debug.Log("aww");
+    //            gm.forgeable.text = "try again";//"Forgeable : " + forgeable;
+    //        }
+    //    }
+    //    //Forging();
+    //    return;
+    //}
     public void Forging()
     {
         if (forgePanel.activeInHierarchy == true)
@@ -269,6 +262,32 @@ public class CardManager : MonoBehaviour
             }
         }
         else { forgeable = false; }
+    }
+
+
+    public void incToken()
+    {
+        if (t < 99)
+        {
+            t += 1;
+            token.text = t.ToString();
+        }
+
+    }
+
+    public void decToken(short d)
+    {
+        if (testDec(t, d) == true)
+        {
+            t -= d;
+            token.text = t.ToString();
+        }
+    }
+
+    private bool testDec(int t, int d)
+    {
+        //return true if can decrement the amount of tokens used.
+        return ((t -= d) >= 0 ? true : false);
     }
 
 }
