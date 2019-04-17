@@ -20,12 +20,12 @@ public class CardManager : MonoBehaviour
     GameManager gm;
     public GameObject cardResult;
     public Card empty;
-    public float maxCards = 3;
+    public float maxCards = 6;
     public float deckPercent;
     public GameObject forgePanel;
     public GameObject deckBar;
     public Text token;
-    private short t=0;
+    private int t=0;
     public List<Card> forgeDeck = new List<Card>();
 
     BasicMovment player;
@@ -37,6 +37,7 @@ public class CardManager : MonoBehaviour
 
     void Start()
     {
+        maxCards = playerDeck.Count;
         token.text = t.ToString();
         fm = GameObject.Find("Forge Room").GetComponent<ForgeRoom>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<BasicMovment>();
@@ -239,7 +240,7 @@ public class CardManager : MonoBehaviour
                 || card1 == r.card2 && card2 == r.card1 && t >= r.reqToken)
             {
                 // gm.actionText.text = recipeList[i].name + " Forging Complete";
-                // gm.TokenUpdate(-r.reqToken);
+                decToken(r.reqToken);
                 //a.transform.GetChild(0).gameObject.GetComponent<CardTemplate>().LoadCard(recipeList[i].fusedCard);
                 cardResult.GetComponent<CardTemplate>().LoadCard(recipeList[i].fusedCard);
                 //b.SetActive(false);
@@ -294,13 +295,13 @@ public class CardManager : MonoBehaviour
 
     }
 
-    public void decToken(short d)
+    public void decToken(int d)
     {
-        if (testDec(t, d) == true)
-        {
+        //if (testDec(t, d) == true)
+        //{
             t -= d;
             token.text = t.ToString();
-        }
+        //}
     }
 
     private bool testDec(int t, int d)

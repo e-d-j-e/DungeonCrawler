@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
-
+    public GameObject startPanel;
+    public GameObject escPanel;
+    bool active = false;
     private static GameManager _instance;
     public static GameManager gm
     {
@@ -21,19 +24,27 @@ public class GameManager : MonoBehaviour {
     //public int token = 0;
     public TextMeshProUGUI actionText;
     public TextMeshProUGUI forgeable;
-   // public Text tokenText;
 
-    private int slashCC = 0;
+
+    // public Text tokenText;
     //public void TokenUpdate(int i)
     //{
     //    token += i;
     //    tokenText.text = token.ToString();
     //}
-   
+
     //public void Awake()
     //{
     //    GameManager gm = this.gameObject.GetComponent<GameManager>();
     //}
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && startPanel.activeInHierarchy == false)
+        {
+            escPanel.SetActive(true);
+            
+        }
+    }
 
     public void SlowMo()
     {
@@ -44,5 +55,13 @@ public class GameManager : MonoBehaviour {
                 Time.timeScale = i;
             }
         }
+    }
+    public void StartGame()
+    {
+        startPanel.SetActive(false);
+    }
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }
