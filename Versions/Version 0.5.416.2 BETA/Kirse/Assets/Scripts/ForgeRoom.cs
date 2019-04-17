@@ -28,10 +28,10 @@ public class ForgeRoom : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape)&&forgePanel.activeInHierarchy == true)
         {
 
-            forgePanel.SetActive(b);
+            forgePanel.SetActive(false);
             cm.Forging();
             Time.timeScale = 1;
             for (int i = 0; i < forgeDeck.Count; i++)
@@ -106,7 +106,7 @@ public class ForgeRoom : MonoBehaviour {
     }
     public void Forge()
     {
-        //cm.ForgeCard(forge1, forge2);
+        cm.ForgeCard(forge1, forge2);
         Debug.Log("Forging");
     }
     public void CreateCardButton()
