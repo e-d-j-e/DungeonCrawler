@@ -3,36 +3,66 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ForgeRoom : MonoBehaviour {
+public class ForgeRoom : MonoBehaviour
+{
 
     public GameObject forgePanel;
-    bool b = false;
+    bool activePanel = false;
     public CardManager cm;
     public GameObject cardButton;
     public Transform cardButtonParent;
     public GameObject recipeButton;
     public Transform recipeButtonParent;
     public List<Card> forgeDeck = new List<Card>();
-    
+
     public Card forge1;
     public Card forge2;
     public Text tokenText;
     int token;
 
     public Recipe recipe;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         cm = GameObject.Find("GameManager").GetComponent<CardManager>();
         //forgePanel = null;
     }
-	
-	// Update is called once per frame
-	void Update () {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
 
-            forgePanel.SetActive(b);
-            cm.Forging();
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            SetForgePanel(activePanel);
+            //cm.Forging();
+            //Time.timeScale = 1;
+            //for (int i = 0; i < forgeDeck.Count; i++)
+            //{
+            //    cm.playerDeck.Add(forgeDeck[i]);
+
+            //}
+            //foreach (Transform child in recipeButtonParent)
+            //{
+            //    GameObject.Destroy(child.gameObject);
+            //}
+            //foreach (Transform child in cardButtonParent)
+            //{
+            //    GameObject.Destroy(child.gameObject);
+            //}
+            //forgeDeck.Clear();
+        }
+    }
+
+    void SetForgePanel(bool b)
+    {
+        activePanel = !b;
+        forgePanel.SetActive(activePanel);
+        //cm.Forging();
+        Time.timeScale = 0;
+        CreateForgeDeck();
+        RecipeButtonLoad();
+        if (activePanel == false)
+        {
             Time.timeScale = 1;
             for (int i = 0; i < forgeDeck.Count; i++)
             {
@@ -49,19 +79,7 @@ public class ForgeRoom : MonoBehaviour {
             }
             forgeDeck.Clear();
         }
-    }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            forgePanel.SetActive(!b);
-            cm.Forging();
-            Time.timeScale = 0;
-            CreateForgeDeck();
-            RecipeButtonLoad();
-        }
-        
     }
     public void RecipeButtonLoad()
     {
@@ -75,11 +93,11 @@ public class ForgeRoom : MonoBehaviour {
     }
     public void CreateForgeDeck()
     {
-       
+
         for (int i = 0; i < cm.playerDeck.Count; i++)
         {
-            if(cm.playerDeck[i] != null)
-            forgeDeck.Add(cm.playerDeck[i]);
+            if (cm.playerDeck[i] != null)
+                forgeDeck.Add(cm.playerDeck[i]);
         }
         //if (cm.pHand.Count > 0)
         //{
@@ -102,7 +120,7 @@ public class ForgeRoom : MonoBehaviour {
         cm.discardPile.Clear();
         cm.playerDeck.Clear();
         CreateCardButton();
-       
+
     }
     public void Forge()
     {
@@ -136,6 +154,6 @@ public class ForgeRoom : MonoBehaviour {
             GameObject.Destroy(child.gameObject);
         }
         CreateCardButton();
-        
+
     }
 }

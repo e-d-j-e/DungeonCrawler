@@ -17,7 +17,7 @@ public class CardManager : MonoBehaviour
     public GameObject forge2;
     public GameObject forge1Display;
     public GameObject forge2Display;
-    GameManager gm;
+    
     public GameObject cardResult;
     public Card empty;
     public float maxCards = 3;
@@ -25,7 +25,7 @@ public class CardManager : MonoBehaviour
     public GameObject forgePanel;
     public GameObject deckBar;
     public Text token;
-    private int t=0;
+    private int t = 0;
     public List<Card> forgeDeck = new List<Card>();
 
     BasicMovment player;
@@ -41,13 +41,15 @@ public class CardManager : MonoBehaviour
         fm = GameObject.Find("Forge Room").GetComponent<ForgeRoom>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<BasicMovment>();
         playerHand = GameObject.Find("PlayerHand");
-        gm = GameManager.gm;
+       
         if (cardSelected == null) { }
         for (int i = 0; i < 4; i++)
         {
             pHand[i] = playerHand.transform.GetChild(i).gameObject;
             pHand[i].SetActive(false);
         }
+        maxCards = playerDeck.Count;
+        deckPercent = playerDeck.Count / maxCards;
 
     }
     public int loot()
@@ -66,10 +68,7 @@ public class CardManager : MonoBehaviour
 
     public void Controls()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            Forging();
-        }
+
         if (Input.GetKeyDown(KeyCode.CapsLock))
         {
             UseCard(0);
@@ -93,7 +92,7 @@ public class CardManager : MonoBehaviour
         {
             DrawCard(lootDeck);
             //DrawCard(lootDeck);
-            //gm.token++;
+           
         }
         if (Input.GetKeyDown(KeyCode.N))
         {
@@ -142,7 +141,7 @@ public class CardManager : MonoBehaviour
 
         if (o.activeInHierarchy == true && forgeable == false)
         {
-            //gm.TokenUpdate(1);
+            
             Card c = o.transform.GetChild(0).gameObject.GetComponent<CardTemplate>().card;
             CardProperties cp = c.cardProperties;
 
@@ -152,22 +151,22 @@ public class CardManager : MonoBehaviour
             switch (cp.title)
             {
                 case "Slash":
-                   // gm.actionText.text = cp.title;
+                    
                     player.Slash();
                     incToken();
                     break;
                 case "Dash":
-                   // gm.actionText.text = cp.title;
+                    
                     player.Dash();
                     incToken();
                     break;
                 case "Beam":
-                    //gm.actionText.text = cp.title;
+                    
                     player.Beam();
                     incToken();
                     break;
                 case "DashBeam":
-                   // gm.actionText.text = cp.title;
+                    
 
                     break;
                 default:
@@ -213,7 +212,7 @@ public class CardManager : MonoBehaviour
                     if (list == discardPile)
                     {
 
-                       // gm.actionText.text = "Draw from Discard Deck";
+                        // gm.actionText.text = "Draw from Discard Deck";
                     }
                     return;
                 }
@@ -238,50 +237,47 @@ public class CardManager : MonoBehaviour
             if (card1 == r.card1 && card2 == r.card2 && t >= r.reqToken
                 || card1 == r.card2 && card2 == r.card1 && t >= r.reqToken)
             {
-                // gm.actionText.text = recipeList[i].name + " Forging Complete";
-                // gm.TokenUpdate(-r.reqToken);
+                
                 decToken(r.reqToken);
                 //a.transform.GetChild(0).gameObject.GetComponent<CardTemplate>().LoadCard(recipeList[i].fusedCard);
                 cardResult.GetComponent<CardTemplate>().LoadCard(recipeList[i].fusedCard);
                 //b.SetActive(false);
                 //Forging();
-                fm.forgeDeck.Add(recipeList[i].fusedCard);
-                fm.ResetForgeCards(card1, card2);
+                for (int p = 0; p < 4; p++)
+                {
+                    if (pHand[p].activeInHierarchy == false)
+                    {
+                        pHand[p].SetActive(true);
+
+                        cardSelected = pHand[p].transform.GetChild(0).gameObject;
+                        cardSelected.GetComponent<CardTemplate>().LoadCard(recipeList[i].fusedCard);
+                        fm.ResetForgeCards(card1, card2);
+                        return;
+                    }
+                }
+                //fm.forgeDeck.Add(recipeList[i].fusedCard);
+               
+
                 Debug.Log("Yay");
                 return;
             }
             else
             {
+                Color c = Color.white;
+                c.a = .3f;
                 forge1 = null;
                 forge2 = null;
-                forge1Display.GetComponent<CardTemplate>().LoadCard(empty);
-                forge2Display.GetComponent<CardTemplate>().LoadCard(empty);
-                cardResult.GetComponent<CardTemplate>().LoadCard(empty);
+                forge1Display.GetComponent<CardTemplate>().LoadCard(fm.recipe.card1);
+                forge2Display.GetComponent<CardTemplate>().LoadCard(fm.recipe.card2);
+                cardResult.GetComponent<CardTemplate>().LoadCard(fm.recipe.fusedCard);
+                forge1Display.GetComponent<Image>().color = c; //After a fail, it will set transparency back to .3f
+                forge2Display.GetComponent<Image>().color = c;
                 Debug.Log("aww");
-                gm.forgeable.text = "try again";//"Forgeable : " + forgeable;
+                
             }
         }
         //Forging();
         return;
-    }
-    public void Forging()
-    {
-        if (forgePanel.activeInHierarchy == true)
-        {
-            forgeable = true;
-            //forgeable = !forgeable;
-            if (forgeable == true)
-                gm.forgeable.text = "Forgeable : " + forgeable;
-            if (forgeable == false)
-            {
-                forge1 = null;
-                forge2 = null;
-                forge1Display.GetComponent<CardTemplate>().LoadCard(empty);
-                forge2Display.GetComponent<CardTemplate>().LoadCard(empty);
-                gm.forgeable.text = "try again";//"Forgeable : " + forgeable;
-            }
-        }
-        else { forgeable = false; }
     }
 
 
