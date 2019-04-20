@@ -13,6 +13,7 @@ public class RecipeButton : MonoBehaviour {
     ForgeRoom fm;
     public Text recipeName;
     Color c;
+    Color d;
     // Use this for initialization
     void Start ()
     {
@@ -20,7 +21,8 @@ public class RecipeButton : MonoBehaviour {
         cm = GameObject.Find("GameManager").GetComponent<CardManager>();
         
         c = cm.forge1Display.GetComponent<Image>().color;
-
+        d = c;
+        d.a = 0;
         c.a = .3f;
         //LoadRecipe();
     }
@@ -34,7 +36,7 @@ public class RecipeButton : MonoBehaviour {
         cm.forge2Display.GetComponent<Image>().color = c;
         cm.cardResult.GetComponent<Image>().color = c;
 
-       
+        if (recipe.card2 == null) { cm.forge2Display.GetComponent<Image>().color = d; }
         
         
         card1 = recipe.card1;

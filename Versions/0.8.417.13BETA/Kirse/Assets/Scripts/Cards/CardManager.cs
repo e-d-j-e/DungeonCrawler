@@ -17,7 +17,7 @@ public class CardManager : MonoBehaviour
     public GameObject forge2;
     public GameObject forge1Display;
     public GameObject forge2Display;
-    
+
     public GameObject cardResult;
     public Card empty;
     public float maxCards = 3;
@@ -50,12 +50,12 @@ public class CardManager : MonoBehaviour
     void Start()
     {
         recipeList = new List<Recipe>(Resources.LoadAll<Recipe>("Recipe"));
-        
+
         token.text = t.ToString();
         fm = GameObject.Find("Forge Room").GetComponent<ForgeRoom>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<BasicMovment>();
         playerHand = GameObject.Find("PlayerHand");
-       
+
         if (cardSelected == null) { }
         for (int i = 0; i < 4; i++)
         {
@@ -64,6 +64,13 @@ public class CardManager : MonoBehaviour
         }
         maxCards = playerDeck.Count;
         deckPercent = playerDeck.Count / maxCards;
+        //for (int i = 0; i < recipeList.Count; i++)
+        //{
+        //    if (recipeList[i] is ReciipeTest)
+        //    {
+        //        Debug.Log("AWWWWWWWWWWWWWWWWWW");
+        //    }
+        //}
 
     }
     public int loot()
@@ -106,7 +113,7 @@ public class CardManager : MonoBehaviour
         {
             DrawCard(lootDeck);
             //DrawCard(lootDeck);
-           
+
         }
         if (Input.GetKeyDown(KeyCode.N))
         {
@@ -155,32 +162,32 @@ public class CardManager : MonoBehaviour
 
         if (o.activeInHierarchy == true && forgeable == false)
         {
-            
-            Card c = o.transform.GetChild(0).gameObject.GetComponent<CardTemplate>().card;
+
+            Card c = o.transform.gameObject.GetComponent<CardTemplate>().card;
             CardProperties cp = c.cardProperties;
 
             pHand[i].SetActive(false);
             discardPile.Add(c);
-            o.transform.GetChild(0).gameObject.GetComponent<CardTemplate>().card = null;
+            o.transform.gameObject.GetComponent<CardTemplate>().card = null;
             switch (cp.title)
             {
                 case "Slash":
-                    
+
                     player.Slash();
                     incToken();
                     break;
                 case "Dash":
-                    
+
                     player.Dash();
                     incToken();
                     break;
                 case "Beam":
-                    
+
                     player.Beam();
                     incToken();
                     break;
                 case "DashBeam":
-                    
+
 
                     break;
                 default:
@@ -211,7 +218,7 @@ public class CardManager : MonoBehaviour
                     }
                     pHand[i].SetActive(true);
 
-                    cardSelected = pHand[i].transform.GetChild(0).gameObject;
+                    cardSelected = pHand[i].transform.gameObject;
                     cardSelected.GetComponent<CardTemplate>().LoadCard(c);
                     if (list == lootDeck)
                     {
@@ -243,60 +250,62 @@ public class CardManager : MonoBehaviour
     //}
 
 
-    public void ForgeCard(Card card1, Card card2,Recipe recipe)
+    public void ForgeCard(Card card1, Card card2, Recipe recipe)
     {
-        for (int i = 0; i < recipeList.Count; i++)
+
+        Recipe r = recipe;
+        if (r == null) { Debug.Log("error1"); return; }
+
+        if (r is SpecialRecipe)
         {
-            //Recipe r = recipeList[i];
-            Recipe r = recipe;
-            if (card1 == r.card1 && card2 == r.card2 && t >= r.reqToken
-                || card1 == r.card2 && card2 == r.card1 && t >= r.reqToken)
+            if (card1 == r.card1 && t == r.reqToken || card2 == r.card1 && t == r.reqToken)
             {
-                
                 decToken(r.reqToken);
-                //a.transform.GetChild(0).gameObject.GetComponent<CardTemplate>().LoadCard(recipeList[i].fusedCard);
                 cardResult.GetComponent<CardTemplate>().LoadCard(recipeList[i].fusedCard);
-                //b.SetActive(false);
-                //Forging();
+                CardToHand(r.fusedCard);
+                fm.ResetForgeCards(card1, card2);
+                SetForgeDisplay();
+                return;
+            }
+            else
+            {
+                Debug.Log("error2");
+                //discardPile.Add(r.fusedCard);
+                //fm.ResetForgeCards(card1, card2);
+                //SetForgeDisplay();
+                //return;
+            }
+        }
+        else if (r is Recipe)
+        {
+            if (card1 == r.card1 && card2 == r.card2 && t >= r.reqToken || card1 == r.card2 && card2 == r.card1 && t >= r.reqToken)
+            {
+                decToken(r.reqToken);
+                cardResult.GetComponent<CardTemplate>().LoadCard(recipeList[i].fusedCard);
                 for (int p = 0; p < 4; p++)
                 {
                     if (pHand[p].activeInHierarchy == false)
                     {
                         pHand[p].SetActive(true);
 
-                        cardSelected = pHand[p].transform.GetChild(0).gameObject;
-                        cardSelected.GetComponent<CardTemplate>().LoadCard(recipeList[i].fusedCard);
+                        cardSelected = pHand[p].transform.gameObject;
+                        cardSelected.GetComponent<CardTemplate>().LoadCard(r.fusedCard);
                         fm.ResetForgeCards(card1, card2);
+                        SetForgeDisplay();
                         return;
                     }
-                    else
-                    {
 
-                    }
                 }
-                //fm.forgeDeck.Add(recipeList[i].fusedCard);
-               
 
-                Debug.Log("Yay");
-                return;
-            }
-            else
-            {
-                Color c = Color.white;
-                c.a = .3f;
-                forge1 = null;
-                forge2 = null;
-                forge1Display.GetComponent<CardTemplate>().LoadCard(fm.recipe.card1);
-                forge2Display.GetComponent<CardTemplate>().LoadCard(fm.recipe.card2);
-                cardResult.GetComponent<CardTemplate>().LoadCard(fm.recipe.fusedCard);
-                forge1Display.GetComponent<Image>().color = c; //After a fail, it will set transparency back to .3f
-                forge2Display.GetComponent<Image>().color = c;
-                Debug.Log("aww");
-                
             }
         }
-        //Forging();
-        return;
+        else
+        {
+            Debug.Log("error3");
+            discardPile.Add(r.fusedCard);
+            fm.ResetForgeCards(card1, card2);
+            SetForgeDisplay();
+        }
     }
     public void SetForgeDisplay()
     {
@@ -305,7 +314,7 @@ public class CardManager : MonoBehaviour
         forge1Display.GetComponent<Image>().color = c; //After a fail, it will set transparency back to .3f
         forge2Display.GetComponent<Image>().color = c;
         cardResult.GetComponent<Image>().color = c;
-        
+
     }
 
 
@@ -338,14 +347,27 @@ public class CardManager : MonoBehaviour
     {
         for (int p = 0; p < 4; p++)
         {
-            if (pHand[p].activeInHierarchy == false)
+            if (pHand[p].activeSelf == false)
             {
-                pHand[p].SetActive(true);
+                Debug.Log(pHand[p].activeInHierarchy);
+                Debug.Log(pHand[p]);
 
-                cardSelected = pHand[p].transform.GetChild(0).gameObject;
+                pHand[p].SetActive(true);
+                Debug.Log(pHand[p].activeInHierarchy);
+                cardSelected = pHand[p].transform.gameObject;
                 cardSelected.GetComponent<CardTemplate>().LoadCard(c);
                 return;
+
             }
         }
+
+        discardPile.Add(c);
+
+
+    }
+    public void BonusEffects()
+    {
+
     }
 }
+

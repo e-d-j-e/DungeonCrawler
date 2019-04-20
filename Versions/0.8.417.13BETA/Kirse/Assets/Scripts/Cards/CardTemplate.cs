@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CardTemplate : MonoBehaviour {
     public Card card;
     CardManager cm;
-
+    public bool active;
 
     public void Start()
     {

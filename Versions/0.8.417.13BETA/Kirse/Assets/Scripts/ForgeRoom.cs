@@ -80,6 +80,8 @@ public class ForgeRoom : MonoBehaviour
             forgeDeck.Clear();
             cm.SetForgeDisplay();
             tokenText.text = "";
+            forge1 = null;
+            forge2 = null;
         }
 
     }
@@ -88,7 +90,6 @@ public class ForgeRoom : MonoBehaviour
         for (int i = 0; i < cm.recipeList.Count; i++)
         {
             GameObject o = Instantiate(recipeButton, recipeButton.transform.parent);
-            Debug.Log("recipebuttonload");
             o.transform.SetParent(recipeButtonParent, false);
             o.GetComponent<RecipeButton>().SetRecipe(cm.recipeList[i]);
         }

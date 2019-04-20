@@ -715,6 +715,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114085835575106066, guid: c6595803226f27e49a68e7ba9eb8d273,
         type: 3}
+      propertyPath: recipeList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114085835575106066, guid: c6595803226f27e49a68e7ba9eb8d273,
+        type: 3}
       propertyPath: forge1Display
       value: 
       objectReference: {fileID: 616505931}
@@ -743,6 +748,12 @@ PrefabInstance:
       propertyPath: token
       value: 
       objectReference: {fileID: 6004311769701947615}
+    - target: {fileID: 114085835575106066, guid: c6595803226f27e49a68e7ba9eb8d273,
+        type: 3}
+      propertyPath: recipeList.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1d5b9421e8842c643a9fc3200fb2dea5,
+        type: 2}
     - target: {fileID: 114342688031250028, guid: c6595803226f27e49a68e7ba9eb8d273,
         type: 3}
       propertyPath: actionText
