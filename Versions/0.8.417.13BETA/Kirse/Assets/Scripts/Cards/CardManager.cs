@@ -158,17 +158,13 @@ public class CardManager : MonoBehaviour
 
     public void UseCard(int i)
     {
-        GameObject o = pHand[i];
-
-        if (o.activeInHierarchy == true && forgeable == false)
+        if (pHand[i].activeInHierarchy == true)
         {
-
-            Card c = o.transform.gameObject.GetComponent<CardTemplate>().card;
-            CardProperties cp = c.cardProperties;
+            CardProperties cp = pHand[i].GetComponent<CardTemplate>().card.cardProperties;
 
             pHand[i].SetActive(false);
-            discardPile.Add(c);
-            o.transform.gameObject.GetComponent<CardTemplate>().card = null;
+            discardPile.Add(pHand[i].GetComponent<CardTemplate>().card);
+            pHand[i].GetComponent<CardTemplate>().card = null;
             switch (cp.title)
             {
                 case "Slash":
@@ -194,7 +190,6 @@ public class CardManager : MonoBehaviour
                     break;
             }
         }
-
     }
 
     public void DrawCard(List<Card> list)
@@ -218,28 +213,13 @@ public class CardManager : MonoBehaviour
                     }
                     pHand[i].SetActive(true);
 
-                    cardSelected = pHand[i].transform.gameObject;
-                    cardSelected.GetComponent<CardTemplate>().LoadCard(c);
-                    if (list == lootDeck)
-                    {
-
-                        //gm.actionText.text = "Draw from Loot Deck";
-                    }
-                    if (list == playerDeck)
-                    {
-
-                        //gm.actionText.text = "Draw from Player Deck";
-                    }
-                    if (list == discardPile)
-                    {
-
-                        // gm.actionText.text = "Draw from Discard Deck";
-                    }
+                    //cardSelected = pHand[i].transform.gameObject;
+                    pHand[i].GetComponent<CardTemplate>().LoadCard(c);
                     return;
                 }
             }
         }
-        else { return; }
+        //else { return; }
     }
     //public void CardTypeCheck()
     //{
@@ -262,26 +242,48 @@ public class CardManager : MonoBehaviour
             {
                 decToken(r.reqToken);
                 cardResult.GetComponent<CardTemplate>().LoadCard(recipeList[i].fusedCard);
-                CardToHand(r.fusedCard);
+
+                for (int i = 0; i < 4; i++)
+                {
+                    if (pHand[i].activeInHierarchy == false)
+                    {
+                        //Debug.Log(pHand[i].activeInHierarchy);
+                        //Debug.Log(pHand[i]);
+
+                        pHand[i].SetActive(true);
+                       
+                        pHand[i].GetComponent<CardTemplate>().LoadCard(r.fusedCard);
+                        //Debug.Log(pHand[i].activeInHierarchy);
+                        //cardSelected = pHand[i].transform.gameObject;
+                        //cardSelected.GetComponent<CardTemplate>().LoadCard(c);
+                        fm.ResetForgeCards(card1, card2);
+                        SetForgeDisplay();
+                        return;
+                    }
+                   
+                }
+                discardPile.Add(r.fusedCard);
                 fm.ResetForgeCards(card1, card2);
                 SetForgeDisplay();
-                return;
-            }
-            else
-            {
-                Debug.Log("error2");
-                //discardPile.Add(r.fusedCard);
-                //fm.ResetForgeCards(card1, card2);
-                //SetForgeDisplay();
                 //return;
             }
         }
-        else if (r is Recipe)
-        {
+            //    else
+            //    {
+            //        Debug.Log("error2");
+            //        //discardPile.Add(r.fusedCard);
+            //        //fm.ResetForgeCards(card1, card2);
+            //        //SetForgeDisplay();
+            //        //return;
+            //    }
+            //}
+            //else if (r is Recipe)
+            //{
+            //    Debug.Log("Error 4");
             if (card1 == r.card1 && card2 == r.card2 && t >= r.reqToken || card1 == r.card2 && card2 == r.card1 && t >= r.reqToken)
             {
                 decToken(r.reqToken);
-                cardResult.GetComponent<CardTemplate>().LoadCard(recipeList[i].fusedCard);
+                //cardResult.GetComponent<CardTemplate>().LoadCard(recipeList[i].fusedCard);
                 for (int p = 0; p < 4; p++)
                 {
                     if (pHand[p].activeInHierarchy == false)
@@ -298,7 +300,7 @@ public class CardManager : MonoBehaviour
                 }
 
             }
-        }
+        //}
         else
         {
             Debug.Log("error3");
@@ -345,17 +347,19 @@ public class CardManager : MonoBehaviour
 
     public void CardToHand(Card c)
     {
-        for (int p = 0; p < 4; p++)
+        for (int i = 0; i < 4; i++)
         {
-            if (pHand[p].activeSelf == false)
+            if (pHand[i].activeInHierarchy == false)
             {
-                Debug.Log(pHand[p].activeInHierarchy);
-                Debug.Log(pHand[p]);
+                //Debug.Log(pHand[i].activeInHierarchy);
+                //Debug.Log(pHand[i]);
 
-                pHand[p].SetActive(true);
-                Debug.Log(pHand[p].activeInHierarchy);
-                cardSelected = pHand[p].transform.gameObject;
-                cardSelected.GetComponent<CardTemplate>().LoadCard(c);
+                pHand[i].SetActive(true);
+
+                pHand[i].GetComponent<CardTemplate>().LoadCard(c);
+                //Debug.Log(pHand[i].activeInHierarchy);
+                //cardSelected = pHand[i].transform.gameObject;
+                //cardSelected.GetComponent<CardTemplate>().LoadCard(c);
                 return;
 
             }
