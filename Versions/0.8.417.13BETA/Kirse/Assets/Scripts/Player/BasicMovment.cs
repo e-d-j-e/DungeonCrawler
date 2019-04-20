@@ -224,7 +224,6 @@ public class BasicMovment : MonoBehaviour
     public void SetHealthBar(float f)
     {
         healthBar.transform.localScale = new Vector3(f, 1, 1);
-        FindObjectOfType<AudioManager>().Play("OUCH");
     }
 
     public void Slash()
@@ -252,6 +251,7 @@ public class BasicMovment : MonoBehaviour
     {
         curHealth -= f;
         StartCoroutine("SpriteBlink");
+        FindObjectOfType<AudioManager>().Play("OUCH");
         float calcHealth = curHealth / maxHealth;
         SetHealthBar(calcHealth);
         if (curHealth <= 0)

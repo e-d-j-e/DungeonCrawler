@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PlayerDetect : MonoBehaviour {
     private enemyAI enemy;
+    private bool s;
     private void Start()
     {
         enemy = GetComponentInChildren<enemyAI>();
+        s = true;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -14,8 +16,11 @@ public class PlayerDetect : MonoBehaviour {
         if(other.tag == "Player")
         {            
             enemy.attack = true;
-            if (gameObject.tag == "Enemy")
+            if (gameObject.tag == "Enemy" && s == true)
+            {
                 FindObjectOfType<AudioManager>().Play("Rocky");
+                s = false;
+            }            
         }
     }
 }

@@ -27,7 +27,7 @@ public class enemyAI : MonoBehaviour
 
     private Transform player;
     private Vector3 ofs;
-    private Color spc;
+    public SpriteRenderer spr;
     private float speed = 3;
 
     private bool coroutineStarted = false;
@@ -40,7 +40,7 @@ public class enemyAI : MonoBehaviour
         cm = CardManager.cm;
         attack = false;
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        spc = GetComponent<SpriteRenderer>().color;
+        //spr = GetComponent<SpriteRenderer>();
         charge = false;
         SC = true;
     }
@@ -157,23 +157,16 @@ public class enemyAI : MonoBehaviour
         GameObject text = Instantiate(floatingTextPrefab, transform.position + ofs, Quaternion.identity);
         Destroy(text, .77f);
         health -= damage;
-        if (health < 50)
+        if (health <= 20)
         {
-            //cant get it to work??
-            spc.r = 255;
-            spc.g = 100;
-            spc.b = 100;
-            spc.a = 175f;
-            GetComponent<SpriteRenderer>().color = spc;
+            
+            spr.color = new Color32(255, 25, 25, 165);
+        
         }
-        else if (health < 20)
+        else if (health <= 50)
         {
-            //cant get it to work??
-            spc.r = 255;
-            spc.g = 25;
-            spc.b = 25;
-            spc.a = 175f;
-            GetComponent<SpriteRenderer>().color = spc;
+            spr.color = new Color32(255, 100, 100, 190);
+            
         }
         if (health <= 0)
         {
@@ -191,7 +184,7 @@ public class enemyAI : MonoBehaviour
            
            
 
-            FindObjectOfType<AudioManager>().Stop("Rocky");
+            //FindObjectOfType<AudioManager>().Stop("Rocky");
             //choose between card or curcuitry upgrade
             int rand = Random.Range(0, 8);
             if (rand > 5)
@@ -207,7 +200,7 @@ public class enemyAI : MonoBehaviour
             }
             //
             BasicMovment p = GameObject.FindGameObjectWithTag("Player").GetComponent<BasicMovment>();
-            if (p.curHealth >= 90)
+            if (p.curHealth <p.maxHealth && p.curHealth >= 90)
             {
                 p.curHealth = p.maxHealth;
                 float calcHealth = p.curHealth / p.maxHealth;

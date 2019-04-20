@@ -226,3 +226,4 @@ MonoBehaviour:
     type: 3}
   attack: 0
   health: 100
+  spr: {fileID: 212266097409409624}
