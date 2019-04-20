@@ -27,10 +27,12 @@ public class enemyAI : MonoBehaviour
 
     private Transform player;
     private Vector3 ofs;
-    private float dist = .18f;
-    private float speed = 6;
+    private Color spc;
+    private float speed = 3;
 
     private bool coroutineStarted = false;
+    private bool charge;
+    private bool SC;
     CardManager cm;
     // Start is called before the first frame update
     void Start()
@@ -38,7 +40,9 @@ public class enemyAI : MonoBehaviour
         cm = CardManager.cm;
         attack = false;
         player = GameObject.FindGameObjectWithTag("Player").transform;
-
+        spc = GetComponent<SpriteRenderer>().color;
+        charge = false;
+        SC = true;
     }
 
     // Update is called once per frame
@@ -54,12 +58,17 @@ public class enemyAI : MonoBehaviour
             StartCoroutine("BulletFire");
         }
         if (gameObject.name == "Rock" && attack == true)
-        {
-           
-            if (Vector3.Distance(transform.position, player.position) > dist)
+        {//ADD CHARGE MOVEMENT HERE
+            if (SC == true)
             {
+                StartCoroutine("Charge");
+            }
+            if (charge == true)
+            {
+
+                transform.position += attPos * speed * Time.deltaTime;
                 Vector3 theScale = transform.localScale;
-                transform.position += attPos.normalized * speed * Time.deltaTime;
+
                 //gameObject.GetComponent<Rigidbody2D>().velocity = attPos.normalized * speed;
                 if (transform.position.x < player.transform.position.x)
                 {
@@ -71,11 +80,21 @@ public class enemyAI : MonoBehaviour
                     theScale.x = 1;
                     transform.localScale = theScale;
                 }
-
             }
+
+
         }
         //Enemy Move/Attack list for Ranged
 
+    }
+    public IEnumerator Charge()
+    {
+        SC = false;
+        charge = true;
+        yield return new WaitForSeconds(.55f);
+        charge = false;
+        yield return new WaitForSeconds(1.5f);
+        SC = true;
     }
     public IEnumerator BulletFire()
     {
@@ -84,7 +103,7 @@ public class enemyAI : MonoBehaviour
         {
             
             FindObjectOfType<AudioManager>().Play("BMWER");
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1.3f);
             FindObjectOfType<AudioManager>().Stop("BMWER");
           
             GameObject attack = Instantiate(shotPrefab, transform.position, Quaternion.identity);
@@ -98,7 +117,7 @@ public class enemyAI : MonoBehaviour
     {
         if (other.gameObject.tag == "Hitbox")
         {
-            player.GetComponent<BasicMovment>().DecreaseHealth(2);
+            player.GetComponent<BasicMovment>().DecreaseHealth(5);
         }
 
     }
@@ -108,7 +127,7 @@ public class enemyAI : MonoBehaviour
        if(other.gameObject.tag == "Dash")
         {
             StartCoroutine("SpriteBlink");
-            takeDamage(30);
+            takeDamage(20);
         }
        if (other.gameObject.tag == "Attack")
         {
@@ -127,29 +146,45 @@ public class enemyAI : MonoBehaviour
         yield return new WaitForSeconds(.1f);
         gameObject.GetComponent<SpriteRenderer>().enabled = true;
         yield return new WaitForSeconds(.1f);
-        //Destroy(gameObject);
+        
     }
 
     public void takeDamage(int damage)
     {
-        ofs = new Vector3(Random.Range(-.6f, .6f), Random.Range(0, .5f), 0);
+        ofs = new Vector3(Random.Range(-.6f, 1f), Random.Range(.25f, 1f), 0);
         TextMesh dmgtxt = floatingTextPrefab.GetComponent<TextMesh>();
         dmgtxt.text = damage.ToString();
         GameObject text = Instantiate(floatingTextPrefab, transform.position + ofs, Quaternion.identity);
         Destroy(text, .77f);
         health -= damage;
+        if (health < 50)
+        {
+            //cant get it to work??
+            spc.r = 255;
+            spc.g = 100;
+            spc.b = 100;
+            spc.a = 175f;
+            GetComponent<SpriteRenderer>().color = spc;
+        }
+        else if (health < 20)
+        {
+            //cant get it to work??
+            spc.r = 255;
+            spc.g = 25;
+            spc.b = 25;
+            spc.a = 175f;
+            GetComponent<SpriteRenderer>().color = spc;
+        }
         if (health <= 0)
         {
             if(gameObject.name=="Rock")
             {
-                //GameObject go = GameObject.FindGameObjectWithTag("Enemy");
-                //Destroy(go);
+                
                 FindObjectOfType<AudioManager>().Stop("Rocky");
             }
             else if(gameObject.name=="range")
             {
-                //GameObject go = GameObject.FindGameObjectWithTag("EnemyM");
-                //Destroy(go);
+                
                 FindObjectOfType<AudioManager>().Stop("BMW");
             }
             Destroy(gameObject);
@@ -170,14 +205,20 @@ public class enemyAI : MonoBehaviour
                 loot = cm.lootDeck[cm.loot()];
                 o.GetComponent<CardLoot>().LoadCard(loot);
             }
-            //else if (rand >= 2)
-            //{
-            //    Instantiate(DashLootPrefab, transform.position, Quaternion.identity);
-            //}
-            //else if (rand >= 0)
-            //{
-            //    Instantiate(SlashLootPrefab, transform.position, Quaternion.identity);
-            //}
+            //
+            BasicMovment p = GameObject.FindGameObjectWithTag("Player").GetComponent<BasicMovment>();
+            if (p.curHealth >= 90)
+            {
+                p.curHealth = p.maxHealth;
+                float calcHealth = p.curHealth / p.maxHealth;
+                p.SetHealthBar(calcHealth);
+            }
+            else if (p.curHealth < 90)
+            {
+                p.curHealth += 10;
+                float calcHealth = p.curHealth / p.maxHealth;
+                p.SetHealthBar(calcHealth);
+            }
         }
     }
 }

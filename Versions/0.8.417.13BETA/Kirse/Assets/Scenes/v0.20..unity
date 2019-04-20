@@ -264,37 +264,37 @@ MonoBehaviour:
   sounds:
   - name: playerWalk
     clip: {fileID: 8300000, guid: 685b968eb1aa62148a803f946290ae36, type: 3}
-    volume: 0.944
+    volume: 0.957
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: HocusPokus
     clip: {fileID: 8300000, guid: 712db1ba939ae7b40965b6738a74b414, type: 3}
-    volume: 0.838
+    volume: 0.87
     pitch: 0.82
     loop: 0
     source: {fileID: 0}
   - name: Beam
     clip: {fileID: 8300000, guid: a4ae1a2a75e49e4469b692f077fce6f9, type: 3}
-    volume: 0.75
+    volume: 0.674
     pitch: 1.1
     loop: 0
     source: {fileID: 0}
   - name: Slash
     clip: {fileID: 8300000, guid: 0f3ff73af748afd40b19595e10b7eae2, type: 3}
-    volume: 0.75
+    volume: 0.82
     pitch: 0.8
     loop: 0
     source: {fileID: 0}
   - name: Rocky
     clip: {fileID: 8300000, guid: 81af7b5338193304a88c5a803fbf44ad, type: 3}
-    volume: 0.474
+    volume: 0.537
     pitch: 0.85
     loop: 1
     source: {fileID: 0}
   - name: BMW
     clip: {fileID: 8300000, guid: aceb8338a3ac31a4db0e81536ea7c206, type: 3}
-    volume: 0.431
+    volume: 0.524
     pitch: 0.87
     loop: 1
     source: {fileID: 0}
@@ -306,7 +306,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: BMWER
     clip: {fileID: 8300000, guid: dcf73370ec1b1f94db72139eb00d19ad, type: 3}
-    volume: 0.662
+    volume: 0.034
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -1274,7 +1274,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &522337955
 MonoBehaviour:
   m_ObjectHideFlags: 0
