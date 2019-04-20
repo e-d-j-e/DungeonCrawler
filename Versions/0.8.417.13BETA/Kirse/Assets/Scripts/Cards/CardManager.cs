@@ -243,11 +243,12 @@ public class CardManager : MonoBehaviour
     //}
 
 
-    public void ForgeCard(Card card1, Card card2)
+    public void ForgeCard(Card card1, Card card2,Recipe recipe)
     {
         for (int i = 0; i < recipeList.Count; i++)
         {
-            Recipe r = recipeList[i];
+            //Recipe r = recipeList[i];
+            Recipe r = recipe;
             if (card1 == r.card1 && card2 == r.card2 && t >= r.reqToken
                 || card1 == r.card2 && card2 == r.card1 && t >= r.reqToken)
             {
@@ -267,6 +268,10 @@ public class CardManager : MonoBehaviour
                         cardSelected.GetComponent<CardTemplate>().LoadCard(recipeList[i].fusedCard);
                         fm.ResetForgeCards(card1, card2);
                         return;
+                    }
+                    else
+                    {
+
                     }
                 }
                 //fm.forgeDeck.Add(recipeList[i].fusedCard);
@@ -292,6 +297,15 @@ public class CardManager : MonoBehaviour
         }
         //Forging();
         return;
+    }
+    public void SetForgeDisplay()
+    {
+        Color c = Color.white;
+        c.a = 0;
+        forge1Display.GetComponent<Image>().color = c; //After a fail, it will set transparency back to .3f
+        forge2Display.GetComponent<Image>().color = c;
+        cardResult.GetComponent<Image>().color = c;
+        
     }
 
 

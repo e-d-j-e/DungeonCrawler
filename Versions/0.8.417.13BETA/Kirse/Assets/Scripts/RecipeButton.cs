@@ -22,7 +22,7 @@ public class RecipeButton : MonoBehaviour {
         c = cm.forge1Display.GetComponent<Image>().color;
 
         c.a = .3f;
-        LoadRecipe();
+        //LoadRecipe();
     }
 
 

@@ -78,6 +78,8 @@ public class ForgeRoom : MonoBehaviour
                 GameObject.Destroy(child.gameObject);
             }
             forgeDeck.Clear();
+            cm.SetForgeDisplay();
+            tokenText.text = "";
         }
 
     }
@@ -124,7 +126,7 @@ public class ForgeRoom : MonoBehaviour
     }
     public void Forge()
     {
-        cm.ForgeCard(forge1, forge2);
+        cm.ForgeCard(forge1, forge2,recipe);
         Debug.Log("Forging");
     }
     public void CreateCardButton()
