@@ -31,9 +31,11 @@ public class enemyAI : MonoBehaviour
     private float speed = 6;
 
     private bool coroutineStarted = false;
+    CardManager cm;
     // Start is called before the first frame update
     void Start()
     {
+        cm = CardManager.cm;
         attack = false;
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
@@ -163,7 +165,10 @@ public class enemyAI : MonoBehaviour
             }
             else if (rand >= 0)
             {
-                Instantiate(BeamLootPrefab, transform.position, Quaternion.identity);
+                GameObject o = Instantiate(BeamLootPrefab, transform.position, Quaternion.identity);
+                Card loot;
+                loot = cm.lootDeck[cm.loot()];
+                o.GetComponent<CardLoot>().LoadCard(loot);
             }
             //else if (rand >= 2)
             //{

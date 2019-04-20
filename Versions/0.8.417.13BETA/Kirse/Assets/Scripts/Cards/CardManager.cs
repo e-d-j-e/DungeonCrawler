@@ -34,9 +34,23 @@ public class CardManager : MonoBehaviour
     public int i;
 
     ForgeRoom fm;
+    private static CardManager _instance;
+    public static CardManager cm
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = GameObject.Find("GameManager").GetComponent<CardManager>();
+            }
 
+            return _instance;
+        }
+    }
     void Start()
     {
+        recipeList = new List<Recipe>(Resources.LoadAll<Recipe>("Recipe"));
+        
         token.text = t.ToString();
         fm = GameObject.Find("Forge Room").GetComponent<ForgeRoom>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<BasicMovment>();
@@ -306,4 +320,18 @@ public class CardManager : MonoBehaviour
         return ((t -= d) >= 0 ? true : false);
     }
 
+    public void CardToHand(Card c)
+    {
+        for (int p = 0; p < 4; p++)
+        {
+            if (pHand[p].activeInHierarchy == false)
+            {
+                pHand[p].SetActive(true);
+
+                cardSelected = pHand[p].transform.GetChild(0).gameObject;
+                cardSelected.GetComponent<CardTemplate>().LoadCard(c);
+                return;
+            }
+        }
+    }
 }

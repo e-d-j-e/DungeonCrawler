@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f472be72820411438a4b37ff010c2d3, type: 3}
-  m_Name: SpinSlash
+  m_Name: BoomerangDash
   m_EditorClassIdentifier: 
-  cardType: {fileID: 11400000, guid: 2125f61b076428e4aa73d5c8ada41cc5, type: 2}
+  cardType: {fileID: 11400000, guid: 5a2a57bde599b844db36718b1d16c9e4, type: 2}
   cardProperties:
-    title: SpinSlash
-    cardPic: {fileID: 21300000, guid: 68012fa2efda984438aad70fa87df170, type: 3}
+    title: Boomerang Dash
+    cardPic: {fileID: 21300000, guid: 17ab9c0ed3213354abe20c08163fee80, type: 3}
     damage: 60
