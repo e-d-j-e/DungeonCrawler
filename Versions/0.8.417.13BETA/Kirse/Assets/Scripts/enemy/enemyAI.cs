@@ -27,7 +27,7 @@ public class enemyAI : MonoBehaviour
 
     private Transform player;
     private Vector3 ofs;
-    public SpriteRenderer spr;
+    private SpriteRenderer spr;
     private float speed = 3;
 
     private bool coroutineStarted = false;
@@ -40,7 +40,7 @@ public class enemyAI : MonoBehaviour
         cm = CardManager.cm;
         attack = false;
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        //spr = GetComponent<SpriteRenderer>();
+        spr = GetComponent<SpriteRenderer>();
         charge = false;
         SC = true;
     }
@@ -184,21 +184,32 @@ public class enemyAI : MonoBehaviour
            
            
 
-            //FindObjectOfType<AudioManager>().Stop("Rocky");
+           
             //choose between card or curcuitry upgrade
-            int rand = Random.Range(0, 8);
+            int rand = Random.Range(0, 6);
             if (rand > 5)
             {
                 Instantiate(circuitLootPrefab, transform.position, Quaternion.identity);
             }
             else if (rand >= 0)
             {
-                GameObject o = Instantiate(BeamLootPrefab, transform.position, Quaternion.identity);
+                Vector2 lootdrop = new Vector2(transform.position.x - 2, transform.position.y+1);
+                GameObject o = (GameObject)Instantiate(BeamLootPrefab, lootdrop, Quaternion.identity);
+                cm.lootCount++;
+                o.name = cm.lootCount.ToString();
                 Card loot;
                 loot = cm.lootDeck[cm.loot()];
                 o.GetComponent<CardLoot>().LoadCard(loot);
+
+                lootdrop = new Vector2(transform.position.x + 2, transform.position.y+1);
+                GameObject o2 = (GameObject)Instantiate(BeamLootPrefab, lootdrop, Quaternion.identity);
+                cm.lootCount++;
+                o2.name = cm.lootCount.ToString();
+                Card loot2;
+                loot2 = cm.lootDeck[cm.loot()];
+                o2.GetComponent<CardLoot>().LoadCard(loot2);
             }
-            //
+            //PLAY HEALTH ADJUSTMENTS    
             BasicMovment p = GameObject.FindGameObjectWithTag("Player").GetComponent<BasicMovment>();
             if (p.curHealth <p.maxHealth && p.curHealth >= 90)
             {

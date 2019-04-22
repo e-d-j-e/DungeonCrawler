@@ -16,15 +16,26 @@ public class CardLoot : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D player)
     {
-        
+        int ll = int.Parse(this.name);
 
         if (player.gameObject.tag == "Player")
         {
-            
-
-            cm.CardToHand(loot);
+            if ((ll % 2) == 0)
+            {
+                ll--;
+                GameObject gg = GameObject.Find(ll.ToString());
+                cm.CardToHand(loot);
+                Destroy(gg);
+            }
+            else
+            {
+                ll++;
+                GameObject ggg = GameObject.Find(ll.ToString());
+                cm.CardToHand(loot);
+                Destroy(ggg);
+            }
             Destroy(gameObject);
-        }
+        }  
 
            
     }

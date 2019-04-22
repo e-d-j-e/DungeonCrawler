@@ -32,6 +32,7 @@ public class CardManager : MonoBehaviour
 
     public bool inMenu = false;
     public int i;
+    public int lootCount;
 
     ForgeRoom fm;
     private static CardManager _instance;
@@ -50,7 +51,7 @@ public class CardManager : MonoBehaviour
     void Start()
     {
         recipeList = new List<Recipe>(Resources.LoadAll<Recipe>("Recipe"));
-
+        lootCount = 0;
         token.text = t.ToString();
         fm = GameObject.Find("Forge Room").GetComponent<ForgeRoom>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<BasicMovment>();
