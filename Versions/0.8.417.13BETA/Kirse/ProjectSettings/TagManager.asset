@@ -16,6 +16,11 @@ TagManager:
   - textFont
   - Hitbox
   - Dash
+  - beam
+  - superbeam
+  - spinslash
+  - boomerdash
+  - slash
   layers:
   - Default
   - TransparentFX

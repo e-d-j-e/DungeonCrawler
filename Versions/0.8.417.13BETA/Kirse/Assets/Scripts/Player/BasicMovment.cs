@@ -35,6 +35,8 @@ public class BasicMovment : MonoBehaviour
     public GameObject slashPrefab;
     //public GameObject dashPrefab;
     public GameObject beamPrefab;
+    public GameObject spinslashPrefab;
+    public GameObject superbeamPrefab;
     public GameObject crosshair;
     public GameObject cam;
     public GameObject UI;
@@ -235,7 +237,7 @@ public class BasicMovment : MonoBehaviour
     public void Beam()
     {
         GameObject attack = Instantiate(beamPrefab, transform.position, Quaternion.identity);
-        attack.GetComponent<Rigidbody2D>().velocity = direction * 3.5f;
+        attack.GetComponent<Rigidbody2D>().velocity = direction.normalized * 3.5f;
         attack.transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
         Destroy(attack, 2);
     }
@@ -245,6 +247,19 @@ public class BasicMovment : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("Dash");
         StartCoroutine(Example(direction, coll));
 
+    }
+    public void SuperBeam()
+    {
+        GameObject attack = Instantiate(superbeamPrefab, transform.position, Quaternion.identity);
+        attack.GetComponent<Rigidbody2D>().velocity = direction.normalized * 3f;
+        attack.transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
+        Destroy(attack, 2.5f);
+    }
+    public void SpinSlash()
+    {
+        GameObject attack = Instantiate(spinslashPrefab, transform.position, Quaternion.identity);
+        attack.transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
+        Destroy(attack, 1f);
     }
 
     public void DecreaseHealth(float f)

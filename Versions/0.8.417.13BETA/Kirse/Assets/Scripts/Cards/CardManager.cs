@@ -184,9 +184,15 @@ public class CardManager : MonoBehaviour
                     incToken();
                     break;
                 case "DashBeam":
-
-
                     break;
+                case "SpinSlash":
+                    player.SpinSlash();
+                    incToken();
+                    break;
+                case "SuperBeam":
+                    player.SuperBeam();
+                    incToken();
+                    break;                  
                 default:
                     break;
             }
