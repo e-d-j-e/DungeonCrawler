@@ -74,6 +74,10 @@ public class BasicMovment : MonoBehaviour
     Vector2 direction;
     bool attacked = false;
 
+    public LayerMask whatIsEnemies;
+    public Transform attackPos;
+    public float attackRange;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -98,7 +102,7 @@ public class BasicMovment : MonoBehaviour
             direction = new Vector2(aim.x - transform.position.x, aim.y - transform.position.y);
             //movement for player
             move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
-           
+
             transform.position += ((movSpd * move) * Time.deltaTime);
 
             //Animations
@@ -112,8 +116,17 @@ public class BasicMovment : MonoBehaviour
 
 
         }
-    }
+        if (Input.GetKey(KeyCode.Space))
+        {
 
+            Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
+            for (int i = 0; i < enemiesToDamage.Length; i++)
+            {
+                Debug.Log("Enemy" + i);
+                enemiesToDamage[i].GetComponent<enemyAI>().takeDamage(20);
+            }
+        }
+    }
     private void movesound()
     {
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
@@ -126,24 +139,22 @@ public class BasicMovment : MonoBehaviour
 
     IEnumerator Example(Vector3 direction, Collider2D coll)
     {
+        //StartCoroutine("DashHitbox");
 
-        //transform.position += direction.normalized * 2;
-        
+        transform.GetChild(0).Rotate(0, 0, -(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
+        hitBox.gameObject.SetActive(false);
         GetComponent<Rigidbody2D>().velocity = direction.normalized * 25;
         gameObject.layer = 9; //Dash layer
-        hitBox.tag = "Dash";
         //spriteR.sprite = sprites[spriteVersion];
         yield return new WaitForSeconds(.14f);
+        transform.GetChild(0).Rotate(0, 0, (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg)); 
+        hitBox.gameObject.SetActive(true);
         gameObject.layer = 8; //Player 
-        hitBox.tag = "Hitbox";
-        //gameObject.transform.position = Vector3.zero;
+
         GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         spriteVersion = 1;
-        //spriteR.sprite = sprites[spriteVersion];
-        //transform.Rotate(0, 0, -(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
         spriteVersion = 0;
-        //coll.isTrigger = false;
-        crshrKey = false;
+
 
     }
 
@@ -243,6 +254,9 @@ public class BasicMovment : MonoBehaviour
     }
     public void Dash()
     {
+        
+        animator.Play("Dash");
+     
         //transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
         FindObjectOfType<AudioManager>().Play("Dash");
         StartCoroutine(Example(direction, coll));
@@ -280,5 +294,20 @@ public class BasicMovment : MonoBehaviour
     {
         attacked = false;
     }
-
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackPos.position, attackRange);
+    }
+    IEnumerator DashHitbox()
+    {
+        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
+        for (int i = 0; i < enemiesToDamage.Length; i++)
+        {
+            Debug.Log("Enemy" + i);
+            enemiesToDamage[i].GetComponent<enemyAI>().takeDamage(20);
+        }
+        yield return new WaitForSeconds(1);
+        yield break;
+    }
 }

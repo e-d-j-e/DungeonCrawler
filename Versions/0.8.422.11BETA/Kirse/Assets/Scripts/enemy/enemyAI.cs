@@ -126,11 +126,7 @@ public class enemyAI : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
 
-       if(other.gameObject.tag == "Dash")
-        {
-            StartCoroutine("SpriteBlink");
-            takeDamage(20);
-        }
+       
        if (other.gameObject.tag == "Attack")
         {
 
@@ -153,6 +149,7 @@ public class enemyAI : MonoBehaviour
 
     public void takeDamage(int damage)
     {
+        StartCoroutine("SpriteBlink");
         ofs = new Vector3(Random.Range(-.6f, 1f), Random.Range(.25f, 1f), 0);
         TextMesh dmgtxt = floatingTextPrefab.GetComponent<TextMesh>();
         dmgtxt.text = damage.ToString();

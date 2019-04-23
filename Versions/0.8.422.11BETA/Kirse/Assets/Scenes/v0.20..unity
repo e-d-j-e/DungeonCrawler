@@ -390,6 +390,21 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 172149748404875251}
+    - target: {fileID: 114097061652235872, guid: cc595cfdcf333014b8f4fa2c8e1827b4,
+        type: 3}
+      propertyPath: attackPos
+      value: 
+      objectReference: {fileID: 739127607}
+    - target: {fileID: 114097061652235872, guid: cc595cfdcf333014b8f4fa2c8e1827b4,
+        type: 3}
+      propertyPath: whatIsEnemies.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 114097061652235872, guid: cc595cfdcf333014b8f4fa2c8e1827b4,
+        type: 3}
+      propertyPath: attackRange
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 779764028, guid: cc595cfdcf333014b8f4fa2c8e1827b4, type: 3}
       propertyPath: modSlots.Array.data[0]
       value: 
@@ -406,6 +421,14 @@ PrefabInstance:
       propertyPath: modSlots.Array.data[3]
       value: 
       objectReference: {fileID: 436523326990378621}
+    - target: {fileID: 1694499402326924, guid: cc595cfdcf333014b8f4fa2c8e1827b4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1221442694641164, guid: cc595cfdcf333014b8f4fa2c8e1827b4, type: 3}
+      propertyPath: m_TagString
+      value: Hitbox
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc595cfdcf333014b8f4fa2c8e1827b4, type: 3}
 --- !u!1 &199521135
@@ -1685,6 +1708,12 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!4 &739127607 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4087476087354216, guid: cc595cfdcf333014b8f4fa2c8e1827b4,
+    type: 3}
+  m_PrefabInstance: {fileID: 199089555}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &763197262 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1212623107693226778, guid: b47f9e5c3d77be64aa5e9b31fc5d8e97,
@@ -2344,6 +2373,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1249769193605574, guid: 6b9bd960ee60c5048b8f057cb4e90443, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b9bd960ee60c5048b8f057cb4e90443, type: 3}
 --- !u!1 &1372484813
@@ -2858,6 +2891,10 @@ PrefabInstance:
     - target: {fileID: 1249722481298712, guid: 6b9bd960ee60c5048b8f057cb4e90443, type: 3}
       propertyPath: m_Name
       value: RockEnemy (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1249722481298712, guid: 6b9bd960ee60c5048b8f057cb4e90443, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4837002431871942, guid: 6b9bd960ee60c5048b8f057cb4e90443, type: 3}
       propertyPath: m_LocalPosition.x
