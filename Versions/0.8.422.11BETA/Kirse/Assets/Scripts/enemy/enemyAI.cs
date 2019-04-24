@@ -121,7 +121,7 @@ public class enemyAI : MonoBehaviour
         {
             player.GetComponent<BasicMovment>().DecreaseHealth(5);
         }
-
+       
     }
     private void OnTriggerEnter2D(Collider2D other)
     {

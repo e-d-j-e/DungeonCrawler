@@ -78,10 +78,15 @@ public class BasicMovment : MonoBehaviour
     public Transform attackPos;
     public float attackRange;
 
+
+    public bool dashAttack = false;
+    public float timeBtwAttack = 0;
+    public float startTimeBtwAttack;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        startTimeBtwAttack = .01f;
         spriteR = GetComponentInChildren<SpriteRenderer>();
         //spriteR = GetGetComponent<SpriteRenderer>();
         sprites = Resources.LoadAll<Sprite>(spriteNames);
@@ -113,18 +118,19 @@ public class BasicMovment : MonoBehaviour
             movesound();
 
             aimCrosshair();
-
-
-        }
-        if (Input.GetKey(KeyCode.Space))
-        {
-
-            Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
-            for (int i = 0; i < enemiesToDamage.Length; i++)
+            if(timeBtwAttack <= 0 && dashAttack == true)
             {
-                Debug.Log("Enemy" + i);
-                enemiesToDamage[i].GetComponent<enemyAI>().takeDamage(20);
+                Collider2D enemy = Physics2D.OverlapCircle(attackPos.position, attackRange, whatIsEnemies);
+                enemy.GetComponentInChildren<enemyAI>().takeDamage(20);
+                //Collider2D[] enemiesToDamage = Physics2D.OverlapCircle(attackPos.position, attackRange, whatIsEnemies);
+                //for (int i = 0; i < enemiesToDamage.Length; i++)
+                //{
+                //    Debug.Log("Enemy" + i);
+                //    enemiesToDamage[i].GetComponentInChildren<enemyAI>().takeDamage(20);
+                //}
             }
+            else { timeBtwAttack -= Time.deltaTime; }
+
         }
     }
     private void movesound()
@@ -139,23 +145,23 @@ public class BasicMovment : MonoBehaviour
 
     IEnumerator Example(Vector3 direction, Collider2D coll)
     {
-        //StartCoroutine("DashHitbox");
+        dashAttack = true;
 
-        transform.GetChild(0).Rotate(0, 0, -(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
+        transform.GetChild(0).Rotate(0, 0, (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
         hitBox.gameObject.SetActive(false);
         GetComponent<Rigidbody2D>().velocity = direction.normalized * 25;
         gameObject.layer = 9; //Dash layer
-        //spriteR.sprite = sprites[spriteVersion];
+        hitBox.tag = "Dash";
         yield return new WaitForSeconds(.14f);
-        transform.GetChild(0).Rotate(0, 0, (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg)); 
+        transform.GetChild(0).Rotate(0, 0, -(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg)); 
         hitBox.gameObject.SetActive(true);
         gameObject.layer = 8; //Player 
-
+        
         GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         spriteVersion = 1;
         spriteVersion = 0;
-
-
+        hitBox.tag = "Hitbox";
+        dashAttack = false;
     }
 
     //Crosshair follows mouse movements relative to players position
@@ -256,7 +262,7 @@ public class BasicMovment : MonoBehaviour
     {
         
         animator.Play("Dash");
-     
+        timeBtwAttack = startTimeBtwAttack;
         //transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
         FindObjectOfType<AudioManager>().Play("Dash");
         StartCoroutine(Example(direction, coll));
@@ -299,15 +305,5 @@ public class BasicMovment : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPos.position, attackRange);
     }
-    IEnumerator DashHitbox()
-    {
-        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
-        for (int i = 0; i < enemiesToDamage.Length; i++)
-        {
-            Debug.Log("Enemy" + i);
-            enemiesToDamage[i].GetComponent<enemyAI>().takeDamage(20);
-        }
-        yield return new WaitForSeconds(1);
-        yield break;
-    }
+
 }
