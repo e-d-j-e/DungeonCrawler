@@ -80,13 +80,12 @@ public class BasicMovment : MonoBehaviour
 
 
     public bool dashAttack = false;
-    public float timeBtwAttack = 0;
-    public float startTimeBtwAttack;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        startTimeBtwAttack = .01f;
+
         spriteR = GetComponentInChildren<SpriteRenderer>();
         //spriteR = GetGetComponent<SpriteRenderer>();
         sprites = Resources.LoadAll<Sprite>(spriteNames);
@@ -119,7 +118,6 @@ public class BasicMovment : MonoBehaviour
 
             aimCrosshair();
             
-            else { timeBtwAttack -= Time.deltaTime; }
 
         }
     }
@@ -136,7 +134,12 @@ public class BasicMovment : MonoBehaviour
     IEnumerator Example(Vector3 direction, Collider2D coll)
     {
         dashAttack = true;
-
+        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
+        for (int i = 0; i < enemiesToDamage.Length; i++)
+        {
+            Debug.Log("Enemy" + i);
+            enemiesToDamage[i].GetComponentInChildren<enemyAI>().takeDamage(20);
+        }
         transform.GetChild(0).Rotate(0, 0, (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
         hitBox.gameObject.SetActive(false);
         GetComponent<Rigidbody2D>().velocity = direction.normalized * 25;
@@ -252,15 +255,10 @@ public class BasicMovment : MonoBehaviour
     {
 
   
-        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
-        for (int i = 0; i < enemiesToDamage.Length; i++)
-        {
-            Debug.Log("Enemy" + i);
-            enemiesToDamage[i].GetComponentInChildren<enemyAI>().takeDamage(20);
-        }
+   
 
         animator.Play("Dash");
-        timeBtwAttack = startTimeBtwAttack;
+
         //transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
         FindObjectOfType<AudioManager>().Play("Dash");
         StartCoroutine(Example(direction, coll));

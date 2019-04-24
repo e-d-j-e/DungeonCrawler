@@ -403,7 +403,7 @@ PrefabInstance:
     - target: {fileID: 114097061652235872, guid: cc595cfdcf333014b8f4fa2c8e1827b4,
         type: 3}
       propertyPath: attackRange
-      value: 0.5
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 779764028, guid: cc595cfdcf333014b8f4fa2c8e1827b4, type: 3}
       propertyPath: modSlots.Array.data[0]
