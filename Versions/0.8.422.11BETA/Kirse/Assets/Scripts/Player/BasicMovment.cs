@@ -118,17 +118,7 @@ public class BasicMovment : MonoBehaviour
             movesound();
 
             aimCrosshair();
-            if(timeBtwAttack <= 0 && dashAttack == true)
-            {
-                Collider2D enemy = Physics2D.OverlapCircle(attackPos.position, attackRange, whatIsEnemies);
-                enemy.GetComponentInChildren<enemyAI>().takeDamage(20);
-                //Collider2D[] enemiesToDamage = Physics2D.OverlapCircle(attackPos.position, attackRange, whatIsEnemies);
-                //for (int i = 0; i < enemiesToDamage.Length; i++)
-                //{
-                //    Debug.Log("Enemy" + i);
-                //    enemiesToDamage[i].GetComponentInChildren<enemyAI>().takeDamage(20);
-                //}
-            }
+            
             else { timeBtwAttack -= Time.deltaTime; }
 
         }
@@ -260,7 +250,15 @@ public class BasicMovment : MonoBehaviour
     }
     public void Dash()
     {
-        
+
+  
+        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
+        for (int i = 0; i < enemiesToDamage.Length; i++)
+        {
+            Debug.Log("Enemy" + i);
+            enemiesToDamage[i].GetComponentInChildren<enemyAI>().takeDamage(20);
+        }
+
         animator.Play("Dash");
         timeBtwAttack = startTimeBtwAttack;
         //transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
