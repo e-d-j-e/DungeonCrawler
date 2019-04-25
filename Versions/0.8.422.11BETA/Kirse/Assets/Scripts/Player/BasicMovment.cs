@@ -39,7 +39,7 @@ public class BasicMovment : MonoBehaviour
     public GameObject superbeamPrefab;
     public GameObject crosshair;
     public GameObject cam;
-    public Animator animator;   
+    public Animator animator;
 
     float dashDistance = 2.5f;
 
@@ -71,7 +71,7 @@ public class BasicMovment : MonoBehaviour
     public Transform attackPos;
     public float attackRange;
     public bool dashAttack = false;
-    
+
     [HideInInspector]
     public Vector3 UIoffset;
     [HideInInspector]
@@ -80,12 +80,13 @@ public class BasicMovment : MonoBehaviour
     public Vector3 move;
     [HideInInspector]
     public Vector2 point;
-   
+
     // Start is called before the first frame update
     void Start()
     {
-
-        spriteR = GetComponentInChildren<SpriteRenderer>();       
+        float calcHealth = curHealth / maxHealth;
+        SetHealthBar(calcHealth);
+        spriteR = GetComponentInChildren<SpriteRenderer>();
         sprites = Resources.LoadAll<Sprite>(spriteNames);
         camoffset = cam.transform.position;
         //SetHealthBar(maxHealth);
@@ -113,7 +114,7 @@ public class BasicMovment : MonoBehaviour
             //sound
             movesound();
 
-            aimCrosshair();            
+            aimCrosshair();
 
         }
     }
@@ -135,10 +136,10 @@ public class BasicMovment : MonoBehaviour
         gameObject.layer = 9; //Dash layer
         hitBox.tag = "Dash";
         yield return new WaitForSeconds(.14f);
-        transform.GetChild(0).Rotate(0, 0, -(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg)); 
+        transform.GetChild(0).Rotate(0, 0, -(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
 
         gameObject.layer = 8; //Player 
-        
+
         GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         spriteVersion = 1;
         spriteVersion = 0;
@@ -153,7 +154,7 @@ public class BasicMovment : MonoBehaviour
         aim = Camera.main.ScreenToWorldPoint(aim);
         Vector2 mouse = new Vector2(aim.x - transform.position.x, aim.y - transform.position.y);
         Vector2 direction = new Vector2(aim.x - transform.position.x, aim.y - transform.position.y);
-              
+
 
         if (mouse.magnitude > 0)
         {
@@ -171,7 +172,7 @@ public class BasicMovment : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Mouse0) && attacked == false)
             {
                 //useCard();
-               
+
                 GameObject attack = Instantiate(hocusPokeusPrefab, transform.position, Quaternion.identity);
                 attack.transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
                 Destroy(attack, 0.4f);
@@ -183,7 +184,7 @@ public class BasicMovment : MonoBehaviour
     }
 
     IEnumerator SpriteBlink()
-    {        
+    {
         cam.GetComponent<ScreenShake>().TriggerShake();
 
         spriteR.enabled = false;
@@ -196,7 +197,7 @@ public class BasicMovment : MonoBehaviour
         yield return new WaitForSeconds(.1f);
         spriteR.enabled = true;
         yield return new WaitForSeconds(1f);
-  
+
         yield return new WaitForSeconds(2f);
     }
 
@@ -232,6 +233,15 @@ public class BasicMovment : MonoBehaviour
         //transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
         FindObjectOfType<AudioManager>().Play("Dash");
         StartCoroutine(DashAtt(direction, coll));
+
+    }
+    public void BoomerangDash()
+    {
+        hitBox.tag = "Dash";
+        animator.Play("Dash");
+        //transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
+        FindObjectOfType<AudioManager>().Play("Dash");
+        StartCoroutine(BoomerangDashCo(direction, coll));
 
     }
     public void SuperBeam()
@@ -291,11 +301,31 @@ public class BasicMovment : MonoBehaviour
         {
             if (enemiesToDamage[i].GetComponentInChildren<enemyAI>() == null) { }
             Debug.Log("Enemy" + i);
-                enemiesToDamage[i].GetComponentInChildren<enemyAI>().takeDamage(30);
-           
+            enemiesToDamage[i].GetComponentInChildren<enemyAI>().takeDamage(30);
 
-           
+
+
         }
+    }
+    public IEnumerator BoomerangDashCo(Vector3 direction, Collider2D coll)
+    {
+        transform.GetChild(0).Rotate(0, 0, (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
+
+        GetComponent<Rigidbody2D>().velocity = direction.normalized * 50;
+        gameObject.layer = 9; //Dash layer
+        hitBox.tag = "Dash";
+        yield return new WaitForSeconds(.2f);
+        animator.Play("Dash");
+        transform.GetChild(0).Rotate(0, 0, -(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
+        GetComponent<Rigidbody2D>().velocity = -direction.normalized * 50;
+        yield return new WaitForSeconds(.2f);
+        gameObject.layer = 8; //Player 
+
+        GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        spriteVersion = 1;
+        spriteVersion = 0;
+        hitBox.tag = "Hitbox";
+        dashAttack = false;
     }
 
 }

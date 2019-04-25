@@ -752,7 +752,7 @@ PrefabInstance:
         type: 3}
       propertyPath: playerDeck.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 0cd161e8933dd8e43836b885f5e247d2,
+      objectReference: {fileID: 11400000, guid: 74342fa85b63a894da29169332a04caf,
         type: 2}
     - target: {fileID: 114085835575106066, guid: c6595803226f27e49a68e7ba9eb8d273,
         type: 3}
@@ -9823,6 +9823,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 27270487038851614, guid: b47f9e5c3d77be64aa5e9b31fc5d8e97,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 27270487038851614, guid: b47f9e5c3d77be64aa5e9b31fc5d8e97,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 214.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 27270487038851614, guid: b47f9e5c3d77be64aa5e9b31fc5d8e97,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 27270487038851614, guid: b47f9e5c3d77be64aa5e9b31fc5d8e97,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 26.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b47f9e5c3d77be64aa5e9b31fc5d8e97, type: 3}

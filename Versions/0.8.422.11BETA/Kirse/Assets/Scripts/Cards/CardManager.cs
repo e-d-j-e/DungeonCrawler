@@ -184,8 +184,9 @@ public class CardManager : MonoBehaviour
                     player.Beam();
                     incToken();
                     break;
-                case "DashBeam":
-                    //boomerangdash
+                case "Boomerang Dash":
+                    player.BoomerangDash();
+                    incToken();
                     break;
                 case "SpinSlash":
                     player.SpinSlash();

@@ -126,12 +126,12 @@ public class enemyAI : MonoBehaviour
         {
             player.GetComponent<BasicMovment>().DecreaseHealth(5);
             canHit = false;
-            Invoke("CanHitReset", 1);
+            Invoke("CanHitReset", 1.5f);
         }
         if (other.gameObject.tag == "Dash" && canDash == true)
         {
             takeDamage(5);
-            canDash = false;
+            //canDash = false;
             Invoke("CanHitReset", 1);
         }
 
