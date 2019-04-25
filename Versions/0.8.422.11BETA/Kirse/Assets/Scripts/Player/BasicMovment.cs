@@ -133,21 +133,21 @@ public class BasicMovment : MonoBehaviour
 
     IEnumerator Example(Vector3 direction, Collider2D coll)
     {
-        dashAttack = true;
-        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
-        for (int i = 0; i < enemiesToDamage.Length; i++)
-        {
-            Debug.Log("Enemy" + i);
-            enemiesToDamage[i].GetComponentInChildren<enemyAI>().takeDamage(20);
-        }
+        //dashAttack = true;
+        //Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
+        //for (int i = 0; i < enemiesToDamage.Length; i++)
+        //{
+        //    Debug.Log("Enemy" + i);
+        //    enemiesToDamage[i].GetComponentInChildren<enemyAI>().takeDamage(20);
+        //}
         transform.GetChild(0).Rotate(0, 0, (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
-        hitBox.gameObject.SetActive(false);
+
         GetComponent<Rigidbody2D>().velocity = direction.normalized * 25;
         gameObject.layer = 9; //Dash layer
         hitBox.tag = "Dash";
         yield return new WaitForSeconds(.14f);
         transform.GetChild(0).Rotate(0, 0, -(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg)); 
-        hitBox.gameObject.SetActive(true);
+
         gameObject.layer = 8; //Player 
         
         GetComponent<Rigidbody2D>().velocity = Vector3.zero;
@@ -210,7 +210,7 @@ public class BasicMovment : MonoBehaviour
     {
         
         cam.GetComponent<ScreenShake>().TriggerShake();
-        hitBox.enabled = false;
+
         spriteR.enabled = false;
         //cam.transform.position += Vector3.right;
         yield return new WaitForSeconds(.1f);
@@ -221,7 +221,7 @@ public class BasicMovment : MonoBehaviour
         yield return new WaitForSeconds(.1f);
         spriteR.enabled = true;
         yield return new WaitForSeconds(1f);
-        hitBox.enabled = true;
+
   
         yield return new WaitForSeconds(2f);
     }
@@ -254,9 +254,9 @@ public class BasicMovment : MonoBehaviour
     public void Dash()
     {
 
-  
-   
 
+
+        hitBox.tag = "Dash";
         animator.Play("Dash");
 
         //transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);

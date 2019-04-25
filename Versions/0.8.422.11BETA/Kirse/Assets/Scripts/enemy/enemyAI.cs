@@ -35,6 +35,9 @@ public class enemyAI : MonoBehaviour
     private bool charge;
     private bool SC;
     CardManager cm;
+
+    bool canHit = true;
+    public bool canDash = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -115,13 +118,24 @@ public class enemyAI : MonoBehaviour
             yield return new WaitForSeconds(.6F);
         }
     }
+
+    private void CanHitReset() { canHit = true; canDash = true; }
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Hitbox")
+        if (other.gameObject.tag == "Hitbox" && canHit == true)
         {
             player.GetComponent<BasicMovment>().DecreaseHealth(5);
+            canHit = false;
+            Invoke("CanHitReset", 1);
         }
-       
+        if (other.gameObject.tag == "Dash" && canDash == true)
+        {
+            takeDamage(5);
+            canDash = false;
+            Invoke("CanHitReset", 1);
+        }
+
+
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
