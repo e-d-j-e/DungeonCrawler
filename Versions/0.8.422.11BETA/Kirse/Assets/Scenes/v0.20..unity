@@ -715,6 +715,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114085835575106066, guid: c6595803226f27e49a68e7ba9eb8d273,
         type: 3}
+      propertyPath: playerDeck.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114085835575106066, guid: c6595803226f27e49a68e7ba9eb8d273,
+        type: 3}
       propertyPath: forge1Display
       value: 
       objectReference: {fileID: 616505931}
@@ -743,6 +748,32 @@ PrefabInstance:
       propertyPath: token
       value: 
       objectReference: {fileID: 6004311769701947615}
+    - target: {fileID: 114085835575106066, guid: c6595803226f27e49a68e7ba9eb8d273,
+        type: 3}
+      propertyPath: playerDeck.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 0cd161e8933dd8e43836b885f5e247d2,
+        type: 2}
+    - target: {fileID: 114085835575106066, guid: c6595803226f27e49a68e7ba9eb8d273,
+        type: 3}
+      propertyPath: playerDeck.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114085835575106066, guid: c6595803226f27e49a68e7ba9eb8d273,
+        type: 3}
+      propertyPath: playerDeck.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114085835575106066, guid: c6595803226f27e49a68e7ba9eb8d273,
+        type: 3}
+      propertyPath: playerDeck.Array.data[4]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114085835575106066, guid: c6595803226f27e49a68e7ba9eb8d273,
+        type: 3}
+      propertyPath: playerDeck.Array.data[5]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 114342688031250028, guid: c6595803226f27e49a68e7ba9eb8d273,
         type: 3}
       propertyPath: actionText

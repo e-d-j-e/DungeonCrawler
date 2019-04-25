@@ -193,7 +193,7 @@ public class enemyAI : MonoBehaviour
                 
                 FindObjectOfType<AudioManager>().Stop("BMW");
             }
-            Destroy(gameObject);
+            Destroy(transform.parent.gameObject);
            
             //choose between card or curcuitry upgrade
             int rand = Random.Range(0, 8);

@@ -129,13 +129,6 @@ public class BasicMovment : MonoBehaviour
 
     IEnumerator DashAtt(Vector3 direction, Collider2D coll)
     {
-        //dashAttack = true;
-        //Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
-        //for (int i = 0; i < enemiesToDamage.Length; i++)
-        //{
-        //    Debug.Log("Enemy" + i);
-        //    enemiesToDamage[i].GetComponentInChildren<enemyAI>().takeDamage(20);
-        //}
         transform.GetChild(0).Rotate(0, 0, (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
 
         GetComponent<Rigidbody2D>().velocity = direction.normalized * 25;
@@ -250,6 +243,7 @@ public class BasicMovment : MonoBehaviour
     }
     public void SpinSlash()
     {
+        StartCoroutine("SpinSlashAttack");
         GameObject attack = Instantiate(spinslashPrefab, transform.position, Quaternion.identity);
         attack.transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
         Destroy(attack, 1f);
@@ -277,6 +271,31 @@ public class BasicMovment : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPos.position, attackRange);
+    }
+
+    public IEnumerator SpinSlashAttack()
+    {
+        AttackRange(2);
+
+        yield return new WaitForSeconds(.3F);
+        AttackRange(2);
+        yield return new WaitForSeconds(.3F);
+        AttackRange(2);
+        yield break;
+    }
+
+    public void AttackRange(float f)
+    {
+        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, f, whatIsEnemies);
+        for (int i = 0; i < enemiesToDamage.Length; i++)
+        {
+            if (enemiesToDamage[i].GetComponentInChildren<enemyAI>() == null) { }
+            Debug.Log("Enemy" + i);
+                enemiesToDamage[i].GetComponentInChildren<enemyAI>().takeDamage(30);
+           
+
+           
+        }
     }
 
 }

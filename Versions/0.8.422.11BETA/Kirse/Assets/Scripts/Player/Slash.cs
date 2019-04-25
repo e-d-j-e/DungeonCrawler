@@ -20,11 +20,11 @@ public class Slash : MonoBehaviour {
                 FindObjectOfType<AudioManager>().Play("Slash");
 
             }
-            else if (this.tag=="spinslash")
-            {
-                enemy.takeDamage(120);
-                FindObjectOfType<AudioManager>().Play("Slash");
-            }
+            //else if (this.tag=="spinslash")
+            //{
+            //    enemy.takeDamage(120);
+            //    FindObjectOfType<AudioManager>().Play("Slash");
+            //}
         }
     }
 }
