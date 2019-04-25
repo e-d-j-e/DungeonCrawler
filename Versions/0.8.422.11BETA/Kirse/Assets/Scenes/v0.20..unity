@@ -390,21 +390,6 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 172149748404875251}
-    - target: {fileID: 114097061652235872, guid: cc595cfdcf333014b8f4fa2c8e1827b4,
-        type: 3}
-      propertyPath: attackPos
-      value: 
-      objectReference: {fileID: 739127607}
-    - target: {fileID: 114097061652235872, guid: cc595cfdcf333014b8f4fa2c8e1827b4,
-        type: 3}
-      propertyPath: whatIsEnemies.m_Bits
-      value: 1024
-      objectReference: {fileID: 0}
-    - target: {fileID: 114097061652235872, guid: cc595cfdcf333014b8f4fa2c8e1827b4,
-        type: 3}
-      propertyPath: attackRange
-      value: 0.25
-      objectReference: {fileID: 0}
     - target: {fileID: 779764028, guid: cc595cfdcf333014b8f4fa2c8e1827b4, type: 3}
       propertyPath: modSlots.Array.data[0]
       value: 
@@ -421,14 +406,6 @@ PrefabInstance:
       propertyPath: modSlots.Array.data[3]
       value: 
       objectReference: {fileID: 436523326990378621}
-    - target: {fileID: 1694499402326924, guid: cc595cfdcf333014b8f4fa2c8e1827b4, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1221442694641164, guid: cc595cfdcf333014b8f4fa2c8e1827b4, type: 3}
-      propertyPath: m_TagString
-      value: Hitbox
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc595cfdcf333014b8f4fa2c8e1827b4, type: 3}
 --- !u!1 &199521135
@@ -738,11 +715,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114085835575106066, guid: c6595803226f27e49a68e7ba9eb8d273,
         type: 3}
-      propertyPath: recipeList.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114085835575106066, guid: c6595803226f27e49a68e7ba9eb8d273,
-        type: 3}
       propertyPath: forge1Display
       value: 
       objectReference: {fileID: 616505931}
@@ -771,12 +743,6 @@ PrefabInstance:
       propertyPath: token
       value: 
       objectReference: {fileID: 6004311769701947615}
-    - target: {fileID: 114085835575106066, guid: c6595803226f27e49a68e7ba9eb8d273,
-        type: 3}
-      propertyPath: recipeList.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 1d5b9421e8842c643a9fc3200fb2dea5,
-        type: 2}
     - target: {fileID: 114342688031250028, guid: c6595803226f27e49a68e7ba9eb8d273,
         type: 3}
       propertyPath: actionText
@@ -1708,12 +1674,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!4 &739127607 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4087476087354216, guid: cc595cfdcf333014b8f4fa2c8e1827b4,
-    type: 3}
-  m_PrefabInstance: {fileID: 199089555}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &763197262 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1212623107693226778, guid: b47f9e5c3d77be64aa5e9b31fc5d8e97,

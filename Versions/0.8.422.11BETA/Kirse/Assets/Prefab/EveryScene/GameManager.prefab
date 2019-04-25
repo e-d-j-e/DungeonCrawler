@@ -65,6 +65,7 @@ MonoBehaviour:
   recipeList:
   - {fileID: 11400000, guid: 2fa4313f57ad42c48a9b1265dd126b7a, type: 2}
   - {fileID: 11400000, guid: a2718a7f71f6b1a409a98b8ab097de4f, type: 2}
+  - {fileID: 0}
   randomNum: 0
   forgeable: 0
   forge1: {fileID: 0}
@@ -81,6 +82,7 @@ MonoBehaviour:
   forgeDeck: []
   inMenu: 0
   i: 0
+  lootCount: 0
 --- !u!114 &114342688031250028
 MonoBehaviour:
   m_ObjectHideFlags: 0

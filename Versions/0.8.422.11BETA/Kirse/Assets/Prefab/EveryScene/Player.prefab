@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 61977982579098500}
   m_Layer: 0
   m_Name: HitBox
-  m_TagString: Untagged
+  m_TagString: Hitbox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -334,20 +334,29 @@ MonoBehaviour:
   slashPrefab: {fileID: 1911146334329188, guid: f27fc315ee169334dabe2f08d8353e6a,
     type: 3}
   beamPrefab: {fileID: 1462878560812872, guid: d1b0269106ea71e488f7b78b366398f7, type: 3}
+  spinslashPrefab: {fileID: 3089973141138755273, guid: 43c739aa058608b4393484c4b7829a7e,
+    type: 3}
+  superbeamPrefab: {fileID: 6773410987476947003, guid: 6791096d9305b6645adf7bf807b1691b,
+    type: 3}
   crosshair: {fileID: 1859186737574612}
   cam: {fileID: 1694499402326924}
-  UI: {fileID: 0}
   animator: {fileID: 95361189133808328}
-  UIoffset: {x: 0, y: 0, z: 0}
-  camoffset: {x: 0, y: 0, z: 0}
-  move: {x: 0, y: 0, z: 0}
-  point: {x: 0, y: 0}
   movSpd: 5
   curHealth: 100
   maxHealth: 100
   healthBar: {fileID: 0}
   dmgPossible: 0
   spriteR: {fileID: 212738653113668942}
+  whatIsEnemies:
+    serializedVersion: 2
+    m_Bits: 1024
+  attackPos: {fileID: 4087476087354216}
+  attackRange: 0.25
+  dashAttack: 0
+  UIoffset: {x: 0, y: 0, z: 0}
+  camoffset: {x: 0, y: 0, z: 0}
+  move: {x: 0, y: 0, z: 0}
+  point: {x: 0, y: 0}
 --- !u!50 &50351928107062634
 Rigidbody2D:
   serializedVersion: 4

@@ -39,13 +39,7 @@ public class BasicMovment : MonoBehaviour
     public GameObject superbeamPrefab;
     public GameObject crosshair;
     public GameObject cam;
-    public GameObject UI;
-    public Animator animator;
-
-    public Vector3 UIoffset;
-    public Vector3 camoffset;
-    public Vector3 move;
-    public Vector2 point;
+    public Animator animator;   
 
     float dashDistance = 2.5f;
 
@@ -67,7 +61,6 @@ public class BasicMovment : MonoBehaviour
     private short count = 0;
     private bool crshrKey = false;
 
-
     //Testing Aim Variables
     Vector3 aim;
     Vector2 mouse;
@@ -77,20 +70,24 @@ public class BasicMovment : MonoBehaviour
     public LayerMask whatIsEnemies;
     public Transform attackPos;
     public float attackRange;
-
-
     public bool dashAttack = false;
-
-
+    
+    [HideInInspector]
+    public Vector3 UIoffset;
+    [HideInInspector]
+    public Vector3 camoffset;
+    [HideInInspector]
+    public Vector3 move;
+    [HideInInspector]
+    public Vector2 point;
+   
     // Start is called before the first frame update
     void Start()
     {
 
-        spriteR = GetComponentInChildren<SpriteRenderer>();
-        //spriteR = GetGetComponent<SpriteRenderer>();
+        spriteR = GetComponentInChildren<SpriteRenderer>();       
         sprites = Resources.LoadAll<Sprite>(spriteNames);
         camoffset = cam.transform.position;
-        //UIoffset = UI.transform.position - transform.position;
         //SetHealthBar(maxHealth);
     }
 
@@ -116,8 +113,7 @@ public class BasicMovment : MonoBehaviour
             //sound
             movesound();
 
-            aimCrosshair();
-            
+            aimCrosshair();            
 
         }
     }
@@ -131,7 +127,7 @@ public class BasicMovment : MonoBehaviour
     }
 
 
-    IEnumerator Example(Vector3 direction, Collider2D coll)
+    IEnumerator DashAtt(Vector3 direction, Collider2D coll)
     {
         //dashAttack = true;
         //Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
@@ -164,14 +160,7 @@ public class BasicMovment : MonoBehaviour
         aim = Camera.main.ScreenToWorldPoint(aim);
         Vector2 mouse = new Vector2(aim.x - transform.position.x, aim.y - transform.position.y);
         Vector2 direction = new Vector2(aim.x - transform.position.x, aim.y - transform.position.y);
-
-        if (count == 0)
-        {
-            //crosshair.SetActive(true);
-            crshrKey = true;
-            count = 1;
-
-        }
+              
 
         if (mouse.magnitude > 0)
         {
@@ -180,17 +169,11 @@ public class BasicMovment : MonoBehaviour
             crosshair.transform.localPosition = mouse;
             //if (crshrKey == false)
             //{
-            //    //crosshair.SetActive(true);
             //    crshrKey = true;
-
-
             //}
-
-
             direction.Normalize();
 
             //Input keys for activating cards
-
             //HOKUS-POKE-US
             if (Input.GetKeyDown(KeyCode.Mouse0) && attacked == false)
             {
@@ -207,8 +190,7 @@ public class BasicMovment : MonoBehaviour
     }
 
     IEnumerator SpriteBlink()
-    {
-        
+    {        
         cam.GetComponent<ScreenShake>().TriggerShake();
 
         spriteR.enabled = false;
@@ -221,7 +203,6 @@ public class BasicMovment : MonoBehaviour
         yield return new WaitForSeconds(.1f);
         spriteR.enabled = true;
         yield return new WaitForSeconds(1f);
-
   
         yield return new WaitForSeconds(2f);
     }
@@ -253,15 +234,11 @@ public class BasicMovment : MonoBehaviour
     }
     public void Dash()
     {
-
-
-
         hitBox.tag = "Dash";
         animator.Play("Dash");
-
         //transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
         FindObjectOfType<AudioManager>().Play("Dash");
-        StartCoroutine(Example(direction, coll));
+        StartCoroutine(DashAtt(direction, coll));
 
     }
     public void SuperBeam()
