@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-public class DetailPopUp : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class DetailPopUp : MonoBehaviour
 {
     public float startDelay = 2;
     public float currentTime;
@@ -15,20 +15,27 @@ public class DetailPopUp : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
 
     }
-
-    public void OnPointerEnter(PointerEventData eventData)
+    public void ShowTip()
     {
-        //If your mouse hovers over the GameObject with the script attached, output this message
-        Debug.Log("The cursor entered the selectable UI element.");
-        //currentTime = startDelay;
-
-
 
     }
-    public void OnPointerExit(PointerEventData eventData)
+    public void ToolTip(bool b)
     {
+        GameManager.gm.LoadDetails(gameObject.GetComponent<CardTemplate>().card.cardProperties.title, b);
+    }
+    //public void OnPointerEnter(PointerEventData eventData)
+    //{
+    //    //If your mouse hovers over the GameObject with the script attached, output this message
+    //    Debug.Log("The cursor entered the selectable UI element.");
+    //    //currentTime = startDelay;
+
+
+
+    //}
+    //public void OnPointerExit(PointerEventData eventData)
+    //{
  
-    }
+    //}
 
     //void OnMouseOver()
     //{

@@ -1,5 +1,67 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &2636051830020708688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5163350392978927270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4837331164033228614}
+          m_MethodName: ToolTip
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
+--- !u!114 &8874008468872662829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5163350392978927270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4837331164033228614}
+          m_MethodName: ToolTip
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
 --- !u!1001 &5161456383471449012
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9,7 +71,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1911950260641042, guid: 00a6567ec5466524a84b9cc14e41f1c5, type: 3}
       propertyPath: m_Name
-      value: CardButton
+      value: CardButton Variant
       objectReference: {fileID: 0}
     - target: {fileID: 224602087079461772, guid: 00a6567ec5466524a84b9cc14e41f1c5,
         type: 3}
@@ -118,3 +180,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00a6567ec5466524a84b9cc14e41f1c5, type: 3}
+--- !u!1 &5163350392978927270 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1911950260641042, guid: 00a6567ec5466524a84b9cc14e41f1c5,
+    type: 3}
+  m_PrefabInstance: {fileID: 5161456383471449012}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4837331164033228614 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 324411092763438322, guid: 00a6567ec5466524a84b9cc14e41f1c5,
+    type: 3}
+  m_PrefabInstance: {fileID: 5161456383471449012}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5163350392978927270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73f661c2e60bff04cb7b1e1d9725cc98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
