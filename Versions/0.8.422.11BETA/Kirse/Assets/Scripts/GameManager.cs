@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 public class GameManager : MonoBehaviour {
 
+    public GameObject gameManager;
     private static GameManager _instance;
     public static GameManager gm
     {
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour {
     //    GameManager gm = this.gameObject.GetComponent<GameManager>();
     //}
 
+    
     public void SlowMo()
     {
         if (Input.GetKeyDown(KeyCode.Backspace))
@@ -44,5 +46,19 @@ public class GameManager : MonoBehaviour {
                 Time.timeScale = i;
             }
         }
+    }
+
+    private void Start()
+    {
+        gameManager = this.gameObject;
+
+    }
+    public void LoadDetails(Card c)
+    {
+        
+    }
+    public void Update()
+    {
+
     }
 }
