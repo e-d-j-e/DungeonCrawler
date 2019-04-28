@@ -14,17 +14,9 @@ using UnityEngine.SceneManagement;
 //0.25.00- added animations, dash broke tho rip
 //
 //
-
-
-
-
-
 //TODO:
-/*4 key inputs
- *hocus poke-us attack input
- * 
- * 
- */
+//
+//
 
 
 public class BasicMovment : MonoBehaviour
@@ -212,7 +204,7 @@ public class BasicMovment : MonoBehaviour
     {
         healthBar.transform.localScale = new Vector3(f, 1, 1);
     }
-
+    //INSERT IN HERE, SLOW OR STOP CHARACTER MOVEMENT, try coroutine
     public void Slash()
     {
         GameObject attack = Instantiate(slashPrefab, transform.position, Quaternion.identity);
@@ -302,8 +294,6 @@ public class BasicMovment : MonoBehaviour
             if (enemiesToDamage[i].GetComponentInChildren<enemyAI>() == null) { }
             Debug.Log("Enemy" + i);
             enemiesToDamage[i].GetComponentInChildren<enemyAI>().takeDamage(30);
-
-
 
         }
     }

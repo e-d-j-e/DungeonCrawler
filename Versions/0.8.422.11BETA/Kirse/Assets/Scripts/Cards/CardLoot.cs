@@ -36,6 +36,10 @@ public class CardLoot : MonoBehaviour
            
             Destroy(gameObject);
         }
+        else
+        {
+
+        }
 
            
     }
