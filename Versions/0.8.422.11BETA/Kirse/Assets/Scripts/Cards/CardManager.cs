@@ -92,22 +92,19 @@ public class CardManager : MonoBehaviour
     public void Controls()
     {
 
-        if (Input.GetKeyDown(KeyCode.CapsLock))
+        if (Input.GetKeyDown(KeyCode.CapsLock)&& player.attacked==false)
         {
             UseCard(0);
         }
-
-        if (Input.GetKeyDown(KeyCode.Q))
+        else if (Input.GetKeyDown(KeyCode.Q) && player.attacked == false)
         {
             UseCard(1);
         }
-
-        if (Input.GetKeyDown(KeyCode.E))
+        else if (Input.GetKeyDown(KeyCode.E) && player.attacked == false)
         {
             UseCard(2);
         }
-
-        if (Input.GetKeyDown(KeyCode.R))
+        else if (Input.GetKeyDown(KeyCode.R) && player.attacked == false)
         {
             UseCard(3);
         }
@@ -170,31 +167,40 @@ public class CardManager : MonoBehaviour
             switch (cp.title)
             {
                 case "Slash":
-
+                    player.attacked = true;
                     player.Slash();
                     incToken();
+                    StartCoroutine(player.AttackRelease(0.8f));
                     break;
                 case "Dash":
-
+                    player.attacked = true;
                     player.Dash();
                     incToken();
+                    StartCoroutine(player.AttackRelease(.8f));
                     break;
                 case "Beam":
-
+                    player.attacked = true;
                     player.Beam();
                     incToken();
+                    StartCoroutine(player.AttackRelease(0.8f));
                     break;
                 case "Boomerang Dash":
+                    player.attacked = true;
                     player.BoomerangDash();
                     incToken();
+                    StartCoroutine(player.AttackRelease(0.8f));
                     break;
                 case "SpinSlash":
+                    player.attacked = true;
                     player.SpinSlash();
                     incToken();
+                    StartCoroutine(player.AttackRelease(0.8f));
                     break;
                 case "SuperBeam":
+                    player.attacked = true;
                     player.SuperBeam();
                     incToken();
+                    StartCoroutine(player.AttackRelease(0.8f));
                     break;
                 default:
                     break;

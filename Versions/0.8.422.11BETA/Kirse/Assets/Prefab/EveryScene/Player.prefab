@@ -347,6 +347,7 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   dmgPossible: 0
   spriteR: {fileID: 212738653113668942}
+  attacked: 0
   whatIsEnemies:
     serializedVersion: 2
     m_Bits: 1024

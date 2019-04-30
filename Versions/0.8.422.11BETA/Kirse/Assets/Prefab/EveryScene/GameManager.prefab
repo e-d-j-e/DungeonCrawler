@@ -49,9 +49,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c5eb3e4aadceb54479fa4e642e0071b7, type: 2}
   - {fileID: 11400000, guid: 0f492ef697d604746bd106665a7098d1, type: 2}
   - {fileID: 11400000, guid: b2e8432a7b570e246a0e0ff01d78071c, type: 2}
-  - {fileID: 11400000, guid: c5eb3e4aadceb54479fa4e642e0071b7, type: 2}
-  - {fileID: 11400000, guid: 0f492ef697d604746bd106665a7098d1, type: 2}
-  - {fileID: 11400000, guid: b2e8432a7b570e246a0e0ff01d78071c, type: 2}
   lootDeck:
   - {fileID: 11400000, guid: c5eb3e4aadceb54479fa4e642e0071b7, type: 2}
   - {fileID: 11400000, guid: 0f492ef697d604746bd106665a7098d1, type: 2}
@@ -95,5 +92,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89fd4319b6dcf2c4a9d7d7d07401161e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toolTip: {fileID: 0}
+  toolText: {fileID: 0}
+  gameManager: {fileID: 0}
   actionText: {fileID: 0}
   forgeable: {fileID: 0}

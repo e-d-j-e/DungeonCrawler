@@ -469,6 +469,11 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 172149748404875251}
+    - target: {fileID: 114097061652235872, guid: cc595cfdcf333014b8f4fa2c8e1827b4,
+        type: 3}
+      propertyPath: movSpd
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 779764028, guid: cc595cfdcf333014b8f4fa2c8e1827b4, type: 3}
       propertyPath: modSlots.Array.data[0]
       value: 
@@ -544,6 +549,85 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &210171200
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 210171202}
+  - component: {fileID: 210171201}
+  m_Layer: 0
+  m_Name: Trap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &210171201
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210171200}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 1e4f93b0e278b80448488a61764d79f7, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1.09, y: 0.13}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &210171202
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210171200}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -139.9, y: -30.8, z: -0.048828125}
+  m_LocalScale: {x: 1.3277, y: 9.025145, z: 1.3277}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &217236567
 GameObject:
   m_ObjectHideFlags: 0
@@ -794,11 +878,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114085835575106066, guid: c6595803226f27e49a68e7ba9eb8d273,
         type: 3}
-      propertyPath: playerDeck.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114085835575106066, guid: c6595803226f27e49a68e7ba9eb8d273,
-        type: 3}
       propertyPath: forge1Display
       value: 
       objectReference: {fileID: 616505931}
@@ -827,42 +906,6 @@ PrefabInstance:
       propertyPath: token
       value: 
       objectReference: {fileID: 6004311769701947615}
-    - target: {fileID: 114085835575106066, guid: c6595803226f27e49a68e7ba9eb8d273,
-        type: 3}
-      propertyPath: playerDeck.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 74342fa85b63a894da29169332a04caf,
-        type: 2}
-    - target: {fileID: 114085835575106066, guid: c6595803226f27e49a68e7ba9eb8d273,
-        type: 3}
-      propertyPath: playerDeck.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114085835575106066, guid: c6595803226f27e49a68e7ba9eb8d273,
-        type: 3}
-      propertyPath: playerDeck.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114085835575106066, guid: c6595803226f27e49a68e7ba9eb8d273,
-        type: 3}
-      propertyPath: playerDeck.Array.data[4]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114085835575106066, guid: c6595803226f27e49a68e7ba9eb8d273,
-        type: 3}
-      propertyPath: playerDeck.Array.data[5]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114342688031250028, guid: c6595803226f27e49a68e7ba9eb8d273,
-        type: 3}
-      propertyPath: actionText
-      value: 
-      objectReference: {fileID: 802226080}
-    - target: {fileID: 114342688031250028, guid: c6595803226f27e49a68e7ba9eb8d273,
-        type: 3}
-      propertyPath: forgeable
-      value: 
-      objectReference: {fileID: 1739475779}
     - target: {fileID: 114342688031250028, guid: c6595803226f27e49a68e7ba9eb8d273,
         type: 3}
       propertyPath: toolTip
@@ -873,6 +916,16 @@ PrefabInstance:
       propertyPath: toolText
       value: 
       objectReference: {fileID: 64995045}
+    - target: {fileID: 114342688031250028, guid: c6595803226f27e49a68e7ba9eb8d273,
+        type: 3}
+      propertyPath: actionText
+      value: 
+      objectReference: {fileID: 802226080}
+    - target: {fileID: 114342688031250028, guid: c6595803226f27e49a68e7ba9eb8d273,
+        type: 3}
+      propertyPath: forgeable
+      value: 
+      objectReference: {fileID: 1739475779}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6595803226f27e49a68e7ba9eb8d273, type: 3}
 --- !u!1001 &282555627

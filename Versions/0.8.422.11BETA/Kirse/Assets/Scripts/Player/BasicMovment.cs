@@ -36,7 +36,7 @@ public class BasicMovment : MonoBehaviour
     float dashDistance = 2.5f;
 
     private Vector2 movement;
-    public float movSpd = 2.9f;
+    public float movSpd = 5f;
     public float curHealth = 100;
     public float maxHealth = 100;
     public GameObject healthBar;
@@ -57,7 +57,7 @@ public class BasicMovment : MonoBehaviour
     Vector3 aim;
     Vector2 mouse;
     Vector2 direction;
-    bool attacked = false;
+    public bool attacked = false;
 
     public LayerMask whatIsEnemies;
     public Transform attackPos;
@@ -118,26 +118,19 @@ public class BasicMovment : MonoBehaviour
             FindObjectOfType<AudioManager>().Stop("playerWalk");
 
     }
-
-
-    IEnumerator DashAtt(Vector3 direction, Collider2D coll)
+    public IEnumerator AttackRelease(float t)
     {
-        transform.GetChild(0).Rotate(0, 0, (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
-
-        GetComponent<Rigidbody2D>().velocity = direction.normalized * 25;
-        gameObject.layer = 9; //Dash layer
-        hitBox.tag = "Dash";
-        yield return new WaitForSeconds(.14f);
-        transform.GetChild(0).Rotate(0, 0, -(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
-
-        gameObject.layer = 8; //Player 
-
-        GetComponent<Rigidbody2D>().velocity = Vector3.zero;
-        spriteVersion = 1;
-        spriteVersion = 0;
-        hitBox.tag = "Hitbox";
-        dashAttack = false;
+        //INSERT SLOW/STOP PLAYER MESS AROUND WITH NUMBERS
+        movSpd = .25F;
+        yield return new WaitForSeconds(.3f);
+        movSpd = 5f;
+        yield return new WaitForSeconds(t);
+        attacked = false;
+        
     }
+
+
+
 
     //Crosshair follows mouse movements relative to players position
     private void aimCrosshair()
@@ -158,18 +151,16 @@ public class BasicMovment : MonoBehaviour
             //    crshrKey = true;
             //}
             direction.Normalize();
+            
 
-            //Input keys for activating cards
             //HOKUS-POKE-US
             if (Input.GetKeyDown(KeyCode.Mouse0) && attacked == false)
             {
-                //useCard();
-
                 GameObject attack = Instantiate(hocusPokeusPrefab, transform.position, Quaternion.identity);
                 attack.transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
                 Destroy(attack, 0.4f);
                 attacked = true;
-                Invoke("AttackRelease", .5f);
+                StartCoroutine(AttackRelease(.5f));
                 //isMove = true;
             }
         }
@@ -204,12 +195,14 @@ public class BasicMovment : MonoBehaviour
     {
         healthBar.transform.localScale = new Vector3(f, 1, 1);
     }
+
+
     //INSERT IN HERE, SLOW OR STOP CHARACTER MOVEMENT, try coroutine
     public void Slash()
     {
         GameObject attack = Instantiate(slashPrefab, transform.position, Quaternion.identity);
         attack.transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-        Destroy(attack, 0.5f);
+        Destroy(attack, 0.51f);
     }
     public void Beam()
     {
@@ -227,6 +220,7 @@ public class BasicMovment : MonoBehaviour
         StartCoroutine(DashAtt(direction, coll));
 
     }
+
     public void BoomerangDash()
     {
         hitBox.tag = "Dash";
@@ -265,10 +259,7 @@ public class BasicMovment : MonoBehaviour
         }
 
     }
-    void AttackRelease()
-    {
-        attacked = false;
-    }
+   
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
@@ -296,6 +287,24 @@ public class BasicMovment : MonoBehaviour
             enemiesToDamage[i].GetComponentInChildren<enemyAI>().takeDamage(30);
 
         }
+    }
+    IEnumerator DashAtt(Vector3 direction, Collider2D coll)
+    {
+        transform.GetChild(0).Rotate(0, 0, (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
+
+        GetComponent<Rigidbody2D>().velocity = direction.normalized * 25;
+        gameObject.layer = 9; //Dash layer
+        hitBox.tag = "Dash";
+        yield return new WaitForSeconds(.14f);
+        transform.GetChild(0).Rotate(0, 0, -(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg));
+
+        gameObject.layer = 8; //Player 
+
+        GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        spriteVersion = 1;
+        spriteVersion = 0;
+        hitBox.tag = "Hitbox";
+        dashAttack = false;
     }
     public IEnumerator BoomerangDashCo(Vector3 direction, Collider2D coll)
     {

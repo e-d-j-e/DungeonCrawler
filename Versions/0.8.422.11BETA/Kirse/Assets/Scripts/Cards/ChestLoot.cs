@@ -14,6 +14,8 @@ public class ChestLoot : MonoBehaviour
         cm = CardManager.cm;
     }
 
+    //FOR NOW-MAKE CHEST DROP A MOD, ADD MOD EFFECT. 
+    //CHEST ONLY OPENS ONCE!
     private void OnTriggerEnter2D(Collider2D ot)
     {
         //if(Input.GetKey(KeyCode.Space))

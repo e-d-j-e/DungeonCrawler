@@ -194,6 +194,8 @@ public class enemyAI : MonoBehaviour
                 FindObjectOfType<AudioManager>().Stop("BMW");
             }
             Destroy(transform.parent.gameObject);
+            //FOR NOW MONSTERS ONLY WILL DROP CARDS. THE MOD LOOT WILL COME FROM THE ONE CHEST TO SHOW OFF THAT
+
            
             //choose between card or curcuitry upgrade
             int rand = Random.Range(0, 8);
