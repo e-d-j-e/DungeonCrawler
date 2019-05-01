@@ -194,6 +194,7 @@ public class enemyAI : MonoBehaviour
                 FindObjectOfType<AudioManager>().Stop("BMW");
             }
             Destroy(transform.parent.gameObject);
+            DestroyableWall.KilledEnemies();
             //FOR NOW MONSTERS ONLY WILL DROP CARDS. THE MOD LOOT WILL COME FROM THE ONE CHEST TO SHOW OFF THAT
 
 
