@@ -29,8 +29,8 @@ public class enemyAI : MonoBehaviour
     private Vector3 ofs;
     private SpriteRenderer spr;
     private float speed = 3f;
-   
-   
+
+
     private bool coroutineStarted = false;
     private bool charge;
     private bool SC;
@@ -38,6 +38,7 @@ public class enemyAI : MonoBehaviour
 
     bool canHit = true;
     public bool canDash = true;
+    public bool hittable = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,7 +48,7 @@ public class enemyAI : MonoBehaviour
         spr = GetComponent<SpriteRenderer>();
         charge = false;
         SC = true;
-        
+
     }
 
     // Update is called once per frame
@@ -59,7 +60,7 @@ public class enemyAI : MonoBehaviour
 
         if (gameObject.name == "range" && attack == true && coroutineStarted == false)
         {
-            
+
             StartCoroutine("BulletFire");
         }
         if (gameObject.name == "Rock" && attack == true)
@@ -67,10 +68,10 @@ public class enemyAI : MonoBehaviour
             if (SC == true)
             {
                 StartCoroutine("Charge");
+
             }
             if (charge == true)
             {
-
                 transform.position += attPos * speed * Time.deltaTime;
                 Vector3 theScale = transform.localScale;
 
@@ -86,7 +87,10 @@ public class enemyAI : MonoBehaviour
                     transform.localScale = theScale;
                 }
             }
-
+            else if (charge == false)
+            {
+                StartCoroutine("ChargeAlert");
+            }
 
         }
         //Enemy Move/Attack list for Ranged
@@ -94,23 +98,27 @@ public class enemyAI : MonoBehaviour
     }
     public IEnumerator Charge()
     {
+
         SC = false;
+
         charge = true;
         yield return new WaitForSeconds(.55f);
+
         charge = false;
         yield return new WaitForSeconds(1.5f);
         SC = true;
+
     }
     public IEnumerator BulletFire()
     {
         coroutineStarted = true;
         while (true)
         {
-            
+
             //FindObjectOfType<AudioManager>().Play("BMWER");
             yield return new WaitForSeconds(1.3f);
             //FindObjectOfType<AudioManager>().Stop("BMWER");
-          
+
             GameObject attack = Instantiate(shotPrefab, transform.position, Quaternion.identity);
             attack.GetComponent<Rigidbody2D>().velocity = attPos.normalized * speed;
 
@@ -139,15 +147,17 @@ public class enemyAI : MonoBehaviour
 
     }
     private void OnTriggerEnter2D(Collider2D other)
-    {       
-       if (other.gameObject.tag == "Attack" && cm.usedCardType is CardTypeBeam)
+    {       //we are able to use the tag "Attack" instead of beam  and use cardtypes to determine certain functions
+        if (other.gameObject.tag == "beam" && cm.usedCardType is CardTypeBeam && SC == false)
         {
-            Debug.Log("AHHH");
+            Debug.Log("Heal");
+            Heal(65);
+            spr.color = new Color(255, 255, 255);
             //if(other.gameObject.GetComponent)
             StartCoroutine("SpriteBlink");
             Destroy(other.gameObject);
         }
-       
+
     }
 
     IEnumerator SpriteBlink()
@@ -160,39 +170,52 @@ public class enemyAI : MonoBehaviour
         yield return new WaitForSeconds(.1f);
         gameObject.GetComponent<SpriteRenderer>().enabled = true;
         yield return new WaitForSeconds(.1f);
-        
-    }
 
+    }
+    public void Heal(int i)
+    {
+        ofs = new Vector3(Random.Range(-.6f, 1f), Random.Range(.25f, 1f), 0);
+        TextMesh dmgtxt = floatingTextPrefab.GetComponent<TextMesh>();
+        dmgtxt.color = Color.green;
+
+        dmgtxt.text = i.ToString();
+        GameObject text = Instantiate(floatingTextPrefab, transform.position + ofs, Quaternion.identity);
+
+        Destroy(text, 2);
+    }
     public void takeDamage(int damage)
     {
         StartCoroutine("SpriteBlink");
         ofs = new Vector3(Random.Range(-.6f, 1f), Random.Range(.25f, 1f), 0);
         TextMesh dmgtxt = floatingTextPrefab.GetComponent<TextMesh>();
+        dmgtxt.color = Color.white;
+
         dmgtxt.text = damage.ToString();
         GameObject text = Instantiate(floatingTextPrefab, transform.position + ofs, Quaternion.identity);
         Destroy(text, .77f);
         health -= damage;
+
         if (health <= 20)
         {
-            
+
             spr.color = new Color32(255, 25, 25, 165);
-        
+
         }
         else if (health <= 50)
         {
             spr.color = new Color32(255, 100, 100, 190);
-            
+
         }
         if (health <= 0)
         {
-            if(gameObject.name=="Rock")
+            if (gameObject.name == "Rock")
             {
-                
+
                 FindObjectOfType<AudioManager>().Stop("Rocky");
             }
-            else if(gameObject.name=="range")
+            else if (gameObject.name == "range")
             {
-                
+
                 FindObjectOfType<AudioManager>().Stop("BMW");
             }
             Destroy(transform.parent.gameObject);
@@ -212,7 +235,7 @@ public class enemyAI : MonoBehaviour
             {
                 //DROPS TWO ITEMS, PICK UP ONE AND ADD TO HAND, DESTROY OTHER CARD
                 //ADD way to destroy other gameobject
-                Vector2 lootdrop = new Vector2(transform.position.x-3, transform.position.y);               
+                Vector2 lootdrop = new Vector2(transform.position.x - 3, transform.position.y);
                 GameObject o = Instantiate(BeamLootPrefab, lootdrop, Quaternion.identity);
                 cm.lootCount++;
                 o.name = cm.lootCount.ToString();
@@ -230,7 +253,7 @@ public class enemyAI : MonoBehaviour
             }
             //Player health adjustements
             BasicMovment p = GameObject.FindGameObjectWithTag("Player").GetComponent<BasicMovment>();
-            if (p.curHealth <p.maxHealth && p.curHealth >= 90)
+            if (p.curHealth < p.maxHealth && p.curHealth >= 90)
             {
                 p.curHealth = p.maxHealth;
                 float calcHealth = p.curHealth / p.maxHealth;
@@ -243,6 +266,16 @@ public class enemyAI : MonoBehaviour
                 p.SetHealthBar(calcHealth);
             }
         }
+
+    }
+    IEnumerator ChargeAlert()
+    {
+        spr.color = Color.blue;
+        yield return new WaitForSeconds(.1f);
+        spr.color = Color.white;
+        yield return new WaitForSeconds(.1f);
+
+
     }
 }
 
