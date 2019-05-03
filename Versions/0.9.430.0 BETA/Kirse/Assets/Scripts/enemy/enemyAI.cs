@@ -58,7 +58,7 @@ public class enemyAI : MonoBehaviour
         attPos = player.transform.position - transform.position;
 
 
-        if (gameObject.name == "range" && attack == true && coroutineStarted == false)
+        if ((gameObject.name == "range" || gameObject.name == "range2") && attack == true && coroutineStarted == false)
         {
 
             StartCoroutine("BulletFire");

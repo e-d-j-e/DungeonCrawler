@@ -23,12 +23,30 @@ public class RoboRetreat : MonoBehaviour
         moveDelay -= Time.deltaTime;
         attPos = player.transform.position - transform.position;
 
-
-        if (Vector3.Distance(transform.position, player.position) < 8)
+        if (gameObject.name == "range2")
+        {
+            if (Vector3.Distance(transform.position, player.position) < 10)
+            {
+                transform.position += attPos.normalized * 7 * Time.deltaTime;
+                Vector3 theScale = transform.localScale;
+                if (moveDelay <= 0) DashAway();
+                if (transform.position.x < player.transform.position.x)
+                {
+                    theScale.x = -1;
+                    transform.localScale = theScale;
+                }
+                else
+                {
+                    theScale.x = 1;
+                    transform.localScale = theScale;
+                }
+            }
+        }
+        else if (Vector3.Distance(transform.position, player.position) < 8)
         {
             transform.position += -attPos.normalized * 2 * Time.deltaTime;
             Vector3 theScale = transform.localScale;
-            if(moveDelay <= 0)DashAway();
+            if (moveDelay <= 0) DashAway();
             if (transform.position.x < player.transform.position.x)
             {
                 theScale.x = -1;
