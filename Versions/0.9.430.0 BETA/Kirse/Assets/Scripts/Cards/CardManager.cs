@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class CardManager : MonoBehaviour
 {
+    public CardType usedCardType;
     GameObject cardSelected;
     public GameObject playerHand;
     public List<Card> playerDeck = new List<Card>();
@@ -161,10 +162,12 @@ public class CardManager : MonoBehaviour
     {
         if (pHand[i].activeInHierarchy == true)
         {
+            Card c = pHand[i].GetComponent<CardTemplate>().card;
             CardProperties cp = pHand[i].GetComponent<CardTemplate>().card.cardProperties;
 
             pHand[i].SetActive(false);
             discardPile.Add(pHand[i].GetComponent<CardTemplate>().card);
+            usedCardType = c.cardType; // Sets the cardtype in BasicMovement to be accessed later
             pHand[i].GetComponent<CardTemplate>().card = null;
             switch (cp.title)
             {
@@ -172,6 +175,7 @@ public class CardManager : MonoBehaviour
                     player.attacked = true;
                     player.Slash();
                     incToken();
+                    
                     StartCoroutine(player.AttackRelease(0.420f));
                     break;
                 case "Dash":

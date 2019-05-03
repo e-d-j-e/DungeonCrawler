@@ -156,7 +156,8 @@ public class BasicMovment : MonoBehaviour
             //HOKUS-POKE-US
             if (Input.GetKeyDown(KeyCode.Mouse0) && attacked == false)
             {
-                GameObject attack = Instantiate(hocusPokeusPrefab, transform.position, Quaternion.identity);
+                GameObject attack = Instantiate(hocusPokeusPrefab, transform.position,Quaternion.identity);
+                
                 attack.transform.Rotate(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
                 Destroy(attack, 0.4f);
                 attacked = true;

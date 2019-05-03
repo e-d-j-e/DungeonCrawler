@@ -140,12 +140,14 @@ public class enemyAI : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {       
-       if (other.gameObject.tag == "Attack")
+       if (other.gameObject.tag == "Attack" && cm.usedCardType is CardTypeBeam)
         {
-
+            Debug.Log("AHHH");
+            //if(other.gameObject.GetComponent)
             StartCoroutine("SpriteBlink");
             Destroy(other.gameObject);
         }
+       
     }
 
     IEnumerator SpriteBlink()
