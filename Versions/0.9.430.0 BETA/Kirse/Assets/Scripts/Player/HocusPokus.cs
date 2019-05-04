@@ -19,11 +19,14 @@ public class HocusPokus : MonoBehaviour {
             enemy.takeDamage(damage);
             if (cm.playerDeck.Count != 0)
             {
-                cm.DrawCard(cm.playerDeck);
-                cm.deckPercent = cm.playerDeck.Count / cm.maxCards;
-                Debug.Log(cm.deckPercent);
-                cm.deckCalculate(cm.deckPercent);
-
+                int i = Random.Range(0, 2);
+                if (i > 0)
+                {
+                    cm.DrawCard(cm.playerDeck);
+                    cm.deckPercent = cm.playerDeck.Count / cm.maxCards;
+                    Debug.Log(cm.deckPercent);
+                    cm.deckCalculate(cm.deckPercent);
+                }
 
             }
             else if (cm.playerDeck.Count == 0 && cm.discardPile.Count > 0)
