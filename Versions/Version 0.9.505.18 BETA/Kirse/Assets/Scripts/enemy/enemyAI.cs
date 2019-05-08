@@ -21,6 +21,9 @@ public class enemyAI : MonoBehaviour
     public GameObject BeamLootPrefab;
     public GameObject SlashLootPrefab;
     public GameObject DashLootPrefab;
+
+    public GameObject chargeProjectile;
+    public Transform[] teleSpot;
     public bool attack;
 
     public int health = 100;
@@ -42,6 +45,11 @@ public class enemyAI : MonoBehaviour
     bool canHit = true;
     public bool canDash = true;
     public bool hittable = false;
+
+    public bool turretNotCharge = false;
+
+    public float armorAmount;
+    int destPoint = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -52,15 +60,27 @@ public class enemyAI : MonoBehaviour
         charge = false;
         SC = true;
         stun = false;    
-
+        if(this.gameObject.name == "asd")
+        {
+            armorAmount = .6f;
+        }
+        else { armorAmount = 1; }
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        //attPos = player.transform.position - transform.position;
-
+        attPos = player.transform.position - transform.position;
+        if (gameObject.name == "Turret")
+        {
+            turretNotCharge = false;
+            if(attack == true)
+            {
+                StartCoroutine("TurretCharge");
+                
+            }
+        }
 
         if ((gameObject.name == "range" || gameObject.name == "range2") && attack == true && coroutineStarted == false)
         {
@@ -226,6 +246,7 @@ public class enemyAI : MonoBehaviour
             Destroy(other.gameObject);
         }
 
+
     }
     IEnumerator Stun()
     {
@@ -268,11 +289,13 @@ public class enemyAI : MonoBehaviour
         ofs = new Vector3(Random.Range(-.6f, 1f), Random.Range(.25f, 1f), 0);
         TextMesh dmgtxt = floatingTextPrefab.GetComponent<TextMesh>();
         dmgtxt.color = Color.white;
+        float armoredUnit = damage * armorAmount;//for tanky monster
 
-        dmgtxt.text = damage.ToString();
+        dmgtxt.text = armoredUnit.ToString();
         GameObject text = Instantiate(floatingTextPrefab, transform.position + ofs, Quaternion.identity);
         Destroy(text, .77f);
-        health -= damage;
+       
+        health -= Mathf.RoundToInt(armoredUnit);
 
         if (health <= 20)
         {
@@ -347,6 +370,42 @@ public class enemyAI : MonoBehaviour
         }
 
     }
-  
+    IEnumerator TurretCharge()
+    {
+        while (true)
+        {
+            attack = false;
+            turretNotCharge = false;
+            //animation
+            yield return new WaitForSeconds(3);
+            //Fire Code
+            FireChargeShot();
+            turretNotCharge = true;
+            //teleport
+            GotoNextPoint();
+        }
+    }
+    void GotoNextPoint()
+    {
+        
+        
+        // Returns if no points have been set up
+        if (teleSpot.Length == 0)
+            return;
+
+        // Set the agent to go to the currently selected destination.
+        transform.position  = teleSpot[destPoint].position;
+
+        // Choose the next point in the array as the destination,
+        // cycling to the start if necessary.
+        destPoint = (destPoint + 1) % teleSpot.Length;
+    }
+    void FireChargeShot()
+    {
+        GameObject o = Instantiate(chargeProjectile, transform.position, Quaternion.identity);
+        o.GetComponent<Rigidbody2D>().velocity = attPos.normalized * 50;
+        Destroy(o,3);
+    }
+
 }
 
