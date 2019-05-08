@@ -23,8 +23,14 @@ public class Slash : MonoBehaviour {
                 //}
                 //else
                 //{
+                if (enemy.turretNotCharge == true)
+                {
+                    enemy.takeDamage(0);
+                }
+                else{
                     enemy.takeDamage(65);
                     FindObjectOfType<AudioManager>().Play("Slash");
+                }
                 //}
 
             }
