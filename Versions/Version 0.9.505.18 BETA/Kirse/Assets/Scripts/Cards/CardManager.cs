@@ -398,5 +398,25 @@ public class CardManager : MonoBehaviour
     {
 
     }
+    public void DestroyCard()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (pHand[i].activeInHierarchy == true)
+            {
+                //Debug.Log(pHand[i].activeInHierarchy);
+                //Debug.Log(pHand[i]);
+                
+                pHand[i].SetActive(false);
+
+                //pHand[i].GetComponent<CardTemplate>().LoadCard(c);
+                //Debug.Log(pHand[i].activeInHierarchy);
+                //cardSelected = pHand[i].transform.gameObject;
+                //cardSelected.GetComponent<CardTemplate>().LoadCard(c);
+                return;
+
+            }
+        }
+    }
 }
 
