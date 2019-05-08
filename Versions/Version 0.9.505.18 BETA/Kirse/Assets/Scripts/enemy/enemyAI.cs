@@ -28,13 +28,16 @@ public class enemyAI : MonoBehaviour
     private Transform player;
     private Vector3 ofs;
     private SpriteRenderer spr;
-    private float speed = 3f;
+    private float speed = 15f;
 
 
     private bool coroutineStarted = false;
     private bool charge;
     private bool SC;
+    private bool stun;
     CardManager cm;
+    public GameObject shld;
+    Color32 b = new Color32(166, 166, 166, 210);
 
     bool canHit = true;
     public bool canDash = true;
@@ -48,6 +51,7 @@ public class enemyAI : MonoBehaviour
         spr = GetComponent<SpriteRenderer>();
         charge = false;
         SC = true;
+        stun = false;    
 
     }
 
@@ -55,7 +59,7 @@ public class enemyAI : MonoBehaviour
     void Update()
     {
 
-        attPos = player.transform.position - transform.position;
+        //attPos = player.transform.position - transform.position;
 
 
         if ((gameObject.name == "range" || gameObject.name == "range2") && attack == true && coroutineStarted == false)
@@ -68,11 +72,12 @@ public class enemyAI : MonoBehaviour
             if (SC == true)
             {
                 StartCoroutine("Charge");
+               
 
             }
             if (charge == true)
             {
-                transform.position += attPos * speed * Time.deltaTime;
+                transform.position += attPos.normalized * speed * Time.deltaTime;
                 Vector3 theScale = transform.localScale;
 
                 //gameObject.GetComponent<Rigidbody2D>().velocity = attPos.normalized * speed;
@@ -86,11 +91,7 @@ public class enemyAI : MonoBehaviour
                     theScale.x = 1;
                     transform.localScale = theScale;
                 }
-            }
-            else if (charge == false)
-            {
-                StartCoroutine("ChargeAlert");
-            }
+            }    
 
         }
         //Enemy Move/Attack list for Ranged
@@ -98,15 +99,59 @@ public class enemyAI : MonoBehaviour
     }
     public IEnumerator Charge()
     {
-
         SC = false;
-
-        charge = true;
-        yield return new WaitForSeconds(.55f);
-
-        charge = false;
-        yield return new WaitForSeconds(1.5f);
+        if (stun == false)
+        {           
+            shld.SetActive(true);
+            yield return new WaitForSeconds(.12f);
+            spr.color = b;
+            yield return new WaitForSeconds(.12f);
+            spr.color = Color.white;
+        }
+        if (stun == false)
+        {
+            yield return new WaitForSeconds(.12f);
+            spr.color = b;
+            yield return new WaitForSeconds(.12f);
+            spr.color = Color.white;
+        }
+        if (stun == false)
+        {
+            yield return new WaitForSeconds(.12f);
+            spr.color = b;
+            yield return new WaitForSeconds(.12f);
+            spr.color = Color.white;
+        }
+        if (stun == false)
+        {
+            yield return new WaitForSeconds(.12f);
+            spr.color = b;
+            yield return new WaitForSeconds(.12f);
+            spr.color = Color.white;
+        }
+        if (stun == false)
+        {
+            yield return new WaitForSeconds(.12f);
+            spr.color = b;
+            yield return new WaitForSeconds(.12f);
+            spr.color = Color.white;
+        }
+        if (stun == false)
+        {
+            shld.SetActive(false);
+            attPos = player.transform.position - transform.position;
+            charge = true;
+            yield return new WaitForSeconds(0.47f);
+            charge = false;
+            
+        }
+        if (stun==true)
+        {
+            shld.SetActive(false);
+            spr.color = new Color32(130, 130, 69, 255);
+        }
         SC = true;
+
 
     }
     public IEnumerator BulletFire()
@@ -131,34 +176,68 @@ public class enemyAI : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Hitbox" && canHit == true)
+        if (charge == false)
         {
-            player.GetComponent<BasicMovment>().DecreaseHealth(5);
-            canHit = false;
-            Invoke("CanHitReset", 1.5f);
+            if (other.gameObject.tag == "Hitbox" && canHit == true)
+            {
+                player.GetComponent<BasicMovment>().DecreaseHealth(5);
+                canHit = false;
+                Invoke("CanHitReset", 1.5f);
+            }
+            if (other.gameObject.tag == "Dash" && canDash == true)
+            {
+                StartCoroutine(Stun());
+                stun = true;
+            }
+            else if (other.gameObject.tag == "slash"|| other.gameObject.tag == "spinslash")
+            {
+                StartCoroutine(Stun());
+                stun = true;
+            }            
+            
         }
-        if (other.gameObject.tag == "Dash" && canDash == true)
+        else if (charge==true)
         {
-            takeDamage(40);
-            //canDash = false;
-            Invoke("CanHitReset", 1);
+            if (other.gameObject.tag == "Hitbox" && canHit == true)
+            {
+                player.GetComponent<BasicMovment>().DecreaseHealth(5);
+                canHit = false;
+                Invoke("CanHitReset", 1.5f);
+            }
+            if (other.gameObject.tag == "Dash" && canDash == true)
+            {
+                takeDamage(8);
+                //canDash = false;
+                Invoke("CanHitReset", 1);
+            }
         }
 
 
     }
     private void OnTriggerEnter2D(Collider2D other)
     {       //we are able to use the tag "Attack" instead of beam  and use cardtypes to determine certain functions
-        if (other.gameObject.tag == "beam" && cm.usedCardType is CardTypeBeam && SC == false)
+        if (other.gameObject.tag == "beam" && cm.usedCardType is CardTypeBeam && charge == false)
         {
-            Debug.Log("Heal");
-            Heal(65);
-            spr.color = new Color(255, 255, 255);
+            //Debug.Log("Heal");
+            //Heal(65);
+            //spr.color = new Color(255, 255, 255);
             //if(other.gameObject.GetComponent)
-            StartCoroutine("SpriteBlink");
+            //StartCoroutine("SpriteBlink");
             Destroy(other.gameObject);
         }
 
     }
+    IEnumerator Stun()
+    {
+        
+        speed = 0;
+        spr.color = new Color32(130, 130, 69, 255);
+        yield return new WaitForSeconds(2f);
+        spr.color = Color.white;
+        speed = 15f;
+        stun = false;
+    }
+
 
     IEnumerator SpriteBlink()
     {
@@ -268,14 +347,6 @@ public class enemyAI : MonoBehaviour
         }
 
     }
-    IEnumerator ChargeAlert()
-    {
-        spr.color = Color.blue;
-        yield return new WaitForSeconds(.1f);
-        spr.color = Color.white;
-        yield return new WaitForSeconds(.1f);
-
-
-    }
+  
 }
 

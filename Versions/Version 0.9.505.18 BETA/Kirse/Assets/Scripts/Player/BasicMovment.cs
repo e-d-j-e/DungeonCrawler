@@ -63,6 +63,7 @@ public class BasicMovment : MonoBehaviour
     public Transform attackPos;
     public float attackRange;
     public bool dashAttack = false;
+    bool playsound = false;
 
     [HideInInspector]
     public Vector3 UIoffset;
@@ -116,6 +117,14 @@ public class BasicMovment : MonoBehaviour
             FindObjectOfType<AudioManager>().Play("playerWalk");
         else if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D))
             FindObjectOfType<AudioManager>().Stop("playerWalk");
+        //if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0 && playsound==false)
+        //    playsound = true;
+        //else if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0 &&playsound==true)
+        //    playsound = false;
+        //if (playsound)
+        //    FindObjectOfType<AudioManager>().Play("playerWalk");
+        //else if (!playsound)
+        //    FindObjectOfType<AudioManager>().Stop("playerWalk");
 
     }
     public IEnumerator AttackRelease(float t)

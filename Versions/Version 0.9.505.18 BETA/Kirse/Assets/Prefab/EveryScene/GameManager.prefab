@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c23223356c420e4a81870d4b2bad8fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  usedCardType: {fileID: 0}
   playerHand: {fileID: 0}
   playerDeck:
   - {fileID: 11400000, guid: 0f492ef697d604746bd106665a7098d1, type: 2}

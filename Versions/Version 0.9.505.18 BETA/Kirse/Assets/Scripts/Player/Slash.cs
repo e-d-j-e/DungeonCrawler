@@ -16,16 +16,16 @@ public class Slash : MonoBehaviour {
         {
             if (this.tag=="slash")
             {
-                if (enemy.name == "Rock") //REDUCED DAMAGE
-                {
-                    enemy.takeDamage(5);
-                    FindObjectOfType<AudioManager>().Play("Slash");
-                }
-                else
-                {
+                //if (enemy.name == "Rock") //REDUCED DAMAGE
+                //{
+                //    enemy.takeDamage(5);
+                //    FindObjectOfType<AudioManager>().Play("Slash");
+                //}
+                //else
+                //{
                     enemy.takeDamage(65);
                     FindObjectOfType<AudioManager>().Play("Slash");
-                }
+                //}
 
             }
             else if (this.tag=="spinslash")

@@ -87,8 +87,6 @@ public class CardManager : MonoBehaviour
     {
         if (inMenu == false)
             Controls();
-
-
     }
 
 
