@@ -13,6 +13,7 @@ public class Rotation : MonoBehaviour {
         float AngleDeg = (180 / Mathf.PI) * AngleRad;
         // Rotate Object
         this.transform.rotation = Quaternion.Euler(0, 0, AngleDeg);
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -23,6 +24,7 @@ public class Rotation : MonoBehaviour {
             Destroy(gameObject);
             player.GetComponent<BasicMovment>().DecreaseHealth(15);
         }
+
     }
 }
 

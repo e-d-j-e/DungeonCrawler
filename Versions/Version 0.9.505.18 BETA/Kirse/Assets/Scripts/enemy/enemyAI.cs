@@ -77,8 +77,9 @@ public class enemyAI : MonoBehaviour
             turretNotCharge = false;
             if(attack == true)
             {
+
                 StartCoroutine("TurretCharge");
-                
+                attack = false;
             }
         }
 
@@ -374,15 +375,18 @@ public class enemyAI : MonoBehaviour
     {
         while (true)
         {
-            attack = false;
+           
             turretNotCharge = false;
             //animation
             yield return new WaitForSeconds(3);
             //Fire Code
             FireChargeShot();
             turretNotCharge = true;
+            yield return new WaitForSeconds(1);
             //teleport
             GotoNextPoint();
+            yield return new WaitForSeconds(1);
+
         }
     }
     void GotoNextPoint()
@@ -402,8 +406,9 @@ public class enemyAI : MonoBehaviour
     }
     void FireChargeShot()
     {
+        if (chargeProjectile == null) return;
         GameObject o = Instantiate(chargeProjectile, transform.position, Quaternion.identity);
-        o.GetComponent<Rigidbody2D>().velocity = attPos.normalized * 50;
+        o.GetComponent<Rigidbody2D>().velocity = attPos.normalized * 25;
         Destroy(o,3);
     }
 
