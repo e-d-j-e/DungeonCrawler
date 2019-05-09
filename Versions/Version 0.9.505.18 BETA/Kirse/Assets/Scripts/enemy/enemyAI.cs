@@ -32,12 +32,14 @@ public class enemyAI : MonoBehaviour
     private Vector3 ofs;
     private SpriteRenderer spr;
     private float speed = 15f;
+    float shootspeed = 10f;
 
 
     private bool coroutineStarted = false;
     private bool charge;
     private bool SC;
     private bool stun;
+    int chargechance = 0;
     CardManager cm;
     public GameObject shld;
     Color32 b = new Color32(166, 166, 166, 210);
@@ -86,7 +88,15 @@ public class enemyAI : MonoBehaviour
         if ((gameObject.name == "range" || gameObject.name == "range2") && attack == true && coroutineStarted == false)
         {
 
-            StartCoroutine("BulletFire");
+            chargechance = Random.Range(0, 7);
+            if (chargechance > 5)
+            {
+                StartCoroutine("ChargedShot");
+            }
+            else if (chargechance >= 0)
+            {
+                StartCoroutine("BulletFire");
+            }
         }
         if (gameObject.name == "Rock" && attack == true)
         {//ADD CHARGE MOVEMENT HERE
@@ -178,19 +188,38 @@ public class enemyAI : MonoBehaviour
     public IEnumerator BulletFire()
     {
         coroutineStarted = true;
-        while (true)
-        {
 
-            //FindObjectOfType<AudioManager>().Play("BMWER");
-            yield return new WaitForSeconds(1.3f);
-            //FindObjectOfType<AudioManager>().Stop("BMWER");
+        yield return new WaitForSeconds(1.3f);
+        attPos = player.transform.position - transform.position;
+        GameObject attack = Instantiate(shotPrefab, transform.position, Quaternion.identity);
+        attack.GetComponent<Rigidbody2D>().velocity = attPos.normalized * shootspeed;
+        Destroy(attack, 5);
+        yield return new WaitForSeconds(.6f);
 
-            GameObject attack = Instantiate(shotPrefab, transform.position, Quaternion.identity);
-            attack.GetComponent<Rigidbody2D>().velocity = attPos.normalized * speed;
 
-            Destroy(attack, 6);
-            yield return new WaitForSeconds(.6F);
-        }
+        coroutineStarted = false;
+    }
+
+    IEnumerator ChargedShot()
+    {
+        coroutineStarted = true;
+        speed = 0;
+        //charge shot animation
+        spr.color = new Color32(230, 230, 230, 255);
+        yield return new WaitForSeconds(1.5f);
+        spr.color = new Color32(160, 160, 160, 255);
+        yield return new WaitForSeconds(1.5f);
+        spr.color = new Color32(100, 100, 100, 255);
+        yield return new WaitForSeconds(1.5f);
+        spr.color = Color.white;
+        attPos = player.transform.position - transform.position;
+        //might change new chargeshot prefab
+        GameObject att = Instantiate(chargeProjectile, transform.position, Quaternion.identity);
+        att.GetComponent<Rigidbody2D>().velocity = attPos.normalized * shootspeed;
+        Destroy(att, 4);
+        yield return new WaitForSeconds(.4f);
+        speed = 15f;
+        coroutineStarted = false;
     }
 
     private void CanHitReset() { canHit = true; canDash = true; }
@@ -390,8 +419,7 @@ public class enemyAI : MonoBehaviour
         }
     }
     void GotoNextPoint()
-    {
-        
+    {        
         
         // Returns if no points have been set up
         if (teleSpot.Length == 0)
