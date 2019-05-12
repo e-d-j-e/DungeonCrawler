@@ -17,17 +17,18 @@ public class Rotation : MonoBehaviour
         float AngleDeg = (180 / Mathf.PI) * AngleRad;
         // Rotate Object
         this.transform.rotation = Quaternion.Euler(0, 0, AngleDeg);
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "Player")
+        if (collision.gameObject.name == "HitBox")
         {
             Debug.Log("Owww");
             Destroy(gameObject);
             player.GetComponent<BasicMovment>().DecreaseHealth(15);
 
-            if(this.tag=="bigbeam")
+            if (this.tag == "bigbeam")
             {
                 i = Random.Range(0, 4);
                 if (cm.pHand[i].activeInHierarchy == true)
@@ -41,7 +42,7 @@ public class Rotation : MonoBehaviour
                     cm.pHand[i].GetComponent<CardTemplate>().card = null;
                 }
             }
-            
+
 
         }
     }
