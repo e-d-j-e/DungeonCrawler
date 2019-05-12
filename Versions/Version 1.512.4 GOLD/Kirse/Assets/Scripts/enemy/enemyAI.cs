@@ -57,10 +57,11 @@ public class enemyAI : MonoBehaviour
     public float armorAmount;
     int destPoint = 0;
 
-
+    private Animator anim;
     // Start is called before the first frame update
     void Start()
     {
+        anim = GetComponent<Animator>();
         cm = CardManager.cm;
         attack = false;
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -250,15 +251,23 @@ public class enemyAI : MonoBehaviour
     {
             turretsc = true;
             turretNotCharge = false;
-            //animation
-            yield return new WaitForSeconds(3);
+        //animation
+        anim.Play("TurretAttack");
+            yield return new WaitForSeconds(2.1f);
             //Fire Code
             FireChargeShot();
             turretNotCharge = true;
+        anim.Play("TurretIdle");
             yield return new WaitForSeconds(1);
-            //teleport
-            GotoNextPoint();
-            yield return new WaitForSeconds(1);
+        //teleport
+        anim.Play("TurretTeleport");
+        yield return new WaitForSeconds(1.1f);
+        GotoNextPoint();
+       
+        anim.Play("TurretTeleportReappear");
+        yield return new WaitForSeconds(2.1f);
+        anim.Play("TurretIdle");
+
             turretsc = false;
 
     }
