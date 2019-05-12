@@ -12,8 +12,17 @@ public class Reflectable : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        
+    }
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (collision.gameObject.name == "HitBox")
+        {
+            Destroy(gameObject);
+            player.GetComponent<BasicMovment>().DecreaseHealth(15);
+        }
 
         if (collision.gameObject.tag == "slash")
         {
@@ -23,5 +32,14 @@ public class Reflectable : MonoBehaviour
             gameObject.GetComponent<Rigidbody2D>().velocity = -attPos.normalized * 8;
         }
 
+    }
+    public void ChangeOrientation()
+    {
+        player = GameObject.Find("Player");
+        float AngleRad = Mathf.Atan2(player.transform.position.y - transform.position.y, player.transform.position.x - transform.position.x);
+        // Get Angle in Degrees
+        float AngleDeg = (180 / Mathf.PI) * AngleRad;
+        // Rotate Object
+        this.transform.rotation = Quaternion.Euler(0, 0, -AngleDeg);
     }
 }

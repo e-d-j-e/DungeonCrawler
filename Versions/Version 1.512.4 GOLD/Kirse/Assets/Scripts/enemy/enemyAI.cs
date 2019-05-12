@@ -281,6 +281,7 @@ public class enemyAI : MonoBehaviour
         if (chargeProjectile == null) return;
         GameObject o = Instantiate(chargeProjectile, transform.position, Quaternion.identity);
         o.GetComponent<Rigidbody2D>().velocity = attPos.normalized * 5;
+        o.GetComponent<Reflectable>().ChangeOrientation();
         Destroy(o, 10);
     }
 
