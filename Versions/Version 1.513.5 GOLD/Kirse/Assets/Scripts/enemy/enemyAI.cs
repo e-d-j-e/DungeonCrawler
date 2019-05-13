@@ -138,18 +138,7 @@ public class enemyAI : MonoBehaviour
 
         if (this.name == "Rock" && attack == true)
         {//ADD CHARGE MOVEMENT HERE
-            Vector3 theScale = transform.localScale;
-
-            if (transform.position.x < player.transform.position.x)
-            {
-                theScale.x = -1;
-                transform.localScale = theScale;
-            }
-            else
-            {
-                theScale.x = 1;
-                transform.localScale = theScale;
-            }
+           
             if (SC == true)
             {
                 anim.Play("Charging");
@@ -158,6 +147,18 @@ public class enemyAI : MonoBehaviour
             if (charge == true)
             {
                 transform.position += attPos.normalized * rockspeed * Time.deltaTime;
+                Vector3 theScale = transform.localScale;
+
+                if (transform.position.x < player.transform.position.x)
+                {
+                    theScale.x = -1;
+                    transform.localScale = theScale;
+                }
+                else
+                {
+                    theScale.x = 1;
+                    transform.localScale = theScale;
+                }
 
             }
             if (follow == true)
@@ -419,6 +420,10 @@ public class enemyAI : MonoBehaviour
         spr.color = Color.white;
         rockspeed = 15f;
         stun = false;
+        RockFollow();
+        charge = false;
+        
+        SC = false;
     }
 
 
