@@ -14,6 +14,8 @@ using UnityEngine;
 //
 public class enemyAI : MonoBehaviour
 {
+    bool follow = false;
+    bool started = false;
     public GameObject floatingTextPrefab;
     public GameObject shotPrefab;
     //for charge beam shot
@@ -50,7 +52,7 @@ public class enemyAI : MonoBehaviour
     public GameObject shld;
     Color32 b = new Color32(166, 166, 166, 210);
 
-    bool canHit = true;
+    public bool canHit = true;
     public bool canDash = true;
     public bool hittable = false;
     public bool turretNotCharge = false;
@@ -136,6 +138,18 @@ public class enemyAI : MonoBehaviour
 
         if (this.name == "Rock" && attack == true)
         {//ADD CHARGE MOVEMENT HERE
+            Vector3 theScale = transform.localScale;
+
+            if (transform.position.x < player.transform.position.x)
+            {
+                theScale.x = -1;
+                transform.localScale = theScale;
+            }
+            else
+            {
+                theScale.x = 1;
+                transform.localScale = theScale;
+            }
             if (SC == true)
             {
                 anim.Play("Charging");
@@ -144,18 +158,18 @@ public class enemyAI : MonoBehaviour
             if (charge == true)
             {
                 transform.position += attPos.normalized * rockspeed * Time.deltaTime;
-                Vector3 theScale = transform.localScale;
 
-                if (transform.position.x < player.transform.position.x)
-                {
-                    theScale.x = -1;
-                    transform.localScale = theScale;
-                }
-                else
-                {
-                    theScale.x = 1;
-                    transform.localScale = theScale;
-                }
+            }
+            if (follow == true)
+            {
+                attPos = player.transform.position - transform.position;
+                transform.position += attPos.normalized * 8 * Time.deltaTime;
+            }
+            if (Vector3.Distance(player.transform.position, transform.position) <= 3 && started == false)
+            {
+                started = true;
+                SC = true;
+
             }
         }
 
@@ -164,6 +178,7 @@ public class enemyAI : MonoBehaviour
     public IEnumerator Charge()
     {
         SC = false;
+        follow = false;
         if (stun == false)
         {
             shld.SetActive(true);
@@ -208,18 +223,22 @@ public class enemyAI : MonoBehaviour
             anim.Play("Attacking");
             yield return new WaitForSeconds(0.47f);
             charge = false;
-            //Play when rock "patrols" before player is in range
-            // anim.Play("Moving");
-
+            RockFollow();
         }
         if (stun == true)
         {
             shld.SetActive(false);
             spr.color = new Color32(130, 130, 69, 255);
         }
-        SC = true;
 
 
+
+    }
+    public void RockFollow()
+    {
+        follow = true;
+        started = false;
+        anim.Play("Moving");
     }
     public IEnumerator BulletFire()
     {
@@ -317,7 +336,13 @@ public class enemyAI : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-
+        //if (other.gameObject.name == "HitBox")// && canHit == true)
+        //{
+        //    player.GetComponent<BasicMovment>().DecreaseHealth(5);
+        //    Debug.Log("Hit");
+        //    canHit = false;
+        //    Invoke("CanHitReset", 1.5f);
+        //}
         if (this.name == "range")
         {
             if (other.gameObject.tag == "Hitbox" && canHit == true)
@@ -343,13 +368,13 @@ public class enemyAI : MonoBehaviour
             }
             if (other.gameObject.tag == "Dash" && canDash == true)
             {
-                StartCoroutine(Stun());
+                StartCoroutine("Stun");
                 takeDamage(8);
                 stun = true;
             }
             else if (other.gameObject.tag == "slash" || other.gameObject.tag == "spinslash")
             {
-                StartCoroutine(Stun());
+                StartCoroutine("Stun");
                 stun = true;
             }
 
@@ -369,8 +394,9 @@ public class enemyAI : MonoBehaviour
                 Invoke("CanHitReset", 1);
             }
         }
+
     }
-    
+
     private void OnTriggerEnter2D(Collider2D other)
     {       //we are able to use the tag "Attack" instead of beam  and use cardtypes to determine certain functions
         if (other.gameObject.tag == "beam" && cm.usedCardType is CardTypeBeam && charge == false)
@@ -386,7 +412,7 @@ public class enemyAI : MonoBehaviour
     }
     IEnumerator Stun()
     {
-
+        anim.Play("Idle");
         rockspeed = 0;
         spr.color = new Color32(130, 130, 69, 255);
         yield return new WaitForSeconds(2f);
