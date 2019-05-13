@@ -1,8 +1,7 @@
 fileFormatVersion: 2
-guid: 0085372852e08d44eb48716de0a17c3a
+guid: 6fe3cda17bb707942a6c2e7a2344b851
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: List_Scroll_Button_0
+  fileIDToRecycleName: {}
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -94,31 +93,11 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: List_Scroll_Button_0
-      rect:
-        serializedVersion: 2
-        x: 368
-        y: 112
-        width: 74
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3b7cd145195096240b03f34ce9d9cb7e
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 474f1c8717ccf844aa72195c701a6263
+    spriteID: 0edf0b8e8f8718249bf67d7a28731314
     vertices: []
     indices: 
     edges: []

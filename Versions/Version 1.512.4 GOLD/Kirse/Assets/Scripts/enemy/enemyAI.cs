@@ -253,11 +253,11 @@ public class enemyAI : MonoBehaviour
             turretNotCharge = false;
         //animation
         anim.Play("TurretAttack");
-            yield return new WaitForSeconds(2.1f);
+            yield return new WaitForSeconds(3);
             //Fire Code
             FireChargeShot();
             turretNotCharge = true;
-        anim.Play("TurretIdle");
+        //anim.Play("TurretIdle");
             yield return new WaitForSeconds(1);
         //teleport
         anim.Play("TurretTeleport");
