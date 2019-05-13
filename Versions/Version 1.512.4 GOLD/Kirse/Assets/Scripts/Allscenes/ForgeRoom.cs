@@ -159,4 +159,8 @@ public class ForgeRoom : MonoBehaviour
         CreateCardButton();
 
     }
+    //public void CheckRecipes()
+    //{
+    //    for(int i = 0; i <= recipe)
+    //}
 }

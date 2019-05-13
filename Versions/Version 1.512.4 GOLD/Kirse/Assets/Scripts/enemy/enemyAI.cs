@@ -14,6 +14,8 @@ using UnityEngine;
 //
 public class enemyAI : MonoBehaviour
 {
+    bool follow = false;
+    bool started = false;
     public GameObject floatingTextPrefab;
     public GameObject shotPrefab;
     //for charge beam shot
@@ -129,14 +131,17 @@ public class enemyAI : MonoBehaviour
         }
         if (this.name == "Rock" && attack == true)
         {//ADD CHARGE MOVEMENT HERE
+            Vector3 theScale = transform.localScale;
             if (SC == true)
             {
+
+                anim.Play("Charging");
                 StartCoroutine("Charge");
             }
             if (charge == true)
             {
                 transform.position += attPos.normalized * rockspeed * Time.deltaTime;
-                Vector3 theScale = transform.localScale;
+              
 
                 if (transform.position.x < player.transform.position.x)
                 {
@@ -149,6 +154,17 @@ public class enemyAI : MonoBehaviour
                     transform.localScale = theScale;
                 }
             }
+            if(follow == true)
+            {
+                attPos = player.transform.position - transform.position;
+                transform.position += attPos.normalized * 8 * Time.deltaTime;
+            }
+            if(Vector3.Distance(player.transform.position,transform.position)<= 3 && started == false)
+            {
+                started = true;
+                SC = true;
+                
+            }
         }
 
     }
@@ -156,6 +172,7 @@ public class enemyAI : MonoBehaviour
     public IEnumerator Charge()
     {
         SC = false;
+        follow = false;
         if (stun == false)
         {
             shld.SetActive(true);
@@ -197,18 +214,25 @@ public class enemyAI : MonoBehaviour
             shld.SetActive(false);
             attPos = player.transform.position - transform.position;
             charge = true;
+            anim.Play("Attacking");
             yield return new WaitForSeconds(0.47f);
             charge = false;
-
+            RockFollow();
         }
         if (stun == true)
         {
             shld.SetActive(false);
             spr.color = new Color32(130, 130, 69, 255);
         }
-        SC = true;
+        
+        
 
-
+    }
+    public void RockFollow()
+    {
+        follow = true;
+        started = false;
+        anim.Play("Moving");
     }
     public IEnumerator BulletFire()
     {
