@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1411945870854714
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4915356860453054}
+  - component: {fileID: 114085835575106066}
+  - component: {fileID: 114342688031250028}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: GameController
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4915356860453054
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1411945870854714}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 208.81488, y: 261.83752, z: -10.775}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114085835575106066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1411945870854714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c23223356c420e4a81870d4b2bad8fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHand: {fileID: 0}
+  playerDeck:
+  - {fileID: 11400000, guid: 0f492ef697d604746bd106665a7098d1, type: 2}
+  - {fileID: 11400000, guid: c5eb3e4aadceb54479fa4e642e0071b7, type: 2}
+  - {fileID: 11400000, guid: b2e8432a7b570e246a0e0ff01d78071c, type: 2}
+  lootDeck:
+  - {fileID: 11400000, guid: c5eb3e4aadceb54479fa4e642e0071b7, type: 2}
+  - {fileID: 11400000, guid: 0f492ef697d604746bd106665a7098d1, type: 2}
+  - {fileID: 11400000, guid: b2e8432a7b570e246a0e0ff01d78071c, type: 2}
+  discardPile: []
+  pHand:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  recipeList:
+  - {fileID: 11400000, guid: 2fa4313f57ad42c48a9b1265dd126b7a, type: 2}
+  - {fileID: 11400000, guid: a2718a7f71f6b1a409a98b8ab097de4f, type: 2}
+  - {fileID: 0}
+  randomNum: 0
+  forgeable: 0
+  forge1: {fileID: 0}
+  forge2: {fileID: 0}
+  forge1Display: {fileID: 0}
+  forge2Display: {fileID: 0}
+  cardResult: {fileID: 0}
+  empty: {fileID: 11400000, guid: 1dfe9c0e30a90b4498a756cc72e6fc8a, type: 2}
+  maxCards: 3
+  deckPercent: 0
+  forgePanel: {fileID: 0}
+  deckBar: {fileID: 0}
+  token: {fileID: 0}
+  forgeDeck: []
+  dub: 0
+  inMenu: 0
+  i: 0
+  lootCount: 0
+--- !u!114 &114342688031250028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1411945870854714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89fd4319b6dcf2c4a9d7d7d07401161e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTip: {fileID: 0}
+  toolText: {fileID: 0}
+  gameManager: {fileID: 0}
+  actionText: {fileID: 0}
+  forgeable: {fileID: 0}

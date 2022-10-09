@@ -1,0 +1,41 @@
+2019-04-04 22:22:34.5193 [DEBUG] Validating model...
+2019-04-04 22:22:34.6243 [DEBUG] Model updated
+2019-04-04 22:22:34.6243 [DEBUG] Authenticating with server...
+2019-04-04 22:22:36.5247 [DEBUG] Connected to room. (93538:SceneFusion:SceneFusion)
+2019-04-04 22:22:36.5357 [INFO] Connected to server.
+2019-04-04 22:22:36.5367 [DEBUG] OS : Microsoft Windows NT 10.0.17134.0
+2019-04-04 22:22:36.5367 [DEBUG] Unity Version : 2018.3.6f1
+2019-04-04 22:22:36.5367 [DEBUG] Pro License : False
+2019-04-04 22:22:36.5367 [DEBUG] Platform : WindowsEditor
+2019-04-04 22:22:36.5367 [DEBUG] Build Target : StandaloneWindows64
+2019-04-04 22:22:36.5446 [DEBUG] Scene Fusion version : 1.8.2
+2019-04-04 22:22:36.5446 [DEBUG] Scene Fusion client build : 2
+2019-04-04 22:22:36.5446 [DEBUG] User : ebonavida0@yahoo.com
+2019-04-04 22:22:36.5446 [DEBUG] Waiting for server response
+2019-04-04 22:22:37.2251 [DEBUG] Tier: Scene Fusion Free, Permissions: 00001400
+2019-04-04 22:22:37.2251 [DEBUG] User Permissions: FFFFFFFF
+2019-04-04 22:22:37.5893 [DEBUG] No stand-in for UnityEngine.LocalizationAsset
+2019-04-04 22:22:37.5893 [DEBUG] No stand-in for UnityEngine.ProceduralMaterial
+2019-04-04 22:22:37.5893 [DEBUG] No stand-in for UnityEngine.ProceduralTexture
+2019-04-04 22:22:37.5893 [DEBUG] No stand-in for UnityEngine.TerrainLayer
+2019-04-04 22:22:37.5893 [DEBUG] No stand-in for UnityEngine.Experimental.VFX.VisualEffectAsset
+2019-04-04 22:22:38.2528 [WARNING] Unable to load prefab 'Assets/Prefab/GameManager.prefab'.
+2019-04-04 22:22:38.2607 [WARNING] Unable to load prefab 'Assets/Prefab/Player-Ethan.prefab'.
+2019-04-04 22:22:38.5401 [WARNING] Unable to load Sprite 'Assets/Sprites/DungeonTiles/ALPHAmap/Dugeon_BrickMapALPHA.png' at index 1.
+2019-04-04 22:22:38.5779 [WARNING] Unable to load Sprite 'Assets/Sprites/UI Sprites/UI/UI AlphaTransparentWideToken.png' at index 1.
+2019-04-04 22:22:38.5879 [WARNING] Unable to load Sprite 'Assets/Sprites/UI Sprites/UI/ALPHA_Artifact_UI_Display.png' at index 1.
+2019-04-04 22:22:38.5909 [WARNING] Unable to load Sprite 'Assets/Sprites/UI Sprites/UI/ALPHA_Deck_Inside_Bar.png' at index 1.
+2019-04-04 22:22:38.5929 [WARNING] Unable to load Sprite 'Assets/Sprites/UI Sprites/UI/ALPHA_Deck_Border.png' at index 1.
+2019-04-04 22:22:38.5959 [WARNING] Unable to load Sprite 'Assets/Sprites/UI Sprites/UI/ALPHA_Deck_TEXT.png' at index 1.
+2019-04-04 22:22:38.6068 [WARNING] Unable to load Sprite 'Assets/Sprites/UI Sprites/UI/ALPHA_HealthBar_RED.png' at index 1.
+2019-04-04 22:22:38.6099 [WARNING] Unable to load Sprite 'Assets/Sprites/UI Sprites/UI/ALPHA_HealthBar_GREEN.png' at index 1.
+2019-04-04 22:22:38.6119 [WARNING] Unable to load Sprite 'Assets/Sprites/UI Sprites/UI/ALPHA_HealthBar_Outline.png' at index 1.
+2019-04-04 22:22:38.6139 [WARNING] Unable to load Sprite 'Assets/Sprites/UI Sprites/UI/ALPHA_MiniMap_Outline.png' at index 1.
+2019-04-04 22:22:38.6168 [WARNING] Unable to load Sprite 'Assets/Sprites/UI Sprites/UI/ALPHA_Token_Tracker_WIDE.png' at index 1.
+2019-04-04 22:22:38.7285 [WARNING] Unable to load Sprite 'Assets/Sprites/UI Sprites/Panel.png' at index 1.
+2019-04-04 22:22:39.1541 [WARNING] Unable to load AnimatorController 'Assets/Animation/ForgeCard1.controller'.
+2019-04-04 22:22:39.5775 [WARNING] Unable to load prefab 'Assets/Prefab/Rock Enemy.prefab'.
+2019-04-04 22:27:03.1759 [DEBUG] Cancelled connection
+2019-04-04 22:27:03.1769 [DEBUG] Disconnecting from room (93538:SceneFusion:SceneFusion)
+2019-04-04 22:27:03.1789 [INFO] Disconnected from server.
+2019-04-04 22:27:03.1789 [DEBUG] Disconnect. (Duration: 266)

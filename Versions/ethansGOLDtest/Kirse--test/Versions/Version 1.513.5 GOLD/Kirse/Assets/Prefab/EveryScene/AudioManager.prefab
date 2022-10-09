@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &64758507113664557
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 64758507113664563}
+  - component: {fileID: 64758507113664562}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &64758507113664563
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64758507113664557}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &64758507113664562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64758507113664557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8873a4d9a9c7f0b459fa42c9a58a962e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: playerWalk
+    clip: {fileID: 8300000, guid: 685b968eb1aa62148a803f946290ae36, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: HocusPokus
+    clip: {fileID: 8300000, guid: 712db1ba939ae7b40965b6738a74b414, type: 3}
+    volume: 0.87
+    pitch: 0.82
+    loop: 0
+    source: {fileID: 0}
+  - name: Beam
+    clip: {fileID: 8300000, guid: a4ae1a2a75e49e4469b692f077fce6f9, type: 3}
+    volume: 0.674
+    pitch: 1.1
+    loop: 0
+    source: {fileID: 0}
+  - name: Slash
+    clip: {fileID: 8300000, guid: 0f3ff73af748afd40b19595e10b7eae2, type: 3}
+    volume: 0.82
+    pitch: 0.8
+    loop: 0
+    source: {fileID: 0}
+  - name: Rocky
+    clip: {fileID: 8300000, guid: 81af7b5338193304a88c5a803fbf44ad, type: 3}
+    volume: 0.537
+    pitch: 0.85
+    loop: 1
+    source: {fileID: 0}
+  - name: BMW
+    clip: {fileID: 8300000, guid: aceb8338a3ac31a4db0e81536ea7c206, type: 3}
+    volume: 0.524
+    pitch: 0.87
+    loop: 1
+    source: {fileID: 0}
+  - name: OUCH
+    clip: {fileID: 8300000, guid: 52ffa8b0279c2594d97780f8b4948282, type: 3}
+    volume: 0.543
+    pitch: 2
+    loop: 0
+    source: {fileID: 0}
+  - name: BMWER
+    clip: {fileID: 8300000, guid: dcf73370ec1b1f94db72139eb00d19ad, type: 3}
+    volume: 0
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Dash
+    clip: {fileID: 8300000, guid: 5bc18a168976aa24bb6bef39d3febb10, type: 3}
+    volume: 0.862
+    pitch: 0.8
+    loop: 0
+    source: {fileID: 0}
